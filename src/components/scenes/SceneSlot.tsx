@@ -19,16 +19,15 @@ export function SceneSlot({ id, className, priority = false }: { id: SceneId; cl
   const [ready, setReady] = useState(false);
   const [lost, setLost] = useState(false);
   const [idle, setIdle] = useState(false);
-  // Never compete with first paint: wait for the load event, then an idle slot.
+  // Never compete with first paint or the load trace: mount on the first interaction
+  // (pointer, scroll, touch, key) or 3.5 s after load, whichever comes first.
   useEffect(() => {
-    let cancelled = false;
-    const go = () => {
-      const ric = (window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => void }).requestIdleCallback;
-      if (ric) ric(() => { if (!cancelled) setIdle(true); }, { timeout: 2000 });
-      else setTimeout(() => { if (!cancelled) setIdle(true); }, 800);
-    };
-    if (document.readyState === "complete") go(); else window.addEventListener("load", go, { once: true });
-    return () => { cancelled = true; window.removeEventListener("load", go); };
+    let done = false;
+    const events = ["pointermove", "pointerdown", "scroll", "touchstart", "keydown"] as const;
+    const go = () => { if (done) return; done = true; setIdle(true); events.forEach((e) => window.removeEventListener(e, go)); };
+    events.forEach((e) => window.addEventListener(e, go, { passive: true, once: true }));
+    const timer = setTimeout(go, 3500);
+    return () => { clearTimeout(timer); events.forEach((e) => window.removeEventListener(e, go)); };
   }, []);
   useEffect(() => {
     if (!ref.current || typeof IntersectionObserver === "undefined") { setNear(true); return; }

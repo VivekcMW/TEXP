@@ -2,6 +2,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@site-config";
+import { BookingEmbed } from "@/components/BookingEmbed";
 
 export const metadata = buildMetadata({ title: "Book a 30-minute AI audit", description: "Pick a slot. You describe one process; we tell you what it would cost to automate and what it would save. No deck, no pitch.", path: "/contact" });
 
@@ -13,8 +14,7 @@ export default function ContactPage() {
         <SectionHeading as="h1" eyebrow="Contact" title="Pick a slot">Thirty minutes. You describe one process; we tell you what it would cost to automate and what it would save.</SectionHeading>
         <div className="mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr]">
           <div>
-            <iframe src={siteConfig.bookingUrl} title="Book a 30-minute AI audit" loading="lazy" className="h-[720px] w-full rounded-2xl border border-line bg-surface" />
-            <p className="mt-3 text-sm text-muted">Calendar not loading? <a href={siteConfig.bookingUrl} data-cta="primary" className="text-accent underline">Open the booking page</a> or email <a href={`mailto:${siteConfig.contactEmail}`} className="text-accent underline">{siteConfig.contactEmail}</a>.</p>
+            <BookingEmbed url={siteConfig.bookingUrl} email={siteConfig.contactEmail} />
           </div>
           <form action="/api/leads" method="post" className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6">
             <p className="font-medium">Prefer to write first?</p>

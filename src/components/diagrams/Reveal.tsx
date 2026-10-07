@@ -1,11 +1,20 @@
 "use client";
-import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+/** Fades a diagram group in when it scrolls into view. No animation library: a few lines of IntersectionObserver.
+ *  Under prefers-reduced-motion the global stylesheet disables transitions, so the group simply appears. */
 export function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  const reduce = useReducedMotion();
-  if (reduce) return <g>{children}</g>;
+  const ref = useRef<SVGGElement>(null);
+  const [shown, setShown] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") { setShown(true); return; }
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setShown(true); io.disconnect(); } }, { threshold: 0.4 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   return (
-    <motion.g initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.5, delay }}>
+    <g ref={ref} style={{ opacity: shown ? 1 : 0, transform: shown ? "none" : "translateY(6px)", transition: `opacity 0.5s ease ${delay}s, transform 0.5s ease ${delay}s` }}>
       {children}
-    </motion.g>
+    </g>
   );
 }
