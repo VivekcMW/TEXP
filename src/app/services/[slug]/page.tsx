@@ -3,6 +3,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { DiagramById } from "@/components/diagrams";
+import { SceneSlot } from "@/components/scenes/SceneSlot";
 import { FAQ } from "@/components/FAQ";
 import { ProcessSteps } from "@/components/ProcessSteps";
 import { CTABand } from "@/components/CTABand";
@@ -43,6 +44,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
           <div>{cs && <CaseStudyCard caseStudy={cs} />}</div>
         </div>
+        {s.scene && <div className="my-12 aspect-[16/9]"><SceneSlot id={s.scene} /></div>}
         <DiagramById id={s.diagram} />
         <Mdx source={s.body} />
       </section>

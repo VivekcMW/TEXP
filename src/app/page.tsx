@@ -1,4 +1,5 @@
 import { Hero } from "@/components/Hero";
+import { SceneSlot } from "@/components/scenes/SceneSlot";
 import { ProofBar } from "@/components/ProofBar";
 import { SectionHeading } from "@/components/SectionHeading";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
@@ -17,7 +18,7 @@ export default function Home() {
   const services = getServices();
   return (
     <main>
-      <Hero />
+      <Hero visual={<SceneSlot id="agentic-field" priority />} />
       <ProofBar />
       <section className="container-x my-20">
         <SectionHeading eyebrow="Proof" title="Three processes, three measured results">We publish the number, the unit and the date. Illustrative studies are labelled.</SectionHeading>

@@ -21,6 +21,7 @@ export const ServiceSchema = z.object({
   caseStudy: slug,
   faq: Faq,
   diagram: z.enum(DIAGRAM_IDS),
+  scene: z.enum(["agentic-field", "rag-pipeline", "automation-loop", "enterprise-stack"]).optional(),
   seo: Seo,
 });
 
