@@ -1,0 +1,31 @@
+---
+title: Prior authorisation drafted in 9 minutes, not 2 days
+client: Confidential healthcare company
+industry: healthcare
+service: custom-ai-agents
+situation: A multi-site specialty clinic group submitted around 600 prior authorisation requests a month. Each one took a coordinator roughly two days of elapsed time to gather notes, match payer criteria and draft the request, and clinicians were asked to review in the evening.
+built: An agent that assembles the clinical evidence from the EHR, matches it against the payer's published criteria, drafts the authorisation request with every claim linked to its source, and places it in a clinician's queue for signature. PHI stays inside the clinic's cloud under a BAA; nothing is submitted without a named signature.
+result: { metric: "prior-auth drafting time", value: 92, unit: "%", period: "reduction", date: "2026-08" }
+quote: { text: "Clinicians sign a draft that already has the evidence lined up against the criteria. Review takes minutes, and our denial rate went down.", name: "Director of Revenue Cycle", role: "Confidential healthcare company" }
+illustrative: true
+diagram: before-after
+seo:
+  title: Healthcare AI case study — prior authorisation
+  description: A custom agent drafting prior authorisation requests with linked evidence, cutting drafting time 92%. Illustrative example with architecture.
+---
+
+## Situation
+
+Two days of elapsed time and an hour of coordinator effort per request, with clinicians reviewing after hours.
+
+## What was built
+
+An agent with read access to the EHR and the payer criteria library, a drafting tool that links every statement to a source, and a signature queue. The agent cannot submit.
+
+## Result
+
+Drafting time fell from two days to nine minutes of agent time plus a short clinician review. First-pass approval rate rose because the evidence was complete.
+
+## What we would do differently
+
+Build the payer criteria library as a maintained asset from day one. Payer rules changed twice during the pilot and the first update was manual.

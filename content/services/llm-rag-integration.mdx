@@ -1,0 +1,40 @@
+---
+title: LLM & RAG Integration
+summary: Knowledge assistants grounded in your own documents, with citations, access control and an answer-quality score you can audit.
+targetQuery: LLM integration services
+problem: Your policies, contracts, manuals and tickets hold the answers, but people spend twenty minutes finding them or ask a colleague. A generic chatbot hallucinates; a search box returns forty PDFs.
+approach:
+  - "Inventory the document sources, their owners and who is allowed to see what"
+  - "Build the retrieval pipeline: chunking, embeddings, hybrid search, reranking"
+  - "Ground every answer in retrieved passages with citations, and score a held-out question set weekly"
+  - "Deploy inside the tool people already use: Slack, Teams, the help desk or the intranet"
+deliverables:
+  - "Retrieval pipeline over your sources with permission-aware access"
+  - "Assistant with citations deployed in your channel of choice"
+  - "Evaluation set, quality dashboard and refresh schedule"
+timelineWeeks: 6
+caseStudy: retail-returns-assistant
+faq:
+  - q: RAG or fine-tuning?
+    a: For documents that change, RAG. Fine-tuning teaches style and format, not facts, and goes stale the day a policy changes. We publish our full reasoning in Insights.
+  - q: Will it see documents a user is not allowed to see?
+    a: No. Retrieval filters by the user's permissions before anything reaches the model, and we test that with adversarial questions.
+  - q: Which model do you use?
+    a: Whichever fits your data residency, cost and quality bar. We benchmark two or three on your own questions during the pilot and show you the numbers.
+diagram: rag-pipeline
+seo:
+  title: LLM & RAG Integration Services for Enterprises
+  description: Knowledge assistants grounded in your documents with citations and access control. Measured answer quality, deployed in six weeks.
+---
+
+## Who this is for
+
+Support, HR, legal and operations leaders whose teams answer the same questions from the same documents every day.
+
+## What we build
+
+A pipeline that turns your documents into retrievable passages, an assistant that answers only from those passages and shows its sources, and an evaluation harness that tells you every week whether quality moved.
+
+## What you get after six weeks
+
+An assistant your team trusts because it cites, a dashboard that shows resolution rate and answer accuracy, and a refresh process that keeps it current as documents change.

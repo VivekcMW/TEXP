@@ -1,0 +1,47 @@
+---
+title: RAG vs fine-tuning for enterprise documents
+summary: When retrieval beats fine-tuning for document-heavy work, the one case where fine-tuning earns its cost, and how to decide in an afternoon.
+publishedAt: 2026-10-07
+updatedAt: 2026-10-07
+author: founder-1
+targetQuery: RAG vs fine-tuning
+relatedServices: [llm-rag-integration]
+faq:
+  - q: Can I do both?
+    a: Yes, and mature systems often do. Retrieval supplies the facts; a light fine-tune supplies the house style. Start with retrieval because it is the one that changes answers.
+  - q: Does fine-tuning make the model know my documents?
+    a: Not reliably. It shifts style and format far more than it adds facts, and the facts it does absorb go stale the moment a document changes.
+  - q: How do I know retrieval is working?
+    a: A held-out set of real questions with known answers, scored weekly. If you are not measuring, you are guessing.
+seo:
+  title: RAG vs Fine-Tuning for Enterprise Documents
+  description: When retrieval beats fine-tuning for document work, the one case where fine-tuning pays, and a decision you can make in an afternoon.
+---
+
+Most enterprise document assistants should be built on retrieval, not fine-tuning. Here is the reasoning, and the exception.
+
+## What each one actually does
+
+**Retrieval-augmented generation (RAG)** finds the passages relevant to a question and gives them to the model to answer from. The knowledge lives in your documents and is as current as your last index refresh. Answers can cite their sources.
+
+**Fine-tuning** adjusts a model's weights on examples. It is good at teaching a format, a tone or a narrow task shape. It is poor at reliably storing facts, and whatever it stores is frozen at training time.
+
+## Why retrieval wins for documents
+
+Enterprise documents change. Policies get revised, contracts get amended, manuals get new versions. A retrieval system picks up a change at the next refresh. A fine-tuned model needs retraining, and even then it may answer from the old version.
+
+Retrieval also gives you citations, and citations are what make people trust the answer. In our deployments, the citation was the single feature that moved an assistant from "interesting" to "used".
+
+Retrieval respects permissions. You can filter passages by who is asking before the model sees anything. A fine-tuned model has no concept of who is allowed to know what.
+
+## The one case for fine-tuning
+
+When the output must follow a tight, repeatable format that prompting cannot hold, such as a structured clinical note, a regulatory filing section or a code style, a light fine-tune on a few hundred examples pays for itself. Even then, pair it with retrieval for the facts.
+
+## How to decide in an afternoon
+
+Write down twenty real questions your people ask. For each, mark whether the answer lives in a document that changes, whether the asker's permissions matter, and whether a citation would be expected. If most rows have a yes in any column, build retrieval. If the hard part is the shape of the output rather than its content, consider fine-tuning on top.
+
+## The point of view
+
+Fine-tuning is a formatting tool that people mistake for a knowledge tool. Retrieval is the knowledge tool. Build that first and measure it weekly.

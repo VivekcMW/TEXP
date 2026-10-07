@@ -1,0 +1,31 @@
+---
+title: Returns desk answers 70% of tickets without a human
+client: Confidential retail company
+industry: retail
+service: llm-rag-integration
+situation: An online retailer with roughly 9,000 support tickets a month, half about returns, warranties and delivery, answered from a forty-page policy document and the order system. Agents re-read the policy daily, answers varied by agent, and peak season doubled the queue.
+built: A retrieval pipeline over the policy library, product catalogue and order status API, and an assistant inside the help desk that drafts cited answers and resolves tickets below a refund threshold on its own. A weekly evaluation set of 150 real tickets scores answer accuracy, and anything outside policy or above the threshold goes to a person.
+result: { metric: "tickets resolved by assistant", value: 70, unit: "%", period: "of monthly volume", date: "2026-05" }
+quote: { text: "Our answers are more consistent now than when every agent wrote their own. The citation is what made the team trust it.", name: "Head of Customer Experience", role: "Confidential retail company" }
+illustrative: true
+diagram: before-after
+seo:
+  title: Retail AI case study — returns assistant
+  description: A RAG assistant inside the help desk resolving 70% of returns tickets with cited policy answers. Illustrative example with architecture.
+---
+
+## Situation
+
+Nine thousand tickets a month, inconsistent answers, and a seasonal queue that forced temporary hiring.
+
+## What was built
+
+Permission-aware retrieval over policies and the catalogue, an assistant that cites every answer, and an evaluation harness that runs on real tickets weekly.
+
+## Result
+
+Seven in ten tickets resolved without a person; accuracy on the evaluation set above the agreed bar for twelve consecutive weeks before autonomy was widened.
+
+## What we would do differently
+
+Involve the legal team in the evaluation set from week one. Their edge cases were the ones that mattered, and they were added in week four.
