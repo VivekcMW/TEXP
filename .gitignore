@@ -44,3 +44,7 @@ next-env.d.ts
 .superpowers/
 # local lead capture
 .leads/
+
+# playwright
+/test-results/
+/playwright-report/
