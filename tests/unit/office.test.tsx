@@ -92,7 +92,9 @@ describe("office controls and fallback", () => {
     expect(screen.queryByText("Sample workflow")).not.toBeInTheDocument();
     expect(screen.queryByText("The operations floor")).not.toBeInTheDocument();
     expect(screen.queryByText("n.")).not.toBeInTheDocument();
-    expect(container.querySelector("#agent-office")?.firstElementChild).toHaveAttribute("aria-label", "Choose an office workflow");
+    expect(screen.getByText("Explore the workflow").closest("details")).not.toHaveAttribute("open");
+    expect(screen.getByText("Illustrative AI office")).toBeVisible();
+    expect(screen.getByRole("group", { name: "Choose an office workflow" })).not.toBeVisible();
     expect(screen.queryByRole("group", { name: "Explore an office role" })).not.toBeInTheDocument();
     expect(screen.getByText(/human approvals are simulated/i)).toBeInTheDocument();
   });
@@ -100,6 +102,7 @@ describe("office controls and fallback", () => {
   it("switches workflows and keeps team details accessible without WebGL", async () => {
     vi.useRealTimers();
     render(<AgentOffice />);
+    fireEvent.click(screen.getByText("Explore the workflow"));
     fireEvent.click(within(screen.getByRole("group", { name: "Choose an office workflow" })).getByRole("button", { name: "Returns" }));
     expect(screen.getByText("I'd like to return this order.")).toBeInTheDocument();
     fireEvent.change(screen.getByRole("combobox", { name: "Meet the team" }), { target: { value: "review" } });
@@ -108,8 +111,23 @@ describe("office controls and fallback", () => {
     expect(screen.queryByText("Required approval cannot be skipped.")).not.toBeInTheDocument();
   });
 
+  it("clears inspected role details when the workflow disclosure closes", async () => {
+    vi.useRealTimers();
+    render(<AgentOffice />);
+    const summary = screen.getByText("Explore the workflow");
+    fireEvent.click(summary);
+    fireEvent.change(screen.getByRole("combobox", { name: "Meet the team" }), { target: { value: "research" } });
+    expect(await screen.findByText("Only accesses records you have permitted.")).toBeVisible();
+    const disclosure = summary.closest("details")!;
+    fireEvent.click(summary);
+    fireEvent(disclosure, new Event("toggle"));
+    expect(disclosure).not.toHaveAttribute("open");
+    expect(screen.queryByText("Only accesses records you have permitted.")).not.toBeInTheDocument();
+  });
+
   it("automatically runs review and completion, then loops", () => {
     render(<AgentOffice />);
+    fireEvent.click(screen.getByText("Explore the workflow"));
     act(() => vi.advanceTimersByTime(1800));
     act(() => vi.advanceTimersByTime(STEP_MS * 3));
     expect(screen.getByRole("status")).toHaveTextContent("Simulated human approval");
@@ -121,6 +139,7 @@ describe("office controls and fallback", () => {
 
   it("stops the autoplay clock when paused", () => {
     render(<AgentOffice />);
+    fireEvent.click(screen.getByText("Explore the workflow"));
     fireEvent.click(screen.getByRole("button", { name: "Pause" }));
     act(() => vi.advanceTimersByTime(10_000));
     expect(screen.getByRole("status")).toHaveTextContent("Turning an email into a claim");
@@ -133,6 +152,7 @@ describe("office controls and fallback", () => {
     const original = window.matchMedia;
     vi.spyOn(window, "matchMedia").mockImplementation((query) => ({ ...original(query), matches: true }));
     render(<AgentOffice />);
+    fireEvent.click(screen.getByText("Explore the workflow"));
     act(() => vi.advanceTimersByTime(30_000));
     expect(screen.getByRole("status")).toHaveTextContent("Turning an email into a claim");
     expect(screen.queryByRole("button", { name: /^(play|pause)$/i })).not.toBeInTheDocument();
@@ -142,6 +162,7 @@ describe("office controls and fallback", () => {
 
   it("suspends autoplay in hidden tabs", () => {
     render(<AgentOffice />);
+    fireEvent.click(screen.getByText("Explore the workflow"));
     act(() => vi.advanceTimersByTime(1800));
     const visibility = vi.spyOn(document, "visibilityState", "get").mockReturnValue("hidden");
     fireEvent(document, new Event("visibilitychange"));

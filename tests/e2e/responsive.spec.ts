@@ -101,6 +101,7 @@ test("mobile native fields avoid Safari focus zoom and role controls have touch 
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const path of ["/", "/agents", "/industries", "/case-studies", "/contact"]) {
     await page.goto(path);
+    if (path === "/") await page.getByText("Explore the workflow", { exact: true }).click();
     const fields = await page.locator("select:visible, input:not([type=hidden]):not([type=radio]):visible, textarea:visible").all();
     expect(fields.length, `${path} exposes native fields`).toBeGreaterThan(0);
     for (const field of fields) {
@@ -112,6 +113,7 @@ test("mobile native fields avoid Safari focus zoom and role controls have touch 
     }
   }
   await page.goto("/");
+  await page.getByText("Explore the workflow", { exact: true }).click();
   await page.getByRole("combobox", { name: "Meet the team" }).selectOption("review");
   const close = page.getByRole("button", { name: "Close role details" });
   const box = (await close.boundingBox())!;

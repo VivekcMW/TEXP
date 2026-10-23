@@ -5,7 +5,7 @@
 .eyebrow { display: inline-flex; align-items: center; gap: .6rem; color: var(--color-accent); font-size: .75rem; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; }
 .eyebrow::before { content: ""; width: 1.35rem; height: 1px; background: currentColor; }
 .headline { margin: 1rem 0; font-size: clamp(2.35rem, 3.8vw, 3.5rem); line-height: 1.09; letter-spacing: -.045em; font-weight: 600; }
-.headline span { color: var(--color-accent); }
+.headline span { display: block; color: var(--color-accent); }
 .intro { max-width: 37rem; margin-inline: auto; color: var(--color-muted); font-size: 1rem; line-height: 1.85; }
 .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem; margin-top: 1.8rem; font-size: .85rem; }
 .actions a { padding-inline: 1.15rem; }

@@ -59,6 +59,9 @@ describe("industry-specific experiences", () => {
     expect(screen.queryByRole("button", { name: "Load 3D view" })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Documentation" }));
     expect(screen.getByRole("status")).toHaveTextContent("clinical documents");
+    const visual = screen.getByRole("region", { name: "Healthcare environment" });
+    expect(visual.compareDocumentPosition(select) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(screen.queryByText(/Static preview for reduced motion/)).not.toBeInTheDocument();
   });
 
   it.each(getIndustries())("gives $title its own hero while retaining domain guidance", async (industry) => {

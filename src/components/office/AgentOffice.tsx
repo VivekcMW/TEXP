@@ -21,6 +21,7 @@ export function AgentOffice() {
   const [sceneReady, setSceneReady] = useState(false);
   const [unavailable, setUnavailable] = useState(false);
   const [requested, setRequested] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const hydrated = reducedMotion !== null;
   const allowed = useSceneAllowed();
@@ -32,7 +33,10 @@ export function AgentOffice() {
   const activity = reviewing && state.exception ? workflow.exception : workflow.activities[active];
   const onReady = useCallback(() => setSceneReady(true), []);
   const onUnavailable = useCallback(() => { setUnavailable(true); setSceneReady(false); }, []);
-  const selectStation = useCallback((id: StationId | null) => setSelected((current) => current === id ? null : id), []);
+  const selectStation = useCallback((id: StationId | null) => {
+    setSelected((current) => current === id ? null : id);
+    if (id) setExpanded(true);
+  }, []);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -76,34 +80,41 @@ export function AgentOffice() {
   return (
     <div ref={root} id="agent-office" className={styles.office} role="region" aria-label="Interactive AI operations office"
       aria-busy={!hydrated} onKeyDown={(event) => { if (event.key === "Escape") setSelected(null); }}>
-      <div className={styles.workflowPicker} role="group" aria-label="Choose an office workflow">
-        {officeWorkflows.map((item) => (
-          <button key={item.id} type="button" disabled={!hydrated} aria-pressed={state.workflowId === item.id}
-            onClick={() => { setSelected(null); setStarted(true); dispatch({ type: "workflow", id: item.id, autoPlay: !reducedMotion }); }}>
-            {item.label}
-          </button>
-        ))}
-      </div>
       <div className={styles.scene}>
-        <div className={styles.request}>
-          <span className={styles.requestIcon} aria-hidden><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="5" width="18" height="14" rx="3" /><path d="m4 7 8 6 8-6" /></svg></span>
-          <div><span className={styles.miniLabel}>Incoming request</span><p>{workflow.request}</p></div>
-        </div>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/posters/agent-office.svg" alt="Isometric AI office with agent desks, a collaboration hub and human oversight."
           width="760" height="480" fetchPriority="high" className={`${styles.poster} ${sceneReady && canRender ? styles.posterHidden : ""}`} />
         {canRender && <div className={styles.canvas}>
           <SceneBoundary name="Office" onUnavailable={onUnavailable}>
-            <OfficeScene active={active} selected={selected} running={running} complete={state.complete}
+            <OfficeScene active={active} selected={selected} running={running} complete={state.complete} showControls={expanded}
               exception={state.exception} onSelect={selectStation} onReady={onReady} onLost={onUnavailable} />
           </SceneBoundary>
         </div>}
         {(allowed || requested) && !reducedMotion && !unavailable && <OfficeArrival ready={sceneReady} playing={inView && pageVisible && state.playing} />}
-        <div className={styles.sceneCaption}>
-          <span><span className={styles.captionDot} aria-hidden />{sceneReady && canRender ? "Click an agent or a desk to meet the team" : "Explore the team below"}</span>
-          <span>{sceneReady && canRender ? "Interactive 3D" : "Office preview"}</span>
-        </div>
       </div>
+      <div className={styles.demoBar}>
+        <span>Illustrative AI office</span>
+        {!reducedMotion && <button type="button" disabled={!hydrated} className={styles.playButton}
+          onClick={() => { setStarted(true); dispatch({ type: state.playing ? "pause" : "play" }); }}>
+          {state.playing ? "Pause" : "Play"}
+        </button>}
+      </div>
+      <details className={styles.explorer} open={expanded} onToggle={(event) => {
+        setExpanded(event.currentTarget.open);
+        if (!event.currentTarget.open) setSelected(null);
+      }}>
+        <summary>Explore the workflow</summary>
+        <div className={styles.workflowPicker} role="group" aria-label="Choose an office workflow">
+          {officeWorkflows.map((item) => (
+            <button key={item.id} type="button" disabled={!hydrated} aria-pressed={state.workflowId === item.id}
+              onClick={() => { setSelected(null); setStarted(true); dispatch({ type: "workflow", id: item.id, autoPlay: !reducedMotion }); }}>
+              {item.label}
+            </button>
+          ))}
+        </div>
+        <div className={styles.request}>
+          <span className={styles.miniLabel}>Incoming request</span><p>{workflow.request}</p>
+        </div>
       {selected && <RoleDetails id={selected} onClose={() => setSelected(null)} />}
       <div className={styles.activity} data-waiting={reviewing}>
         <span className={styles.activityIcon} aria-hidden>{reviewing && state.exception ? "!" : state.complete ? "\u2713" : "\u2197"}</span>
@@ -116,10 +127,6 @@ export function AgentOffice() {
         <div className={styles.playback}>
           {hydrated && !allowed && !requested && !reducedMotion && !unavailable && <button type="button"
             onClick={() => { setRequested(true); setStarted(true); }}>Load 3D office</button>}
-          {!reducedMotion && <button type="button" disabled={!hydrated} className={styles.playButton}
-            onClick={() => { setStarted(true); dispatch({ type: state.playing ? "pause" : "play" }); }}>
-            <span aria-hidden>{state.playing ? "\u2161" : "\u25b7"}</span>{state.playing ? "Pause" : "Play"}
-          </button>}
           {(reducedMotion || !state.playing) && !state.complete && <button type="button" disabled={!hydrated}
             onClick={() => dispatch({ type: "next" })}>Next scene <span aria-hidden>&rarr;</span></button>}
           <button type="button" disabled={!hydrated} onClick={restart} aria-label="Replay office workflow" className={styles.replay}>
@@ -139,6 +146,7 @@ export function AgentOffice() {
         </button>
       </div>
       <p className={styles.disclaimer}>Illustrative animation. Human approvals are simulated. No real data or actions.</p>
+      </details>
       {unavailable && <p className={styles.sceneNotice} role="status">3D view unavailable. Workflow controls still work.</p>}
     </div>
   );

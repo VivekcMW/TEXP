@@ -1,7 +1,7 @@
 import { SectionHeading } from "@/components/SectionHeading";
 import { CTABand } from "@/components/CTABand";
 import { FAQ } from "@/components/FAQ";
-import { LazyWorkflowAssessment } from "@/components/LazyPanels";
+import { WorkflowAssessment } from "@/components/WorkflowAssessment";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({ title: "AI workflow assessment for your team", description: "Explore process clarity, data access and human review needs with a qualitative discussion guide. No cost, savings or delivery forecasts.", path: "/tools/ai-roi-calculator" });
@@ -16,7 +16,7 @@ export default function RoiPage() {
       <header className="container-x page-intro">
         <SectionHeading as="h1" eyebrow="Discussion guide" title="Explore your workflow before you commit">Consider the process, information access and human decisions first. This assessment offers qualitative next steps, not prices, savings or delivery promises.</SectionHeading>
       </header>
-      <section className="container-x detail-content" aria-label="Workflow discussion guide"><div className="card rounded-3xl"><LazyWorkflowAssessment /></div></section>
+      <section className="container-x detail-content" aria-label="Workflow discussion guide"><div className="card rounded-3xl"><WorkflowAssessment /></div></section>
       <FAQ items={faq} />
       <CTABand />
     </main>

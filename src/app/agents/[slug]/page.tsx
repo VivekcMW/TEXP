@@ -4,7 +4,6 @@ import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { CTABand } from "@/components/CTABand";
 import { JsonLd } from "@/components/JsonLd";
 import { Mdx } from "@/components/Mdx";
-import { Glyph } from "@/components/Glyph";
 import { getAgents, getBySlug } from "@/content/load";
 import { buildMetadata, agentJsonLd } from "@/lib/seo";
 
@@ -30,13 +29,9 @@ export default async function AgentPage({ params }: { params: Promise<{ slug: st
     <main>
       <section className="container-x detail-content">
         <header className="page-intro">
-        <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
-          {industry && <Link href={`/industries/${industry.slug}`} className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-muted transition-colors hover:border-accent hover:text-ink"><Glyph id={industry.slug} className="inline-flex h-5 w-5 items-center justify-center text-accent" />{industry.title}</Link>}
-          {service && <Link href={`/services/${service.slug}`} className="rounded-full border border-line bg-surface px-3 py-1 text-muted transition-colors hover:border-accent hover:text-ink">{service.title}</Link>}
-        </div>
-        <h1 className="mx-auto mt-6 max-w-3xl font-display text-[length:var(--text-step-4)] leading-[1.02] tracking-tight text-balance">{a.title}</h1>
+        <p className="text-sm font-medium text-accent">Illustrative agent{industry && <> · <Link href={`/industries/${industry.slug}`} className="hover:underline">{industry.title}</Link></>}</p>
+        <h1 className="mx-auto mt-4 max-w-3xl font-display text-[length:var(--text-step-4)] leading-[1.02] tracking-tight text-balance">{a.title}</h1>
         <p className="prose-x mx-auto mt-4 text-lg text-muted">{a.summary}</p>
-        <p className="mt-4 text-sm text-muted">An illustrative agent design, configured and evaluated around your systems.</p>
         <Link href="/contact" className="btn btn-primary mt-6" data-cta="primary">Discuss your workflow</Link>
         </header>
 

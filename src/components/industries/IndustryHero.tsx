@@ -58,17 +58,6 @@ export function IndustryHero({ industries }: { industries: IndustryExperience[] 
         {overview ? `Explore ${scene.label}` : "Explore the workflows"} <span aria-hidden="true">&#8599;</span>
       </Link>
     </div>
-    {overview && <div className={`container-x ${styles.pickerWrap}`}>
-      <div className={styles.picker} role="group" aria-label="Choose an industry">
-        {industries.map((item, index) => <button type="button" key={item.slug} aria-pressed={index === selected}
-          disabled={!hydrated} onClick={() => select(index)}>{item.scene.label}</button>)}
-      </div>
-      <label className={styles.mobilePicker}>Choose an industry
-        <select value={selected} disabled={!hydrated} onChange={(event) => select(Number(event.target.value))}>
-          {industries.map((item, index) => <option key={item.slug} value={index}>{item.title}</option>)}
-        </select>
-      </label>
-    </div>}
     <div ref={stage} className={styles.visual} role="region" aria-label={`${industry.title} environment`}
       aria-busy={!hydrated || (renderScene && !ready)} data-scene={scene.id} data-playing={running} data-angle={angle} data-focus={spot}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -96,8 +85,18 @@ export function IndustryHero({ industries }: { industries: IndustryExperience[] 
         </>}
       </>}
       {unavailable && <p role="status">The 3D view is unavailable. Explore this industry using the preview and workflow controls.</p>}
-      {hydrated && reducedMotion && <p>Static preview for reduced motion. Explore the workflows below.</p>}
     </div>
+    {overview && <div className={`container-x ${styles.pickerWrap}`}>
+      <div className={styles.picker} role="group" aria-label="Choose an industry">
+        {industries.map((item, index) => <button type="button" key={item.slug} aria-pressed={index === selected}
+          disabled={!hydrated} onClick={() => select(index)}>{item.scene.label}</button>)}
+      </div>
+      <label className={styles.mobilePicker}>Choose an industry
+        <select value={selected} disabled={!hydrated} onChange={(event) => select(Number(event.target.value))}>
+          {industries.map((item, index) => <option key={item.slug} value={index}>{item.title}</option>)}
+        </select>
+      </label>
+    </div>}
     <div className={`container-x ${styles.workflows}`}>
       <p className={styles.eyebrow}>Choose an area to explore</p>
       <div className={styles.spots} role="group" aria-label="Industry workflow areas">

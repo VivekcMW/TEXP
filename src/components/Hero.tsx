@@ -9,7 +9,7 @@ export function Hero() {
         <AgentOffice />
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>Custom AI workflows for operations teams</p>
-          <h1 id="hero-heading" className={styles.headline}>Your work <br />moves forward. <br /><span>Your team stays <br />in control.</span></h1>
+          <h1 id="hero-heading" className={styles.headline}>Your work moves forward. <span>Your team stays in control.</span></h1>
           <p className={styles.intro}>An AI team for the work between the work. Agents gather information, check your rules and complete approved actions across your existing tools.</p>
           <div className={styles.actions}>
             <Link href="/contact" data-cta="primary" className="btn btn-primary">Discuss your workflow</Link>

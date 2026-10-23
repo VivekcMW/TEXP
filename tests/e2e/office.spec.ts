@@ -17,6 +17,10 @@ test.describe("office layout and accessible scenes", () => {
   test("leads with the office, centers the copy and removes steps and sample text", async ({ page }) => {
     await page.goto("/");
     const office = page.getByRole("region", { name: "Interactive AI operations office" });
+    await expect(office.locator("details")).not.toHaveAttribute("open");
+    await expect(office.getByRole("group", { name: "Choose an office workflow" })).toBeHidden();
+    await expect(office.getByText("Incoming request")).toBeHidden();
+    await expect(office.getByRole("status")).toBeHidden();
     await expect(office.getByRole("img")).toBeVisible();
     await expect(page.locator("canvas")).toHaveCount(0);
     await expect(office.getByText("Sample workflow")).toHaveCount(0);
@@ -33,7 +37,9 @@ test.describe("office layout and accessible scenes", () => {
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
       const officeBox = await office.boundingBox();
       const headline = page.getByRole("heading", { level: 1 });
+      expect(officeBox!.height, "the collapsed demo must not dominate the opening screen").toBeLessThanOrEqual(410);
       expect((await headline.boundingBox())!.y).toBeGreaterThan(officeBox!.y + officeBox!.height);
+      expect((await headline.boundingBox())!.y, "the message must appear without scrolling past demo controls").toBeLessThan(600);
       await expect(headline).toHaveCSS("text-align", "center");
       for (const surface of [office, office.getByRole("img").locator("..")]) {
         await expect(surface).toHaveCSS("background-color", "rgba(0, 0, 0, 0)");
@@ -50,6 +56,7 @@ test.describe("office layout and accessible scenes", () => {
   test("keeps role inspection keyboard accessible without a numbered strip", async ({ page }) => {
     await page.goto("/");
     const office = page.getByRole("region", { name: "Interactive AI operations office" });
+    await office.getByText("Explore the workflow", { exact: true }).click();
     await office.getByRole("combobox", { name: "Meet the team" }).selectOption("review");
     await expect(office.getByText("Required approval cannot be skipped.")).toBeVisible();
     await office.getByRole("combobox", { name: "Meet the team" }).focus();
@@ -62,6 +69,7 @@ test.describe("office layout and accessible scenes", () => {
   test("manually explores simulated review and exceptions with reduced motion", async ({ page }) => {
     await page.goto("/");
     const office = page.getByRole("region", { name: "Interactive AI operations office" });
+    await office.getByText("Explore the workflow", { exact: true }).click();
     await office.getByRole("button", { name: "Prior authorisation", exact: true }).click();
     for (let i = 0; i < 3; i++) await office.getByRole("button", { name: /next scene/i }).click();
     await expect(office.getByRole("status")).toContainText("Simulated human approval");
@@ -82,6 +90,7 @@ test("automatically reviews, completes and loops without WebGL or user approval"
   await page.clock.install();
   await page.goto("/");
   const office = page.getByRole("region", { name: "Interactive AI operations office" });
+  await office.getByText("Explore the workflow", { exact: true }).click();
   await office.scrollIntoViewIfNeeded();
   await expect(office.getByRole("button", { name: "Pause" })).toBeEnabled();
   await page.clock.runFor(2000);
@@ -109,8 +118,11 @@ test("renders moving agents, clickable desks and view controls; recovers on cont
   await office.scrollIntoViewIfNeeded();
   await expect(office.getByRole("button", { name: "Pause", exact: true })).toBeEnabled();
   const load = office.getByRole("button", { name: "Load 3D office" });
+  await expect(office.getByRole("group", { name: "Office view" })).toHaveCount(0);
+  await expect(office.getByRole("group", { name: "Office desks" })).toHaveCount(0);
+  await office.getByText("Explore the workflow", { exact: true }).click();
   if (await load.count()) await load.click();
-  await expect(office.getByText("Interactive 3D")).toBeVisible({ timeout: 30_000 });
+  await expect(office.getByRole("group", { name: "Office view" })).toBeVisible({ timeout: 30_000 });
   const canvas = office.locator("canvas");
   await expect(canvas).toBeVisible();
   const first = await canvas.screenshot();
@@ -127,6 +139,11 @@ test("renders moving agents, clickable desks and view controls; recovers on cont
   await office.getByRole("button", { name: "Rotate office left" }).click();
   expect((await canvas.screenshot()).equals(initialView), "view controls rotate the office").toBe(false);
   await office.getByRole("button", { name: "Reset office view" }).click();
+  await office.getByText("Explore the workflow", { exact: true }).click();
+  await expect(office.getByRole("group", { name: "Office desks" })).toHaveCount(0);
+  await expect(office.getByRole("group", { name: "Office view" })).toHaveCount(0);
+  await expect(office.getByRole("button", { name: "Play", exact: true })).toBeVisible();
+  await office.getByText("Explore the workflow", { exact: true }).click();
   expect(errors).toEqual([]);
   await canvas.evaluate((element) => element.dispatchEvent(new Event("webglcontextlost", { cancelable: true })));
   await expect(office.getByText(/3D view unavailable/)).toBeVisible();

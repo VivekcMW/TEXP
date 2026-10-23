@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { SectionHeading } from "@/components/SectionHeading";
-import { IllustrativeBadge } from "@/components/IllustrativeBadge";
 import { WorkflowCover } from "@/components/case-studies/WorkflowCover";
 import { toCaseStudyPreview } from "@/components/case-studies/library";
 import styles from "@/components/case-studies/case-studies.module.css";
@@ -25,8 +24,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   return (
     <main>
       <header className="container-x page-intro">
-        {c.illustrative && <div className="mb-4"><IllustrativeBadge /></div>}
-        <SectionHeading as="h1" eyebrow="Workflow example" title={c.title}>{preview.editorial.deck}</SectionHeading>
+        <SectionHeading as="h1" eyebrow={c.illustrative ? "Illustrative workflow example" : "Workflow example"} title={c.title}>{preview.editorial.deck}</SectionHeading>
         <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted">
             {industry && <p>Industry: <Link className="text-accent underline" href={`/industries/${industry.slug}`}>{industry.title}</Link></p>}
             {service && <p>Service: <Link className="text-accent underline" href={`/services/${service.slug}`}>{service.title}</Link></p>}

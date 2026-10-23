@@ -77,12 +77,19 @@ states only, not an approval implementation for production agents.
   or in hidden tabs; required human decisions remain labelled as simulated.
 - No uploaded assets, customer data, third-party model calls or real approvals
   are involved. All timing is illustrative, not a processing-time claim.
-- The office leads the hero at full width, with the headline, supporting copy
+- The office leads the hero as a clean illustration, with the headline, supporting copy
   and CTAs centered underneath. The office, loading screen and role details share
   the hero background, without a separate card border, surface or outer shadow.
   The previous before/after comparison is no longer displayed on the homepage.
-- The office starts directly with its workflow controls, without a title/logo
-  header. The trust-logo band is omitted; illustrative workflow examples remain.
+- The default view has no floating desk labels, request overlay, camera toolbar,
+  workflow tabs or running status text. Only a compact illustration caption,
+  pause/play and an "Explore the workflow" disclosure appear beneath the artwork.
+  Opening the disclosure reveals workflow selection, request and activity details,
+  team inspection, replay, exceptions and camera controls. Collapsing it clears
+  role details without resetting playback. Reduced-motion visitors retain the
+  static preview and can open the same manual workflow controls.
+- The headline uses natural wrapping rather than four forced lines. The
+  trust-logo band remains omitted; illustrative workflow examples remain.
 
 Focused checks: `pnpm test tests/unit/office.test.tsx tests/unit/hero.test.tsx`.
 Browser checks: `pnpm test:e2e tests/e2e/office.spec.ts`.
@@ -135,6 +142,12 @@ transparent Three.js hero with centered copy. Each sector has its own geometry:
 warehouse and delivery, clinic, retail store, assembly cell, utility site,
 telecom network centre and civic campus. Selecting a sector changes the world,
 workflow hotspots, copy and landing-page link; only one canvas is mounted.
+To keep the opening screen uncluttered, the sector picker sits beneath the
+artwork rather than between the headline and the scene.
+
+Other page intros follow the same rule: one eyebrow, the heading, short copy and
+the primary action. Disclaimers and secondary metadata (for example the note on
+illustrative examples) appear after the main content instead of in the hero.
 
 The same workflow-area buttons work without WebGL and provide keyboard access
 to the scene's clickable markers. Animations are illustrative, not actual

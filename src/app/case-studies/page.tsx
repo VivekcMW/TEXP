@@ -27,7 +27,6 @@ export default function CaseStudiesPage() {
             <a href="#case-library">Explore the collection <span aria-hidden="true">&darr;</span></a>
           </div>
         </div>
-        <div className={styles.note}><strong>A note on these examples</strong><p>Illustrative designs, not verified customer results. Scope, timing and potential benefits depend on your requirements and evaluation.</p></div>
       </header>
       <section className="container-x" aria-label="Featured case study">
         <article className={styles.featured}>
@@ -42,6 +41,9 @@ export default function CaseStudiesPage() {
         </article>
       </section>
       <CaseStudyLibrary studies={studies} featuredSlug={featured.slug} />
+      <aside className="container-x" aria-label="About these examples">
+        <div className={styles.note}><strong>A note on these examples</strong><p>Illustrative designs, not verified customer results. Scope, timing and potential benefits depend on your requirements and evaluation.</p></div>
+      </aside>
       <CTABand title="Start with a process you know." body="Bring a workflow, a recurring exception or a difficult handoff. We will explore the requirements before proposing scope, pricing or timing." />
     </main>
   );

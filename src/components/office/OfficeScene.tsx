@@ -10,6 +10,7 @@ import styles from "./scene.module.css";
 
 type OfficeSceneProps = {
   active: StationId; selected: StationId | null; running: boolean; complete: boolean; exception: boolean;
+  showControls: boolean;
   onSelect: (id: StationId | null) => void; onReady: () => void; onLost: () => void;
 };
 const colors: Record<StationId, string> = {
@@ -135,6 +136,8 @@ function OfficeWorld(props: OfficeSceneProps & { angle: number; labels: RefObjec
     }
   }, [camera, size.width, size.height, invalidate]);
 
+  useLayoutEffect(() => { invalidate(); }, [props.showControls, invalidate]);
+
   useEffect(() => {
     const canvas = gl.domElement;
     const lost = (event: Event) => {
@@ -213,18 +216,18 @@ export default function OfficeScene(props: OfficeSceneProps) {
         shadow-camera-top={10} shadow-camera-bottom={-10} shadow-normalBias={.04} />
       <OfficeWorld {...props} angle={angle} labels={labels} />
     </Canvas>
-    <div className={styles.labels} role="group" aria-label="Office desks">
+    {props.showControls && <div className={styles.labels} role="group" aria-label="Office desks">
       {stations.map((station, index) => <button key={station.id} ref={(element) => { labels.current[index] = element; }}
         type="button" className={styles.deskLabel} data-active={props.active === station.id && !props.complete}
         data-selected={props.selected === station.id} aria-label={`Meet ${station.name}`} aria-pressed={props.selected === station.id}
         onClick={() => props.onSelect(station.id)}>
         <span style={{ background: colors[station.id] }} />{station.name}
       </button>)}
-    </div>
-    <div className={styles.viewControls} role="group" aria-label="Office view">
+    </div>}
+    {props.showControls && <div className={styles.viewControls} role="group" aria-label="Office view">
       <button type="button" aria-label="Rotate office left" onClick={() => setAngle((a) => Math.max(-.55, a - .18))} disabled={angle <= -.55}>&#8630;</button>
       <button type="button" aria-label="Reset office view" onClick={() => setAngle(0)}>&#8962;</button>
       <button type="button" aria-label="Rotate office right" onClick={() => setAngle((a) => Math.min(.55, a + .18))} disabled={angle >= .55}>&#8631;</button>
-    </div>
+    </div>}
   </>;
 }
