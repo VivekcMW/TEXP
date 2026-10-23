@@ -4,7 +4,7 @@ import styles from "./case-studies.module.css";
 export function WorkflowCover({ study }: { study: CaseStudyPreview }) {
   const { editorial } = study;
   return <div className={styles.cover} data-theme={editorial.theme} role="img"
-    aria-label={`Illustrative workflow: ${editorial.sources.join(", ")} inform a ${editorial.draft.toLowerCase()}, with ${editorial.reviewer.toLowerCase()}.`}>
+    aria-label={`Workflow: ${editorial.sources.join(", ")} inform a ${editorial.draft.toLowerCase()}, with ${editorial.reviewer.toLowerCase()}.`}>
     <div className={styles.coverContent} aria-hidden="true">
       <div className={styles.coverHeading}><span>Workflow sketch</span><span className={styles.coverDot} /></div>
       <div className={styles.flow}>

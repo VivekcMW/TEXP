@@ -29,7 +29,7 @@ export default async function AgentPage({ params }: { params: Promise<{ slug: st
     <main>
       <section className="container-x detail-content">
         <header className="page-intro">
-        <p className="text-sm font-medium text-accent">Illustrative agent{industry && <> · <Link href={`/industries/${industry.slug}`} className="hover:underline">{industry.title}</Link></>}</p>
+        <p className="text-sm font-medium text-accent">AI agent{industry && <> · <Link href={`/industries/${industry.slug}`} className="hover:underline">{industry.title}</Link></>}</p>
         <h1 className="mx-auto mt-4 max-w-3xl font-display text-[length:var(--text-step-4)] leading-[1.02] tracking-tight text-balance">{a.title}</h1>
         <p className="prose-x mx-auto mt-4 text-lg text-muted">{a.summary}</p>
         <Link href="/contact" className="btn btn-primary mt-6" data-cta="primary">Discuss your workflow</Link>

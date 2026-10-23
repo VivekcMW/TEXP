@@ -26,9 +26,9 @@ describe("components", () => {
     const script = container.querySelector('script[type="application/ld+json"]');
     expect(script?.textContent).toContain('"FAQPage"');
   });
-  it("CaseStudyCard shows illustrative badge and result", () => {
+  it("CaseStudyCard shows the result without an illustrative badge", () => {
     render(<CaseStudyCard caseStudy={cs} />);
-    expect(screen.getByText("Illustrative example")).toBeInTheDocument();
+    expect(screen.queryByText("Illustrative example")).not.toBeInTheDocument();
     expect(screen.getByText(cs.result.summary)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: /claims preparation/i })).toHaveAttribute("href", "/case-studies/logistics-claims-automation");
   });

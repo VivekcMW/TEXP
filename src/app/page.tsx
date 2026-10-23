@@ -17,7 +17,7 @@ export default function Home() {
     <main>
       <Hero />
       <section className="container-x section-space">
-        <SectionHeading eyebrow="Workflow examples" title="Recognisable work. A different approach.">From incoming requests to evidence ready for review. Explore illustrative workflows and the decisions that stay with your team.</SectionHeading>
+        <SectionHeading eyebrow="Workflow examples" title="Recognisable work. A different approach.">From incoming requests to evidence ready for review. Explore workflows and the decisions that stay with your team.</SectionHeading>
         <div className="mt-12"><ResultRows caseStudies={caseStudies} /></div>
       </section>
       <StackStrip />

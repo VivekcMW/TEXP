@@ -24,7 +24,7 @@ export default function AgentDetails({ agent }: { agent: ShowcaseAgent }) {
           <h3>It starts with a request.</h3>
           <blockquote>&ldquo;{presentation.request}&rdquo;</blockquote>
           <p>{agent.trigger}</p>
-          <span className={styles.smallLabel}>Illustrative input</span>
+          <span className={styles.smallLabel}>Example input</span>
         </div>
         <div className={styles.handles}>
           <span className={styles.storyIcon} aria-hidden>&#10022;</span>
@@ -42,9 +42,8 @@ export default function AgentDetails({ agent }: { agent: ShowcaseAgent }) {
       </div>
       {proof && <aside className={styles.proof} aria-label="Related case study">
         <div>
-          <span className={styles.smallLabel}>{proof.illustrative ? "Illustrative workflow example" : "Related workflow"}</span>
+          <span className={styles.smallLabel}>Related workflow</span>
           <Link href={`/case-studies/${proof.slug}`}>{proof.title} <span aria-hidden>&#8599;</span></Link>
-          <p>{proof.illustrative ? "An illustrative approach, not a verified customer result." : "An approach to evaluate against your requirements."}</p>
         </div>
         {proof.before && proof.after && <div className={styles.comparison}>
           <div><span>Current challenge</span><strong>{proof.before}</strong></div>

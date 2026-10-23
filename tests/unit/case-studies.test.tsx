@@ -30,8 +30,7 @@ describe("editorial case study library", () => {
       if (study.slug === "logistics-claims-automation") continue;
       expect(within(results()).getByRole("link", { name: study.title })).toHaveAttribute("href", `/case-studies/${study.slug}`);
     }
-    expect(screen.getByText(/Illustrative designs, not verified customer results/)).toBeVisible();
-    expect(within(results()).getAllByText("Illustrative example")).toHaveLength(6);
+    expect(screen.queryByText(/illustrative/i)).not.toBeInTheDocument();
     expect(container.querySelector("canvas")).toBeNull();
   });
 

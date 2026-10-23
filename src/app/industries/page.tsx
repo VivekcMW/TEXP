@@ -6,7 +6,7 @@ import { CTABand } from "@/components/CTABand";
 import { getIndustries } from "@/content/load";
 import { buildMetadata } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "AI consulting by industry", description: "Explore sector-specific AI workflows, operational challenges and requirements, with illustrative examples and human review points.", path: "/industries" });
+export const metadata = buildMetadata({ title: "AI consulting by industry", description: "Explore sector-specific AI workflows, operational challenges and requirements, with examples and human review points.", path: "/industries" });
 
 export default function IndustriesPage() {
   const industries = getIndustries().map(toIndustryExperience);

@@ -91,7 +91,7 @@ test.describe("accessible Agents showroom", () => {
       await expect(page.getByText(agent.gates[0], { exact: true })).toBeVisible();
       await page.getByText("See tools and permissions", { exact: true }).click();
       for (const tool of agent.tools) await expect(page.getByText(tool.name, { exact: true })).toBeVisible();
-      await expect(page.getByText("Illustrative workflow example", { exact: true })).toBeVisible();
+      await expect(page.getByText("Related workflow", { exact: true })).toBeVisible();
       const poster = workbench.getByRole("img", { name: presentation.artwork });
       await expect(poster).toHaveAttribute("src", `/posters/agent-${presentation.kind}.svg`);
       await expect(poster).toHaveJSProperty("complete", true);

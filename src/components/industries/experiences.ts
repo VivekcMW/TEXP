@@ -46,7 +46,7 @@ export const industryScenes: IndustrySceneDefinition[] = [
   {
     id: "manufacturing", label: "Manufacturing", color: "#6c83a1", environment: "A clearer picture of the plant floor",
     alt: "An isometric factory with a robotic assembly cell, moving conveyor and industrial machine.",
-    boundary: "The scene is illustrative: agents support work orders, not machine control or safety-critical actions.",
+    boundary: "In this scene, agents support work orders, not machine control or safety-critical actions.",
     spots: [
       { title: "Maintenance triage", detail: "Gather permitted asset history and work-order evidence for a maintenance planner.", position: [-2.8, .15, -.6] },
       { title: "Quality investigations", detail: "Link production records and relevant documents to a proposed investigation trail.", position: [0, .15, .6] },

@@ -7,7 +7,7 @@ export function BeforeAfterDiagram({
   afterLabel = "Proposed agent-assisted workflow",
 }: { before?: string[]; after?: string[]; beforeLabel?: string; afterLabel?: string }) {
   return (
-    <Diagram title="Before and after automation" description={`Two columns. Before: ${before.join(", ")}. Proposed: ${after.join(", ")}.`} caption="An illustrative workflow comparison, not a promise of processing speed or savings." viewBox="0 0 860 260">
+    <Diagram title="Before and after automation" description={`Two columns. Before: ${before.join(", ")}. Proposed: ${after.join(", ")}.`} caption="A workflow comparison, not a promise of processing speed or savings." viewBox="0 0 860 260">
       <Reveal>
         <text x={20} y={24} fontWeight={500} fill="var(--color-muted)">{beforeLabel}</text>
         {before.map((b, i) => (

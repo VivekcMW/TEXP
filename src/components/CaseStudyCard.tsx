@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { CaseStudy } from "@/content/schemas";
-import { IllustrativeBadge } from "./IllustrativeBadge";
 
 export function CaseStudyCard({ caseStudy: c }: { caseStudy: CaseStudy }) {
   return (
@@ -12,7 +11,6 @@ export function CaseStudyCard({ caseStudy: c }: { caseStudy: CaseStudy }) {
         <div><dt className="text-xs text-muted">Current challenge</dt><dd className="mt-1">{c.before}</dd></div>
         <div><dt className="text-xs text-muted">Proposed approach</dt><dd className="mt-1 text-accent">{c.after}</dd></div>
       </dl>}
-      {c.illustrative && <div className="mt-auto pt-5"><IllustrativeBadge /></div>}
     </article>
   );
 }

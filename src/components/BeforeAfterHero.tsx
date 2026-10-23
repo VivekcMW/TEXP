@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { runs } from "./runs";
 
-// Both paths use the same illustrative animation pace, not measured processing times.
+// Both paths use the same animation pace, not measured processing times.
 const LOOP_MS = 16000;
 const HOLD_MS = 2500;
 
@@ -61,9 +61,6 @@ export function BeforeAfterHero() {
           );
         })}
       </ol>
-      <div className="mt-4 border-t border-line pt-4">
-        <p className="text-xs text-muted">Illustrative process, not a time benchmark.</p>
-      </div>
     </div>
   ) : (
     <div className="flex h-full flex-col bg-glow/40 p-5 md:p-6">
@@ -127,7 +124,6 @@ export function BeforeAfterHero() {
         <div className={side === "today" ? "" : "hidden md:block"}>{panel("today")}</div>
         <div className={side === "agent" ? "" : "hidden md:block"}>{panel("agent")}</div>
       </div>
-      <p className="border-t border-line/80 px-4 py-2 text-center text-[11px] text-muted">Illustrative sequences with simulated approvals. Animation pace is not a processing-time claim.</p>
     </div>
   );
 }

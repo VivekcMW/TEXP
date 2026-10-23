@@ -7,7 +7,7 @@ import styles from "@/components/case-studies/case-studies.module.css";
 import { getCaseStudies, getIndustries, getServices } from "@/content/load";
 import { buildMetadata } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "AI workflow examples and human review", description: "Explore illustrative AI workflows, their intended benefits and human review points. Scope, timing and outcomes depend on your requirements.", path: "/case-studies" });
+export const metadata = buildMetadata({ title: "AI workflow examples and human review", description: "Explore AI workflows, their intended benefits and human review points. Scope, timing and outcomes depend on your requirements.", path: "/case-studies" });
 
 export default function CaseStudiesPage() {
   const industries = getIndustries();
@@ -31,7 +31,7 @@ export default function CaseStudiesPage() {
       <section className="container-x" aria-label="Featured case study">
         <article className={styles.featured}>
           <div className={styles.featuredCopy}>
-            <div className={styles.featureTop}><span>In focus</span>{featured.illustrative && <span>Illustrative example</span>}</div>
+            <div className={styles.featureTop}><span>In focus</span></div>
             <p className={styles.featureSector}>{featured.industryName}</p>
             <h2 className="font-display">{featured.title}</h2>
             <p>{featured.editorial.deck}</p>
@@ -41,9 +41,6 @@ export default function CaseStudiesPage() {
         </article>
       </section>
       <CaseStudyLibrary studies={studies} featuredSlug={featured.slug} />
-      <aside className="container-x" aria-label="About these examples">
-        <div className={styles.note}><strong>A note on these examples</strong><p>Illustrative designs, not verified customer results. Scope, timing and potential benefits depend on your requirements and evaluation.</p></div>
-      </aside>
       <CTABand title="Start with a process you know." body="Bring a workflow, a recurring exception or a difficult handoff. We will explore the requirements before proposing scope, pricing or timing." />
     </main>
   );

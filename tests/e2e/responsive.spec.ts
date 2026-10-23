@@ -46,7 +46,7 @@ for (const path of paths) {
       await page.setViewportSize({ width, height: 900 });
       await expectReflow(page, `${path} overflows with enlarged text at ${width}px`);
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-      for (const diagram of await page.getByRole("img", { name: /^Illustrative workflow:/ }).all()) {
+      for (const diagram of await page.getByRole("img", { name: /^Workflow:/ }).all()) {
         const clippedLabels = await diagram.locator("span").evaluateAll((spans) => spans
           .filter((span) => span.clientWidth > 0 && span.scrollWidth > span.clientWidth + 1)
           .map((span) => span.textContent));

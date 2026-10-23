@@ -32,7 +32,7 @@ describe("Agents showroom content", () => {
     expect(within(screen.getByRole("navigation", { name: "All agent guides" })).getAllByRole("link")).toHaveLength(7);
     expect(agentPresentations.map((p) => p.slug).sort()).toEqual(getAgents().map((a) => a.slug).sort());
     expect(await screen.findByText("A day at the claims desk.")).toBeVisible();
-    expect(screen.getByText("Illustrative workflow example")).toBeVisible();
+    expect(screen.getByText("Related workflow")).toBeVisible();
   });
 
   it.each(agentPresentations)("wires $label to its own example, boundaries, permissions and proof", async (presentation) => {
@@ -52,7 +52,7 @@ describe("Agents showroom content", () => {
     expect(screen.getByRole("link", { name: new RegExp(proof.title) })).toHaveAttribute("href", `/case-studies/${proof.slug}`);
     fireEvent.click(screen.getByText("See tools and permissions"));
     for (const tool of agent.tools) expect(screen.getByText(tool.name)).toBeInTheDocument();
-    expect(screen.getByText("An illustrative approach, not a verified customer result.")).toBeVisible();
+    expect(screen.queryByText(/illustrative/i)).not.toBeInTheDocument();
   });
 
   it("keeps native mobile selection in sync and resets the example", async () => {

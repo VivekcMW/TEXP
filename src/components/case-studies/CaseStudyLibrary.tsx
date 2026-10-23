@@ -41,7 +41,7 @@ export function CaseStudyLibrary({ studies, featuredSlug }: { studies: CaseStudy
       {filtered.map((study) => <article key={study.slug} className={styles.story} data-case-study={study.slug}>
         <WorkflowCover study={study} />
         <div className={styles.storyBody}>
-          <div className={styles.storyMeta}><span>{study.editorial.label}</span>{study.illustrative && <span>Illustrative example</span>}</div>
+          <div className={styles.storyMeta}><span>{study.editorial.label}</span></div>
           <h3 className="font-display"><Link href={`/case-studies/${study.slug}`}>{study.title}</Link></h3>
           <p className={styles.deck}>{study.editorial.deck}</p>
           <p className={styles.readLink} aria-hidden="true">Explore the approach <span>&#8599;</span></p>

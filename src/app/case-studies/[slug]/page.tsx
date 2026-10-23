@@ -24,7 +24,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   return (
     <main>
       <header className="container-x page-intro">
-        <SectionHeading as="h1" eyebrow={c.illustrative ? "Illustrative workflow example" : "Workflow example"} title={c.title}>{preview.editorial.deck}</SectionHeading>
+        <SectionHeading as="h1" eyebrow="Workflow example" title={c.title}>{preview.editorial.deck}</SectionHeading>
         <div className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-muted">
             {industry && <p>Industry: <Link className="text-accent underline" href={`/industries/${industry.slug}`}>{industry.title}</Link></p>}
             {service && <p>Service: <Link className="text-accent underline" href={`/services/${service.slug}`}>{service.title}</Link></p>}
@@ -44,7 +44,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           <div className="detail-panel">
             <h2 className="font-display text-lg">Intended benefit</h2>
             <p className="mt-3 text-sm text-muted">{c.result.summary}</p>
-            <p className="mt-4 text-sm text-muted">This is an illustrative design, not a verified customer result.</p>
           </div>
         </aside>
         </div>

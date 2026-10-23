@@ -19,7 +19,7 @@ test("editorial case studies remain responsive and do not request WebGL", async 
   await page.goto("/case-studies");
   const collection = page.getByLabel("Case study results", { exact: true });
   await expect(collection.getByRole("article")).toHaveCount(6);
-  await expect(page.getByText(/Illustrative designs, not verified customer results/)).toBeVisible();
+  await expect(page.getByText(/illustrative/i)).toHaveCount(0);
   for (const width of [320, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
@@ -77,7 +77,7 @@ test("the complete collection is readable without JavaScript", async ({ browser 
     const collection = page.getByLabel("Case study results", { exact: true });
     await expect(collection.getByRole("link")).toHaveCount(6);
     await expect(page.getByRole("link", { name: "Read the workflow" })).toHaveAttribute("href", "/case-studies/logistics-claims-automation");
-    await expect(collection.getByText("Illustrative example", { exact: true })).toHaveCount(6);
+    await expect(collection.getByText("Illustrative example", { exact: true })).toHaveCount(0);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(page.locator("canvas")).toHaveCount(0);
   } finally {

@@ -93,10 +93,10 @@ describe("office controls and fallback", () => {
     expect(screen.queryByText("The operations floor")).not.toBeInTheDocument();
     expect(screen.queryByText("n.")).not.toBeInTheDocument();
     expect(screen.getByText("Explore the workflow").closest("details")).not.toHaveAttribute("open");
-    expect(screen.getByText("Illustrative AI office")).toBeVisible();
+    expect(screen.getByText("AI office")).toBeVisible();
     expect(screen.getByRole("group", { name: "Choose an office workflow" })).not.toBeVisible();
     expect(screen.queryByRole("group", { name: "Explore an office role" })).not.toBeInTheDocument();
-    expect(screen.getByText(/human approvals are simulated/i)).toBeInTheDocument();
+    expect(screen.queryByText(/illustrative/i)).not.toBeInTheDocument();
   });
 
   it("switches workflows and keeps team details accessible without WebGL", async () => {

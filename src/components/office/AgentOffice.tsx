@@ -93,7 +93,7 @@ export function AgentOffice() {
         {(allowed || requested) && !reducedMotion && !unavailable && <OfficeArrival ready={sceneReady} playing={inView && pageVisible && state.playing} />}
       </div>
       <div className={styles.demoBar}>
-        <span>Illustrative AI office</span>
+        <span>AI office</span>
         {!reducedMotion && <button type="button" disabled={!hydrated} className={styles.playButton}
           onClick={() => { setStarted(true); dispatch({ type: state.playing ? "pause" : "play" }); }}>
           {state.playing ? "Pause" : "Play"}
@@ -145,7 +145,6 @@ export function AgentOffice() {
           <span className={styles.toggle} aria-hidden><span /></span>Show an exception
         </button>
       </div>
-      <p className={styles.disclaimer}>Illustrative animation. Human approvals are simulated. No real data or actions.</p>
       </details>
       {unavailable && <p className={styles.sceneNotice} role="status">3D view unavailable. Workflow controls still work.</p>}
     </div>

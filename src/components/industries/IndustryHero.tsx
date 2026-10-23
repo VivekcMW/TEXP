@@ -110,7 +110,6 @@ export function IndustryHero({ industries }: { industries: IndustryExperience[] 
         <p>{scene.spots[spot].detail}</p>
       </div>
       <p className={styles.boundary}>{scene.boundary}</p>
-      <p className={styles.disclaimer}>Illustrative environment, not a live system or a performance claim.</p>
     </div>
   </section>;
 }

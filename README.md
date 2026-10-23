@@ -89,7 +89,7 @@ states only, not an approval implementation for production agents.
   role details without resetting playback. Reduced-motion visitors retain the
   static preview and can open the same manual workflow controls.
 - The headline uses natural wrapping rather than four forced lines. The
-  trust-logo band remains omitted; illustrative workflow examples remain.
+  trust-logo band remains omitted; workflow examples remain.
 
 Focused checks: `pnpm test tests/unit/office.test.tsx tests/unit/hero.test.tsx`.
 Browser checks: `pnpm test:e2e tests/e2e/office.spec.ts`.
@@ -110,7 +110,7 @@ detail URLs are unchanged.
 - Examples are scripted, not connected to any system. Intermediate human review
   is explicitly simulated. Demonstrations ending at review remain a handoff,
   not an approval or an executed action. Related case studies use qualitative
-  descriptions and retain their illustrative labels.
+  descriptions without "illustrative" labels.
 - Each specialist has a distinct task station: claims inspection scanner, returns
   conveyor, billing dashboard, clinical checklist, maintenance gear, dispatch
   network or permit model. These task animations pause during human review and
@@ -146,8 +146,9 @@ To keep the opening screen uncluttered, the sector picker sits beneath the
 artwork rather than between the headline and the scene.
 
 Other page intros follow the same rule: one eyebrow, the heading, short copy and
-the primary action. Disclaimers and secondary metadata (for example the note on
-illustrative examples) appear after the main content instead of in the hero.
+the primary action. Secondary metadata appears after the main content instead
+of in the hero. Visible "Illustrative example" badges, labels and disclaimers
+have been removed site-wide; the `illustrative` content field remains as data.
 
 The same workflow-area buttons work without WebGL and provide keyboard access
 to the scene's clickable markers. Animations are illustrative, not actual
@@ -175,8 +176,7 @@ screenshots of a live product or evidence of measured results.
 Industry filters use native mobile selection and announced result counts. The
 featured workflow is omitted from the unfiltered grid, but appears when its
 industry is selected. The compact collection no longer needs text search.
-All example links and
-illustrative disclosures are server-rendered and remain readable without
+All example links are server-rendered and remain readable without
 JavaScript. Existing detail routes are preserved, and their layouts reuse the
 editorial sketches. The public collection is labelled "Workflow examples".
 Editorial cover metadata lives in

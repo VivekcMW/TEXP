@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { CaseStudy } from "@/content/schemas";
-import { IllustrativeBadge } from "./IllustrativeBadge";
 import { Glyph } from "./Glyph";
 
 export function ResultRows({ caseStudies }: { caseStudies: CaseStudy[] }) {
@@ -19,7 +18,6 @@ export function ResultRows({ caseStudies }: { caseStudies: CaseStudy[] }) {
           </div>
           <p className="text-sm text-muted">{c.result.summary}</p>
           <div className="flex items-center gap-3">
-            {c.illustrative && <IllustrativeBadge />}
             <span className="text-accent" aria-hidden>&rarr;</span>
           </div>
         </li>
