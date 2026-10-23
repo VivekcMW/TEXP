@@ -86,7 +86,7 @@ test("keeps workflow exploration available without WebGL", async ({ page }) => {
   await expect(page.getByRole("status")).toContainText("preserving access and retention rules");
 });
 
-test("renders distinct animated worlds, pauses, rotates and handles context loss", async ({ page }) => {
+test("renders distinct animated worlds, pauses, rotates and handles context loss", { tag: "@webgl" }, async ({ page }) => {
   test.setTimeout(120_000);
   await page.emulateMedia({ reducedMotion: "no-preference" });
   const errors: string[] = [];

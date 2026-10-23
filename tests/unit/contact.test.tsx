@@ -12,18 +12,19 @@ function fill() {
   fireEvent.change(screen.getByLabelText("One process you would like to improve"), { target: { value: "Synthetic workflow" } });
 }
 
-describe("preview contact flow", () => {
-  it("renders valid privacy metadata and accurately describes local testing", () => {
+describe("contact flow", () => {
+  it("names the operator and contact address without preview wording", () => {
     render(PrivacyPage());
-    expect(screen.getByText(/contact form can be enabled for local development testing only/)).toBeVisible();
-    expect(screen.getByText(/writes test submissions to the development machine, not to an email service/)).toBeVisible();
+    expect(screen.getByText(/operated by Technocient AI Pvt Ltd/)).toBeVisible();
+    expect(screen.getByRole("link", { name: "hello@technocient.ai" })).toHaveAttribute("href", "mailto:hello@technocient.ai");
+    expect(screen.queryByText(/preview/i)).not.toBeInTheDocument();
   });
 
-  it("disables unconfigured capture and ignores a forged success parameter", () => {
-    render(<ContactForm enabled={false} initiallySaved />);
-    expect(screen.getByLabelText("Name")).toBeDisabled();
-    expect(screen.getByRole("button", { name: "Send enquiry" })).toBeDisabled();
-    expect(screen.getByRole("status")).toHaveTextContent("does not collect your information");
+  it("offers email instead of an unconfigured form and ignores a forged success parameter", () => {
+    render(<ContactForm enabled={false} email="hello@technocient.ai" initiallySaved />);
+    expect(screen.queryByLabelText("Name")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Send enquiry" })).not.toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Email hello@technocient.ai" })).toHaveAttribute("href", "mailto:hello@technocient.ai?subject=Workflow%20enquiry");
     expect(screen.queryByText(/Your test enquiry was saved/)).not.toBeInTheDocument();
     expect(screen.getByRole("link", { name: "How information is handled" })).toHaveAttribute("href", "/privacy");
   });

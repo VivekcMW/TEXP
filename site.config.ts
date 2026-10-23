@@ -1,14 +1,14 @@
 export const siteConfig = {
   name: "TechnocientAI",
-  preview: true,
-  legalName: "",
-  domain: "http://localhost:3000",
+  preview: false,
+  legalName: "Technocient AI Pvt Ltd",
+  domain: "https://technocient.ai",
   tagline: "AI workflows built around your team",
   positioning:
     "We help enterprises explore and build AI workflows around their processes, systems and approval rules.",
   engagementNote: "Scope, pricing and delivery schedules are agreed after reviewing your requirements.",
   bookingUrl: "",
-  contactEmail: "",
+  contactEmail: "hello@technocient.ai",
   social: { linkedin: "" },
   targetQueries: [
     "AI automation consulting",

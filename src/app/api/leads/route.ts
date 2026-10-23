@@ -14,7 +14,7 @@ async function parseBody(req: Request): Promise<unknown> {
 export async function POST(req: Request) {
   if (!isLeadCaptureEnabled()) {
     console.warn("Enquiry rejected: storage is not configured.");
-    return NextResponse.json({ ok: false, errors: { _: "This preview is not accepting enquiries. No message has been saved or sent." } }, { status: 503 });
+    return NextResponse.json({ ok: false, errors: { _: "Online enquiries are not available yet. Please email us instead. No message has been saved or sent." } }, { status: 503 });
   }
   let json: unknown;
   try { json = await parseBody(req); } catch { return NextResponse.json({ ok: false, errors: { _: "Body must be JSON or form data" } }, { status: 400 }); }

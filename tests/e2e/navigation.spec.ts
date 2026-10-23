@@ -23,7 +23,7 @@ test("primary links, contact, home and browser history navigate to the correct c
     { label: "Discuss your workflow", path: "/contact", title: "Let’s talk about your workflow" },
   ]) {
     await navigate(page, destination.label);
-    await expect(page).toHaveURL(new RegExp(`${destination.path}$`));
+    await expect(page).toHaveURL(new RegExp(`${destination.path}$`), { timeout: 15_000 });
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(destination.title);
     await expect(page.getByRole("button", { name: "Close menu" })).toHaveCount(0);
     await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");

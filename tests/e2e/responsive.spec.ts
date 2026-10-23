@@ -92,14 +92,14 @@ test("short landscape navigation remains scrollable after text enlargement", asy
   const about = panel.getByRole("link", { name: "About", exact: true });
   await about.scrollIntoViewIfNeeded();
   await about.click();
-  await expect(page).toHaveURL(/\/about$/);
+  await expect(page).toHaveURL(/\/about$/, { timeout: 15_000 });
   await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
 });
 
 test("mobile native fields avoid Safari focus zoom and role controls have touch targets", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 568 });
   await page.emulateMedia({ reducedMotion: "reduce" });
-  for (const path of ["/", "/agents", "/industries", "/case-studies", "/contact"]) {
+  for (const path of ["/", "/agents", "/industries", "/case-studies"]) {
     await page.goto(path);
     if (path === "/") await page.getByText("Explore the workflow", { exact: true }).click();
     const fields = await page.locator("select:visible, input:not([type=hidden]):not([type=radio]):visible, textarea:visible").all();

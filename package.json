@@ -9,7 +9,8 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:e2e": "NEXT_DIST_DIR=.next-playwright pnpm build && playwright test",
+    "test:e2e": "NEXT_DIST_DIR=.next-playwright pnpm build && node scripts/e2e.mjs",
+    "test:e2e:run": "node scripts/e2e.mjs",
     "lhci": "lhci autorun",
     "budget": "node scripts/budget.mjs"
   },

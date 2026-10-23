@@ -15,7 +15,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
     </header>
     <section className="container-x detail-content">
       <div className="detail-grid">
-        <ContactForm enabled={isLeadCaptureEnabled()} initiallySaved={sent === "1"} />
+        <ContactForm enabled={isLeadCaptureEnabled()} email={siteConfig.contactEmail} initiallySaved={sent === "1"} />
         <aside className="space-y-8">
           <div>
             <h2 className="font-display text-2xl">A useful starting conversation</h2>
@@ -25,11 +25,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
               <li>The decisions, evidence and evaluation needed before a pilot.</li>
             </ul>
           </div>
-          {siteConfig.bookingUrl ? <BookingEmbed url={siteConfig.bookingUrl} email={siteConfig.contactEmail} /> : <div className="rounded-2xl bg-tint p-6">
-            <h2 className="font-display text-lg">Booking is not enabled</h2>
-            <p className="mt-3 text-sm text-muted">This preview has no connected calendar or verified contact details. No third-party booking service is loaded.</p>
-          </div>}
-          {siteConfig.contactEmail && <a href={`mailto:${siteConfig.contactEmail}`} className="text-accent underline">{siteConfig.contactEmail}</a>}
+          {siteConfig.bookingUrl && <BookingEmbed url={siteConfig.bookingUrl} email={siteConfig.contactEmail} />}
         </aside>
       </div>
     </section>

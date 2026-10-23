@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 
-export function ContactForm({ enabled, initiallySaved = false }: { enabled: boolean; initiallySaved?: boolean }) {
+export function ContactForm({ enabled, email = "", initiallySaved = false }: { enabled: boolean; email?: string; initiallySaved?: boolean }) {
   const [state, setState] = useState<"idle" | "sending" | "saved" | "error">(initiallySaved && enabled ? "saved" : "idle");
   const [error, setError] = useState("");
 
@@ -39,11 +39,22 @@ export function ContactForm({ enabled, initiallySaved = false }: { enabled: bool
     }
   }
 
+  if (!enabled) {
+    const subject = encodeURIComponent("Workflow enquiry");
+    return <section className="detail-panel" aria-label="Workflow enquiry">
+      <h2 className="font-display text-2xl">Describe the work</h2>
+      <p className="mt-3 text-muted">Email us about one recurring task or difficult handoff: what happens today, the systems involved and where your team needs to stay in control.</p>
+      {email
+        ? <a href={`mailto:${email}?subject=${subject}`} className="btn btn-primary mt-6 w-fit">Email {email}</a>
+        : <p role="status" className="mt-6 rounded-xl bg-tint p-4 text-sm text-muted">Online enquiries are not open yet.</p>}
+      <p className="mt-6 text-sm text-muted">Do not include confidential records, patient information or credentials. <Link href="/privacy" className="text-accent underline underline-offset-4">How information is handled</Link></p>
+    </section>;
+  }
+
   return <form action="/api/leads" method="post" onSubmit={submit} className="detail-panel" aria-label="Workflow enquiry">
     <h2 className="font-display text-2xl">Describe the work</h2>
-    {!enabled && <p id="contact-unavailable" role="status" className="mt-4 rounded-xl bg-tint p-4 text-sm text-muted">This is a website preview. Enquiry delivery is not configured, so this form is disabled and does not collect your information.</p>}
-    {enabled && <p className="mt-3 text-sm text-muted">Local testing only. Submissions are saved on this development machine; no email is sent. Use synthetic information.</p>}
-    <fieldset disabled={!enabled || state === "sending"} aria-describedby={!enabled ? "contact-unavailable" : undefined} className="mt-6 grid gap-5 disabled:opacity-60">
+    <p className="mt-3 text-sm text-muted">Local testing only. Submissions are saved on this development machine; no email is sent. Use synthetic information.</p>
+    <fieldset disabled={state === "sending"} className="mt-6 grid gap-5 disabled:opacity-60">
       <label className="text-sm font-medium">Name<input name="name" autoComplete="name" required maxLength={120} className="mt-2 block min-h-11 w-full rounded-xl border border-line bg-bg px-3 py-2" /></label>
       <label className="text-sm font-medium">Work email<input name="email" autoComplete="email" type="email" required className="mt-2 block min-h-11 w-full rounded-xl border border-line bg-bg px-3 py-2" /></label>
       <label className="text-sm font-medium">Company <span className="font-normal text-muted">(optional)</span><input name="company" autoComplete="organization" maxLength={120} className="mt-2 block min-h-11 w-full rounded-xl border border-line bg-bg px-3 py-2" /></label>

@@ -24,7 +24,8 @@ describe("About and shared footer cleanup", () => {
     render(<Footer />);
     expect(screen.queryByText(/GDPR-aligned|SOC 2 on the roadmap|Working across|Markets:/)).not.toBeInTheDocument();
     expect(screen.queryByRole("link", { name: "LinkedIn" })).not.toBeInTheDocument();
-    expect(screen.getByText(/Website preview/)).toBeVisible();
+    expect(screen.queryByText(/Website preview/)).not.toBeInTheDocument();
+    expect(screen.getByText(/Technocient AI Pvt Ltd/)).toBeVisible();
     expect(within(screen.getByRole("navigation", { name: "Company" })).getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
     expect(screen.queryByRole("link", { name: "Discuss your workflow" })).not.toBeInTheDocument();
   });

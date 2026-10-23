@@ -8,11 +8,13 @@ describe("siteConfig", () => {
   it("has a domain without trailing slash", () => {
     expect(siteConfig.domain.endsWith("/")).toBe(false);
   });
-  it("does not publish fabricated preview contact details", () => {
-    expect(siteConfig.preview).toBe(true);
+  it("publishes only the confirmed business details", () => {
+    expect(siteConfig.preview).toBe(false);
+    expect(siteConfig.name).toBe("TechnocientAI");
+    expect(siteConfig.legalName).toBe("Technocient AI Pvt Ltd");
+    expect(siteConfig.contactEmail).toBe("hello@technocient.ai");
+    expect(siteConfig.domain).toBe("https://technocient.ai");
     expect(siteConfig.bookingUrl).toBe("");
-    expect(siteConfig.contactEmail).toBe("");
-    expect(siteConfig.legalName).toBe("");
     expect(siteConfig.social.linkedin).toBe("");
   });
 });

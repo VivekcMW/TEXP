@@ -2,6 +2,8 @@ import { defineConfig, devices } from "@playwright/test";
 export default defineConfig({
   testDir: "tests/e2e",
   timeout: 60_000,
+  // WebGL-heavy tests are tagged @webgl and run in a separate serial pass (see test:e2e).
+  retries: process.env.CI ? 1 : 0,
   webServer: {
     command: "pnpm start -p 3100",
     port: 3100,

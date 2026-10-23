@@ -44,7 +44,10 @@ output on port 3100, without overwriting a running development server's `.next`
 cache. Port 3100 must be free; tests never reuse a potentially stale server.
 For focused checks, use
 `pnpm test:e2e tests/e2e/responsive.spec.ts`.
-After that build, `pnpm exec playwright test` reuses the isolated output.
+After that build, `pnpm test:e2e:run` (or `pnpm exec playwright test`) reuses the isolated output.
+The runner executes regular tests in parallel, then tests tagged `@webgl`
+(live 3D scenes) one at a time, because software-rendered WebGL times out when
+competing for CPU. CI also retries a failed test once.
 CI installs all three engines and runs the complete configured browser matrix.
 
 ## Interactive operations office
@@ -259,17 +262,17 @@ Checks: `pnpm test`, `pnpm exec tsc --noEmit`, `pnpm lint`, `pnpm build`,
 `pnpm budget`; browser coverage includes `tests/e2e/design-audit.spec.ts`,
 the responsive route suite, and the office/agent/industry interaction suites.
 
-## Preview and enquiry configuration
+## Business details and enquiry configuration
 
-This remains a **preview**, not a launch-ready commercial site. `site.config.ts`
-keeps `preview: true`, a loopback metadata origin, and empty legal, email,
-calendar and LinkedIn fields. Pages are marked `noindex, nofollow`; unconfigured
-external contact links and calendars are not rendered. Supply verified business
-details and a production origin before considering public launch.
+`site.config.ts` holds the public business details: TechnocientAI, operated by
+Technocient AI Pvt Ltd, at `https://technocient.ai`, contact
+`hello@technocient.ai`. `preview` is `false`, so pages are indexable. Booking,
+phone, address and LinkedIn are not published; empty fields are not rendered.
 
-Enquiry capture is disabled by default. `/api/leads` returns 503 without saving
-or logging personal information, and the form explains why it is disabled.
-There is no production console-log provider masquerading as delivery.
+Online enquiry delivery is not configured yet. In production the Contact page
+shows an email call to action (`mailto:` with a prefilled subject) instead of a
+form, and `/api/leads` returns 503 without saving or logging personal
+information. Privacy and Terms name the operator and contact address.
 
 For **local development testing only**, set `ENABLE_LOCAL_LEAD_CAPTURE=true`
 in the gitignored `.env.local` file to keep the form enabled across dev-server
@@ -280,9 +283,8 @@ rejects capture, even if that flag is set.
 
 Before enabling real enquiries, implement and verify an approved durable
 delivery provider, then update the availability gate, confirmation copy and
-Privacy information to describe the actual controller, processors and
-retention practices. Never put credentials in the browser or site configuration.
-Do not change the preview flag alone and assume that delivery is configured.
+Privacy information to describe the processors and retention practices.
+Never put credentials in the browser or site configuration.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 

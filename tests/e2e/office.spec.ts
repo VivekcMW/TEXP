@@ -107,7 +107,7 @@ test("automatically reviews, completes and loops without WebGL or user approval"
   await expect(office.getByRole("img")).toHaveCSS("opacity", "1");
 });
 
-test("renders moving agents, clickable desks and view controls; recovers on context loss", async ({ page }) => {
+test("renders moving agents, clickable desks and view controls; recovers on context loss", { tag: "@webgl" }, async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   page.on("console", (message) => { if (message.type() === "error") errors.push(message.text()); });

@@ -20,7 +20,7 @@ for (const path of paths) {
     // Not every page needs a structured-data type; validate every published block.
     for (const s of ld) expect(() => JSON.parse(s)).not.toThrow();
     if (!["/privacy", "/terms", "/contact"].includes(path)) await expect(page.locator('[data-cta="primary"]').first()).toBeVisible();
-    if (path === "/contact") await expect(page.getByRole("button", { name: "Send enquiry" })).toBeDisabled();
+    if (path === "/contact") await expect(page.getByRole("link", { name: "Email hello@technocient.ai" })).toBeVisible();
     expect(errors, "no console errors").toEqual([]);
   });
 }

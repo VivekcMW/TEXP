@@ -77,7 +77,7 @@ test.describe("accessible Agents showroom", () => {
     }
   });
 
-  test("selects all seven specialists with their own permissions and detail links", async ({ page }) => {
+  test("selects all seven specialists with their own permissions and detail links", { tag: "@webgl" }, async ({ page }) => {
     await page.goto("/agents");
     const frames: Buffer[] = [];
     const workbench = page.getByRole("region", { name: "Interactive agent workbench" });
@@ -155,7 +155,7 @@ test("autoplays and pauses with a static fallback when WebGL is absent", async (
   }
 });
 
-test("animates a single workbench, freezes on pause, switches props and recovers from context loss", async ({ page }) => {
+test("animates a single workbench, freezes on pause, switches props and recovers from context loss", { tag: "@webgl" }, async ({ page }) => {
   // Seven shader-heavy scenes and pairwise image comparisons also run on software-rendered CI.
   test.setTimeout(300_000);
   await page.emulateMedia({ reducedMotion: "no-preference" });

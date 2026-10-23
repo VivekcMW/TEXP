@@ -32,18 +32,19 @@ test("detail pages have unique headings, scoped content and expandable permissio
   await expect(permissions).toHaveAttribute("open", "");
 });
 
-test("preview contact cannot collect enquiries or fake a confirmation", async ({ page }) => {
+test("contact offers email when online enquiries are off and cannot fake a confirmation", async ({ page }) => {
   await page.goto("/contact?sent=1");
-  await expect(page.getByRole("button", { name: "Send enquiry" })).toBeDisabled();
-  await expect(page.getByRole("textbox", { name: "Name", exact: true })).toBeDisabled();
-  await expect(page.getByText("Booking is not enabled", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Send enquiry" })).toHaveCount(0);
+  await expect(page.getByRole("textbox", { name: "Name", exact: true })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Email hello@technocient.ai" })).toHaveAttribute("href", /^mailto:hello@technocient\.ai/);
+  await expect(page.getByText(/preview|Booking is not enabled/i)).toHaveCount(0);
   await expect(page.locator("iframe")).toHaveCount(0);
-  await expect(page.locator('a[href*="example.com"], a[href*="cal.com/example"], a[href^="mailto:"]')).toHaveCount(0);
+  await expect(page.locator('a[href*="example.com"], a[href*="cal.com/example"]')).toHaveCount(0);
   await expect(page.getByText(/Your test enquiry was saved/)).toHaveCount(0);
   const response = await page.request.post("/api/leads", { data: { source: "contact", email: "synthetic@example.invalid" } });
   expect(response.status()).toBe(503);
   expect(await response.json()).toMatchObject({ ok: false });
-  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  await expect(page.locator('meta[name="robots"][content*="noindex"]')).toHaveCount(0);
 });
 
 test("mobile navigation follows nested routes and the primary action stays on-site", async ({ page }) => {

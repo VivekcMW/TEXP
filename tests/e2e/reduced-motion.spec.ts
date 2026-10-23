@@ -13,7 +13,7 @@ test.describe("reduced motion", () => {
   }
 });
 
-test("/ mounts a canvas when motion is allowed and WebGL exists", async ({ page, browserName }) => {
+test("/ mounts a canvas when motion is allowed and WebGL exists", { tag: "@webgl" }, async ({ page, browserName }) => {
   await page.goto("/");
   const webgl = await page.evaluate(() => { try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch { return false; } });
   test.skip(!webgl, "no WebGL in this browser build");
