@@ -1,0 +1,43 @@
+---
+title: "Maintenance triage agent"
+summary: "Reads new work orders, pulls asset history and recent alarms, and proposes priority, technician and parts. Safety flags go to the maintenance lead."
+unit: "one maintenance work order"
+trigger: "A work order is raised in the CMMS by an operator, a sensor or a scheduled inspection."
+autonomy: "Proposes the triage for every order; planners approve in one click. Anything safety-flagged or affecting a production schedule waits for the maintenance lead."
+steps:
+  - { label: "Reads the work order", tool: "cmms.read", detail: "Free-text description, asset, reporter" }
+  - { label: "Pulls the asset's history", tool: "cmms.history", detail: "Past faults, parts, open orders" }
+  - { label: "Checks recent alarms", tool: "historian.query", detail: "Agreed history window, read-only gateway" }
+  - { label: "Proposes priority, technician and parts", tool: "triage.draft", detail: "With the evidence attached" }
+  - { label: "Planner or lead approves", tool: "human.review", detail: "One click; safety flags to the lead" }
+  - { label: "Updates the work order", tool: "cmms.update", detail: "Priority, assignment, parts reserved" }
+tools:
+  - { name: "cmms.read", reads: "The work order and asset record", writes: "Nothing", approval: "none" }
+  - { name: "cmms.history", reads: "Fault and parts history for the asset", writes: "Nothing", approval: "none" }
+  - { name: "historian.query", reads: "Alarms and tags through a one-way gateway", writes: "Nothing", approval: "none" }
+  - { name: "triage.draft", reads: "Everything gathered", writes: "A proposed triage on the order", approval: "none" }
+  - { name: "cmms.update", reads: "The approved triage", writes: "Priority, assignment and parts reservation", approval: "threshold" }
+gates:
+  - "Safety-flagged orders wait for the maintenance lead, never auto-assigned"
+  - "Anything that changes a production schedule needs the shift manager"
+  - "The agent never connects to the control network; the historian is read through a one-way gateway"
+evidence:
+  - "Each proposal lists the alarms and history it used"
+  - "Planner changes to priority or assignment are stored and reviewed"
+  - "The full trail is exportable for ISO 9001 audits"
+industry: manufacturing
+service: ai-automation
+caseStudy: manufacturing-maintenance-triage
+diagram: automation-flow
+seo:
+  title: "Maintenance triage agent for plant operations"
+  description: "Explore maintenance triage using CMMS history and historian alarms, with planner approval and safety escalation. Site-specific validation is required."
+---
+
+## Where it fits
+
+Multi-site manufacturers where planners spend their day reading work orders and looking up assets before the real work starts.
+
+## What changes for the team
+
+Planners can review evidence-backed proposals rather than assembling each one from scratch. Safety handling, review effort and audit suitability must be assessed against site requirements.

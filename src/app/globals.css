@@ -1,51 +1,142 @@
 @import "tailwindcss";
 
+/* Light theme only. The palette is fixed; the OS colour scheme does not remap it. */
 :root {
-  --color-bg: #f7f4ee;
+  color-scheme: light;
+  --color-bg: #ffffff;
   --color-surface: #ffffff;
-  --color-ink: #141414;
-  --color-muted: #5c5a55;
-  --color-line: #e3ded4;
-  --color-accent: #0f5c4a;
+  --color-tint: #f3f7f6;
+  --color-ink: #0b1f1a;
+  --color-muted: #536462;
+  --color-line: #e3e9e8;
+  --color-accent: #0b7a5e;
+  --color-accent-2: #1b9aaa;
   --color-accent-ink: #ffffff;
-  --color-diagram: #8a8378;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #121311;
-    --color-surface: #1a1b19;
-    --color-ink: #f2efe8;
-    --color-muted: #a39f96;
-    --color-line: #2a2b28;
-    --color-accent: #6fd3b4;
-    --color-accent-ink: #0b1a15;
-    --color-diagram: #6d685f;
-  }
+  --color-glow: #cff2e6;
+  --color-glow-2: #d6ecfb;
+  --color-diagram: #8a9391;
 }
 
 @theme inline {
   --color-bg: var(--color-bg);
   --color-surface: var(--color-surface);
+  --color-tint: var(--color-tint);
   --color-ink: var(--color-ink);
   --color-muted: var(--color-muted);
   --color-line: var(--color-line);
   --color-accent: var(--color-accent);
+  --color-accent-2: var(--color-accent-2);
   --color-accent-ink: var(--color-accent-ink);
+  --color-glow: var(--color-glow);
+  --color-glow-2: var(--color-glow-2);
   --color-diagram: var(--color-diagram);
-  --font-display: var(--font-fraunces), Georgia, serif;
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-display: var(--font-poppins), system-ui, sans-serif;
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
   --text-step-0: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
   --text-step-1: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
   --text-step-2: clamp(1.5rem, 1.3rem + 1vw, 2rem);
   --text-step-3: clamp(2rem, 1.6rem + 1.8vw, 3rem);
-  --text-step-4: clamp(2.5rem, 1.9rem + 3vw, 4.5rem);
-  --text-step-5: clamp(3rem, 2.2rem + 4.5vw, 6rem);
+  --text-step-4: clamp(2.25rem, 1.8rem + 2.4vw, 3.75rem);
+  --text-step-5: clamp(2.75rem, 2rem + 3.6vw, 5rem);
+  --shadow-card: 0 1px 2px rgb(11 31 26 / 0.04), 0 8px 24px -12px rgb(11 31 26 / 0.12);
+  --shadow-panel: 0 2px 4px rgb(11 31 26 / 0.04), 0 30px 60px -30px rgb(11 31 26 / 0.25);
 }
 
 html { background: var(--color-bg); color: var(--color-ink); }
-body { font-family: var(--font-sans); font-size: var(--text-step-0); line-height: 1.6; }
+body { font-family: var(--font-sans); font-size: var(--text-step-0); line-height: 1.65; }
+.font-display { font-weight: 600; letter-spacing: -0.025em; }
+/* Long single words (Telecommunications, authorisation) must not overflow a 320px screen. */
+h1, h2, h3 { overflow-wrap: break-word; -webkit-hyphens: auto; hyphens: auto; }
 .container-x { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: 1rem; }
 @media (min-width: 768px) { .container-x { padding-inline: 2.5rem; } }
 .prose-x { max-width: 68ch; }
+.section-space { padding-block: clamp(3rem, 6vw, 6rem); }
+.page-intro { padding-block: clamp(3rem, 5vw, 5rem) 2.5rem; text-align: center; }
+.page-intro > div { margin-inline: auto; }
+.page-intro .prose-x { margin-inline: auto; }
+.detail-content { padding-bottom: clamp(3rem, 6vw, 6rem); }
+.detail-grid { display: grid; gap: 3rem; align-items: start; }
+.detail-panel { padding: 1.5rem; border: 1px solid var(--color-line); border-radius: 1.5rem; }
+.section-title { font-size: var(--text-step-2); line-height: 1.2; }
+@media (min-width: 1024px) {
+  .detail-grid { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 4rem; }
+  .detail-panel { padding: 2rem; }
+}
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 44px; border-radius: 9999px; padding: 0.75rem 1.5rem; font-size: .875rem; font-weight: 500; line-height: 1.2; transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
+.btn:disabled { cursor: not-allowed; opacity: .55; box-shadow: none; }
+.btn-sm { padding: 0.5rem 1rem; font-size: 0.875rem; }
+.btn-primary { background: var(--color-accent); color: var(--color-accent-ink); box-shadow: 0 1px 0 rgb(255 255 255 / 0.15) inset, 0 8px 20px -10px rgb(11 122 94 / 0.6); }
+.btn-primary:hover { background: #09684f; }
+.btn-secondary { background: var(--color-surface); color: var(--color-ink); border: 1px solid var(--color-line); }
+.btn-secondary:hover { border-color: var(--color-ink); }
+.btn-inverse { background: var(--color-surface); color: var(--color-accent); }
+.btn-inverse:hover { background: var(--color-glow); }
+
+/* Surfaces */
+.card { background: var(--color-surface); border: 1px solid var(--color-line); }
+.band { background: var(--color-tint); border-block: 1px solid var(--color-line); }
+.glass { background: rgb(255 255 255 / 0.72); border: 1px solid rgb(255 255 255 / 0.9); box-shadow: var(--shadow-panel); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .glass { background: var(--color-surface); } }
+/* Scene backdrop behind the hero panel: fades out radially. */
+.scene-fade { -webkit-mask-image: radial-gradient(70% 70% at 50% 40%, #000 30%, transparent 100%); mask-image: radial-gradient(70% 70% at 50% 40%, #000 30%, transparent 100%); }
+
+/* Hero backdrop: one aurora wash and a dot grid that fades towards the content. */
+.hero-bg { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.hero-bg::before { content: ""; position: absolute; inset: -20% -10% auto; height: 90%; background:
+  radial-gradient(60% 55% at 30% 30%, var(--color-glow) 0%, transparent 70%),
+  radial-gradient(50% 50% at 75% 20%, var(--color-glow-2) 0%, transparent 70%);
+  filter: blur(40px); opacity: 1; }
+.hero-bg::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgb(11 31 26 / 0.12) 1px, transparent 1px); background-size: 28px 28px;
+  -webkit-mask-image: linear-gradient(to bottom, rgb(0 0 0 / 0.9), transparent 85%); mask-image: linear-gradient(to bottom, rgb(0 0 0 / 0.9), transparent 85%); }
+.panel-glow { position: absolute; inset: 8% -4% -8%; z-index: -1; border-radius: 9999px; background: linear-gradient(120deg, var(--color-glow), var(--color-glow-2), var(--color-glow)); filter: blur(48px); opacity: 0.8; }
+.gradient-brand { background: linear-gradient(120deg, var(--color-accent) 0%, #0f8f78 55%, var(--color-accent-2) 100%); }
+
+/* Agent console: status pulse and log cursor. */
+@keyframes pulse-dot { 0%, 100% { box-shadow: 0 0 0 0 rgb(11 122 94 / 0.45); } 70% { box-shadow: 0 0 0 7px rgb(11 122 94 / 0); } }
+.pulse-dot { animation: pulse-dot 1.8s ease-out infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.cursor-blink { animation: blink 1s steps(1) infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { animation: spin 1.1s linear infinite; }
+
+/* Range sliders in the estimator */
+.range { -webkit-appearance: none; appearance: none; height: 6px; border-radius: 9999px; background: linear-gradient(to right, var(--color-accent) 0%, var(--color-accent) var(--pct, 50%), var(--color-line) var(--pct, 50%), var(--color-line) 100%); outline: none; }
+.range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; height: 22px; width: 22px; border-radius: 9999px; background: var(--color-surface); border: 2px solid var(--color-accent); box-shadow: var(--shadow-card); cursor: pointer; }
+.range::-moz-range-thumb { height: 22px; width: 22px; border-radius: 9999px; background: var(--color-surface); border: 2px solid var(--color-accent); box-shadow: var(--shadow-card); cursor: pointer; }
+.range:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+
+/* Agent loop ring: the dashed accent circle marches to show direction. */
+@keyframes march { to { stroke-dashoffset: -64; } }
+.loop-dash { animation: march 4s linear infinite; }
+
+/* Stack strip: looping brand rows, pulsing agent node, packets on the bus. */
+.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent); }
+.marquee-track { display: flex; width: max-content; gap: 0.75rem; }
+.marquee-in { animation: marquee-in 38s linear infinite; }
+.marquee-out { animation: marquee-out 38s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee-in { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@keyframes marquee-out { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.brand-chip { display: inline-flex; align-items: center; gap: 0.5rem; border-radius: 9999px; border: 1px solid var(--color-line); background: var(--color-surface); padding: 0.5rem 0.9rem 0.5rem 0.65rem; box-shadow: var(--shadow-card); transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
+.brand-chip:hover { transform: translateY(-2px); border-color: var(--brand, var(--color-accent)); box-shadow: var(--shadow-panel); }
+.brand-mark { color: var(--color-muted); transition: color 0.25s ease; }
+.brand-chip:hover .brand-mark { color: var(--brand, var(--color-accent)); }
+.bus-v { background: linear-gradient(to bottom, transparent, var(--color-line) 20%, var(--color-line) 80%, transparent); }
+.packet-v { position: absolute; left: -3px; height: 7px; width: 7px; border-radius: 9999px; background: var(--color-accent); box-shadow: 0 0 0 3px rgb(11 122 94 / 0.15); animation: packet-v 4.5s linear infinite; }
+.packet-v-2 { animation-delay: -1.5s; } .packet-v-3 { animation-delay: -3s; }
+@keyframes packet-v { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 40% { opacity: 1; } 50% { top: 50%; opacity: 0; } 60% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+.ring { position: absolute; top: calc(2.5rem + 40px); left: 50%; height: 80px; width: 80px; border-radius: 9999px; border: 1.5px solid var(--color-accent); transform: translate(-50%, -50%); opacity: 0; animation: ring 3s ease-out infinite; }
+.ring-2 { animation-delay: 1.5s; }
+@keyframes ring { 0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; } 100% { transform: translate(-50%, -50%) scale(2.1); opacity: 0; } }
+@supports (animation-timeline: view()) {
+  .stack-reveal > * { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 60%; }
+}
+
+/* Single page-load moment: hero children rise once. Each child sets --i for its delay. */
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.rise > * { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: calc(var(--i, 0) * 90ms); }
+
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }

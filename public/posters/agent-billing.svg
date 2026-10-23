@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Billing desk with a statement dashboard and a credit-review chart." width="800" height="480" viewBox="0 0 800 480" fill="none"><g><svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480" fill="none">
+  <path d="M100 288 392 155 712 294 410 446Z" fill="#d3dfcf"/>
+  <path d="M100 281 392 146 712 285 410 432Z" fill="#eeeede"/>
+  <path d="m170 312 292-134M254 352l293-137M332 391l292-139" stroke="#dbdeca"/>
+  <path d="m150 258 243-111 273 119v-12L393 134 150 246Z" fill="#b7cbb9"/>
+  <path d="m151 248 1-113 242-110 1 111Z" fill="#b4d5bf" fill-opacity=".32"/>
+  <path d="m153 247-1-112 242-110v111M276 80v111" stroke="#a6c1ac" stroke-width="3"/>
+  <path d="m259 265 179-83 162 71-182 88Z" fill="#b8c6b0"/>
+  <path d="m283 250 13-5v77l-13 5Z" fill="#a1b29f"/>
+  <path d="m284 250 11-5 23 10v78l-23-11v-77Z" fill="#b4c1aa"/>
+  <path d="m536 258 13-6v77l-13 6Z" fill="#94ab98"/>
+  <path d="m538 259 13-6 24 10v77l-24-11v-76Z" fill="#b1c0a6"/>
+  <path d="m260 211 180-82 162 69v16l-182 89-160-77Z" fill="#c8b790"/>
+  <path d="m260 211 180-83 162 69-182 90Z" fill="#e5d4b0"/>
+  <path d="m473 188 38-18 31 14-38 19Z" fill="#8ba18d"/>
+  <path d="m505 148 9 4v33l-9-4Z" fill="#7d9681"/>
+  <path d="m463 101 86 38v61l-86-39Z" fill="#365e47" stroke="#365e47" stroke-width="9" stroke-linejoin="round"/>
+  <path d="m471 113 71 32v43l-71-32Z" fill="#7cab87"/>
+  <path d="m480 128 48 22m-48-12 37 17m-37-7 28 13" stroke="#d7ead4" stroke-width="3" stroke-linecap="round"/>
+  <path d="m375 225 51-23 35 14-51 25Z" fill="#bacab0"/>
+  <path d="m387 222 25 12m-15-17 25 12m-15-16 25 11" stroke="#91ae93" stroke-width="2"/>
+  <path d="m292 210 35-16 28 12-35 16Z" fill="#fcf9e9"/>
+  <path d="m304 208 20-9m-12 13 20-9" stroke="#99b396" stroke-width="2"/>
+  <path d="m554 222 13 5v-21l-13-5Z" fill="#5b8669"/>
+  <ellipse cx="560" cy="204" rx="9" ry="5" fill="#7b9e7a"/>
+  <path d="m362 161 19 8v54l-19-8Zm32 15 18 9v52l-18-9Z" fill="#9db698"/>
+  <path d="m356 211 24 9 9 16-24-7Z" fill="#68856a"/>
+  <path d="m391 226 23 8 9 17-24-8Z" fill="#68856a"/>
+  <path d="m354 116 34-13 31 16-1 65-32 12-32-18Z" fill="#e7ebd8"/>
+  <path d="m356 134 29 16v35l-29-15Z" fill="#ceddc3"/>
+  <path d="m365 143 17 9v9l-17-9Z" fill="#5e9273"/>
+  <path d="m342 114 17 4 2 41 19 12-4 13-30-17Z" fill="#dce6ce"/>
+  <path d="m414 138 15 5-1 37-25 13-8-12 18-10Z" fill="#dce6ce"/>
+  <ellipse cx="379" cy="178" rx="8" ry="7" fill="#abc3a3"/>
+  <ellipse cx="400" cy="187" rx="8" ry="7" fill="#abc3a3"/>
+  <path d="m345 70 33-14 48 22v43l-36 16-45-23Z" fill="#f8f6e4" stroke="#f8f6e4" stroke-width="9" stroke-linejoin="round"/>
+  <path d="m348 88 40 20v18l-40-20Z" fill="#315541" stroke="#315541" stroke-width="5" stroke-linejoin="round"/>
+  <ellipse cx="359" cy="101" rx="3" ry="4" fill="#d2f3d0"/>
+  <ellipse cx="377" cy="111" rx="3" ry="4" fill="#d2f3d0"/>
+  <path d="M385 64V49" stroke="#9bb994" stroke-width="4"/>
+  <circle cx="385" cy="46" r="6" fill="#679275"/>
+  <path d="m565 296 52-23 44 19v68l-53 25-43-22Z" fill="#b6c7a8"/>
+  <path d="m565 296 52-23 44 19-53 25Z" fill="#cbd7bb"/>
+  <path d="m618 329 15-7m-15 26 15-7m-15 26 15-7" stroke="#688770" stroke-width="3" stroke-linecap="round"/>
+  <path d="m569 290 37-18 30 12-37 18Z" fill="#faf9e8"/>
+  <path d="m581 286 19-8m-12 12 19-8" stroke="#96b193" stroke-width="2"/>
+  <path d="M618 222c0 23-7 43-21 44-14 0-22-20-23-43Z" fill="#d5c9ae"/>
+  <ellipse cx="596" cy="223" rx="22" ry="10" fill="#b8b998"/>
+  <path d="M596 221v-75" stroke="#648164" stroke-width="4"/>
+  <ellipse cx="583" cy="177" rx="11" ry="32" transform="rotate(-34 583 177)" fill="#86a37a"/>
+  <ellipse cx="609" cy="167" rx="12" ry="35" transform="rotate(28 609 167)" fill="#4f7b54"/>
+  <ellipse cx="596" cy="148" rx="11" ry="32" fill="#72986c"/>
+  <path d="M215 198c0 15-4 27-14 27s-14-12-15-27Z" fill="#d8ceb4"/>
+  <path d="M202 200v-38" stroke="#769070" stroke-width="3"/>
+  <ellipse cx="191" cy="174" rx="8" ry="20" transform="rotate(-29 191 174)" fill="#90a97d"/>
+  <ellipse cx="209" cy="162" rx="9" ry="23" transform="rotate(19 209 162)" fill="#668c60"/>
+</svg>
+</g><g><path d="m148 311 115-52 64 29-115 54Z" fill="#b7cbd0"></path><path d="M153 203 275 148v139l-122 57Z" fill="#5b899d" stroke="#5b899d" stroke-width="12" stroke-linejoin="round"></path><path d="m162 211 104-47v112l-104 48Z" fill="#f6f6e8"></path><path d="m177 273 0-25m29 12v-52m29 39v-38" stroke="#5b899d" stroke-width="15"></path><path d="m175 296 75-34m-75 45 46-21" stroke="#acbec4" stroke-width="4"></path><path d="m261 311 31-14 35 15-31 15Z" fill="#e5c982"></path><path d="m261 302 31-14 35 15-31 15Z" fill="#f1dca6"></path></g></svg>

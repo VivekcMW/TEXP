@@ -1,20 +1,19 @@
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { SectionHeading } from "@/components/SectionHeading";
 import { buildMetadata } from "@/lib/seo";
-import { siteConfig } from "@site-config";
-export const metadata = buildMetadata({ title: "Terms of use", description: "Terms for using this website: what the free tools and illustrative case studies are and are not, and how to contact us about them.", path: "/terms" });
+export const metadata = buildMetadata({ title: "Terms of use", description: "Terms for this website preview, its qualitative assessment and illustrative workflow examples. No commercial enquiry delivery is configured.", path: "/terms" });
 export default function TermsPage() {
   return (
     <main>
-      <Breadcrumbs items={[{ name: "Terms", path: "/terms" }]} />
-      <section className="container-x py-12">
+      <section className="container-x page-intro">
         <SectionHeading as="h1" title="Terms of use" />
-        <div className="prose-x mt-8 space-y-4 text-muted">
-          <p><strong className="text-ink">The site.</strong> This website is published by {siteConfig.legalName}. You may read and link to it freely. Content is ours or licensed to us; ask before reusing it commercially.</p>
-          <p><strong className="text-ink">Free tools.</strong> The ROI calculator gives an estimate from the numbers you enter. It is not advice and not a quote. Engagement prices on this site are starting points and are confirmed in a written proposal.</p>
-          <p><strong className="text-ink">Illustrative case studies.</strong> Studies labelled “Illustrative example” describe representative engagements of that type. Their numbers are representative, not audited results for a named client.</p>
+      </section>
+      <section className="container-x detail-content">
+        <div className="prose-x mx-auto space-y-6 text-muted">
+          <p><strong className="text-ink">The preview.</strong> This website demonstrates proposed AI workflow services. It does not constitute a commercial offer. Company identity, contact details and engagement terms must be verified before public launch.</p>
+          <p><strong className="text-ink">Workflow assessment.</strong> This tool provides qualitative discussion prompts from your answers. It is not a readiness certification, financial forecast or quote. Scope, pricing and schedules are confirmed in a written proposal after reviewing your requirements.</p>
+          <p><strong className="text-ink">Workflow examples.</strong> Examples labelled “Illustrative example” describe proposed approaches, not verified customer results. They do not promise savings, processing times, delivery dates or other outcomes.</p>
           <p><strong className="text-ink">No warranty.</strong> We keep the site accurate but make no guarantee that it is complete or error-free, and we are not liable for decisions made on it alone.</p>
-          <p><strong className="text-ink">Contact.</strong> Questions about these terms go to <a href={`mailto:${siteConfig.contactEmail}`} className="text-accent underline">{siteConfig.contactEmail}</a>. Last updated 7 October 2026.</p>
+          <p><strong className="text-ink">Enquiries.</strong> Booking and commercial enquiry delivery are not configured in this preview. Do not submit personal or confidential information for local testing.</p>
         </div>
       </section>
     </main>

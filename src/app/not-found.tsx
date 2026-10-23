@@ -5,10 +5,10 @@ export default function NotFound() {
     <main>
       <section className="container-x py-24">
         <h1 className="font-display text-[length:var(--text-step-4)] tracking-tight">That page does not exist</h1>
-        <p className="prose-x mt-4 text-muted">The link may be old. Try the services or the case studies.</p>
+        <p className="prose-x mt-4 text-muted">The link may be old. Explore our services or workflow examples.</p>
         <div className="mt-8 flex gap-3">
-          <Link href="/services" className="rounded-full border border-line px-5 py-2">Services</Link>
-          <Link href="/case-studies" className="rounded-full border border-line px-5 py-2">Case studies</Link>
+          <Link href="/services" className="btn btn-secondary">Services</Link>
+          <Link href="/case-studies" className="btn btn-secondary">Workflow examples</Link>
         </div>
       </section>
       <CTABand />

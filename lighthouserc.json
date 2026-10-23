@@ -6,6 +6,7 @@
       "url": [
         "http://localhost:3100/",
         "http://localhost:3100/services/ai-automation",
+        "http://localhost:3100/agents/claims-intake",
         "http://localhost:3100/industries/healthcare",
         "http://localhost:3100/case-studies/logistics-claims-automation",
         "http://localhost:3100/insights/ai-readiness-checklist",

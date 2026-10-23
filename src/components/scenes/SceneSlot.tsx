@@ -12,7 +12,7 @@ const loaders = {
   "enterprise-stack": dynamic(() => import("./EnterpriseStackScene"), { ssr: false }),
 } as const;
 
-export function SceneSlot({ id, className, priority = false }: { id: SceneId; className?: string; priority?: boolean }) {
+export function SceneSlot({ id, className = "rounded-3xl", priority = false }: { id: SceneId; className?: string; priority?: boolean }) {
   const allowed = useSceneAllowed();
   const ref = useRef<HTMLDivElement>(null);
   const [near, setNear] = useState(false);
@@ -39,7 +39,7 @@ export function SceneSlot({ id, className, priority = false }: { id: SceneId; cl
   const onLost = useCallback(() => { setReady(false); setLost(true); }, []);
   const Scene = loaders[id];
   return (
-    <div ref={ref} className={cn("relative h-full w-full overflow-hidden rounded-3xl", className)}>
+    <div ref={ref} className={cn("relative h-full w-full overflow-hidden ", className)}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={`/posters/${id}.svg`} alt={sceneMeta[id].alt} fetchPriority={priority ? "high" : undefined} className={cn("absolute inset-0 h-full w-full object-cover transition-opacity duration-700", ready && "opacity-0")} />
       {allowed && near && idle && !lost && <div className="absolute inset-0" aria-hidden><Scene onReady={onReady} onLost={onLost} /></div>}

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildMetadata, absoluteUrl, faqJsonLd, breadcrumbJsonLd, organizationJsonLd, serviceJsonLd } from "@/lib/seo";
+import { buildMetadata, absoluteUrl, faqJsonLd, organizationJsonLd, serviceJsonLd, agentJsonLd } from "@/lib/seo";
 import { siteConfig } from "@site-config";
 
 describe("seo", () => {
@@ -20,10 +20,11 @@ describe("seo", () => {
     expect(ld["@type"]).toBe("FAQPage");
     expect(ld.mainEntity[0].acceptedAnswer.text).toBe("A.");
   });
-  it("breadcrumbJsonLd numbers positions from 1", () => {
-    const ld = breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Services", path: "/services" }]);
-    expect(ld.itemListElement[1].position).toBe(2);
-    expect(ld.itemListElement[1].item).toBe(absoluteUrl("/services"));
+  it("does not publish retired team or market information in structured data", () => {
+    expect(organizationJsonLd()).not.toHaveProperty("founder");
+    const example = { slug: "example", title: "Example", summary: "Example workflow." };
+    expect(serviceJsonLd(example)).not.toHaveProperty("areaServed");
+    expect(agentJsonLd(example)).not.toHaveProperty("areaServed");
   });
   it("organizationJsonLd uses config", () => {
     expect(organizationJsonLd().name).toBe(siteConfig.name);

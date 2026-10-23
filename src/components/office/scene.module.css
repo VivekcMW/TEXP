@@ -1,0 +1,45 @@
+.labels { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+.deskLabel { position: absolute; visibility: hidden; transform: translate(-50%, -50%); pointer-events: auto; display: flex; align-items: center; gap: .35rem; padding: .3rem .55rem; border: 1px solid #d4e3d6; border-radius: 20px; background: #fffffff0; box-shadow: 0 3px 10px #294f4110; white-space: nowrap; color: #345342; font: 500 10px/1.4 var(--font-sans); cursor: pointer; transition: background .2s; }
+.deskLabel > span { height: 5px; width: 5px; border-radius: 50%; }
+.deskLabel:hover, .deskLabel[data-selected="true"] { background: #d5efdf; border-color: #629d7c; }
+.deskLabel[data-active="true"] { border-color: #83b599; box-shadow: 0 0 0 3px #d4e9d750; }
+.viewControls { position: absolute; right: 1rem; top: 1rem; display: flex; gap: 2px; border: 1px solid #d8e5d9; background: #ffffffe8; padding: 3px; border-radius: 9px; }
+.viewControls button { cursor: pointer; color: #41614c; width: 30px; height: 30px; font-size: 19px; border-radius: 5px; }
+.viewControls button:hover { background: #e9f2e9; }
+.viewControls button:disabled { opacity: .35; cursor: default; }
+.arrival { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--color-ink); transition: opacity .85s ease, visibility .85s; overflow: hidden; }
+.arrival::before { content: ""; position: absolute; inset: 0; opacity: .3; background: repeating-linear-gradient(90deg, transparent 0 69px, #8aaa9825 70px 71px), repeating-linear-gradient(0deg, transparent 0 69px, #8aaa9825 70px 71px); mask-image: radial-gradient(ellipse, #000, transparent 70%); }
+.arrival[data-ready="true"] { opacity: 0; visibility: hidden; pointer-events: none; }
+.arrivalOrbit { position: relative; display: grid; place-items: center; width: 140px; height: 140px; margin-bottom: 1.8rem; animation: office-float 4s ease-in-out infinite; animation-play-state: inherit; }
+.arrivalOrbit b { display: grid; place-items: center; height: 68px; width: 68px; color: #f1f5e8; background: linear-gradient(135deg, #559d77, #205c48); border: 1px solid #a0c69c70; border-radius: 20px; font-size: 2.5rem; font-weight: 500; letter-spacing: -.13em; padding-right: .25em; }
+.arrivalOrbit > span { position: absolute; inset: 0; border: 1px solid #7ea99260; border-radius: 50%; transform: rotateX(58deg) rotateZ(-30deg); animation: office-orbit 6s linear infinite; animation-play-state: inherit; }
+.arrivalOrbit > span::after { content: ""; position: absolute; top: -3px; left: 50%; width: 6px; height: 6px; border-radius: 50%; background: #518d6d; }
+.arrivalOrbit > span:nth-child(2) { inset: -20px; animation-direction: reverse; animation-duration: 8s; opacity: .6; }
+.arrivalOrbit > span:nth-child(3) { inset: 15px; animation-duration: 4s; opacity: .4; }
+.arrivalEyebrow { position: relative; color: var(--color-accent); font-size: .55rem; letter-spacing: .23em; }
+.arrivalTitle { position: relative; margin: .7rem 0 .65rem; font-size: clamp(1.3rem, 3vw, 2.1rem); font-weight: 500; letter-spacing: -.045em; }
+.arrivalStatus { position: relative; color: var(--color-muted); font-size: .7rem; }
+.arrivalLine { position: relative; overflow: hidden; width: 130px; height: 2px; background: #a0c8b22a; margin-top: 1.6rem; animation-play-state: inherit; }
+.arrivalLine::after { content: ""; display: block; width: 45%; height: 100%; background: var(--color-accent); animation: office-loading 1.8s ease-in-out infinite; animation-play-state: inherit; }
+@keyframes office-orbit { to { transform: rotateX(58deg) rotateZ(330deg); } }
+@keyframes office-float { 50% { transform: translateY(-8px); } }
+@keyframes office-loading { from { transform: translateX(-100%); } to { transform: translateX(330%); } }
+.roleDetails { padding: .8rem 1.1rem; }
+.roleHeading { display: flex; align-items: center; justify-content: space-between; gap: .5rem; font-size: .8rem; }
+.roleHeading strong { font-weight: 500; }
+.roleHeading button { width: 1.6rem; height: 1.6rem; cursor: pointer; font-size: 1.2rem; color: var(--color-muted); }
+.roleDetails dl { margin-top: .5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+.roleDetails dt { color: var(--color-accent); font-size: .7rem; font-weight: 500; margin-bottom: .2rem; }
+.roleDetails dd { color: var(--color-muted); font-size: .75rem; line-height: 1.7; }
+@media (max-width: 480px) {
+  .deskLabel { font-size: 8px; padding: .22rem .35rem; gap: .2rem; }
+  .viewControls { right: .6rem; top: 0; padding: 2px; }
+  .viewControls button { width: 28px; height: 28px; }
+  .arrivalOrbit { transform: scale(.8); margin-bottom: 1rem; }
+  .arrivalEyebrow { font-size: .45rem; }
+  .roleDetails dl { grid-template-columns: 1fr; gap: .55rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .deskLabel { transition: none; }
+  .arrival, .arrival * { animation: none; transition: none; }
+}

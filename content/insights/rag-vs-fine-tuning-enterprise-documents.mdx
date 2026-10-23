@@ -1,6 +1,6 @@
 ---
 title: RAG vs fine-tuning for enterprise documents
-summary: When retrieval beats fine-tuning for document-heavy work, the one case where fine-tuning earns its cost, and how to decide in an afternoon.
+summary: How retrieval and fine-tuning serve different needs in document-heavy workflows, and what to evaluate before choosing an approach for your team.
 publishedAt: 2026-10-07
 updatedAt: 2026-10-07
 author: founder-1
@@ -15,7 +15,7 @@ faq:
     a: A held-out set of real questions with known answers, scored weekly. If you are not measuring, you are guessing.
 seo:
   title: RAG vs Fine-Tuning for Enterprise Documents
-  description: When retrieval beats fine-tuning for document work, the one case where fine-tuning pays, and a decision you can make in an afternoon.
+  description: Compare retrieval and fine-tuning for document-heavy work, with attention to changing sources, permissions, citations and evaluation.
 ---
 
 Most enterprise document assistants should be built on retrieval, not fine-tuning. Here is the reasoning, and the exception.
@@ -36,9 +36,9 @@ Retrieval respects permissions. You can filter passages by who is asking before 
 
 ## The one case for fine-tuning
 
-When the output must follow a tight, repeatable format that prompting cannot hold, such as a structured clinical note, a regulatory filing section or a code style, a light fine-tune on a few hundred examples pays for itself. Even then, pair it with retrieval for the facts.
+When the output must follow a repeatable format that prompting does not reliably maintain, fine-tuning may be worth evaluating. The training data and operating cost need assessment; a financial return should not be assumed. Pair it with retrieval when current source material is required.
 
-## How to decide in an afternoon
+## How to evaluate the fit
 
 Write down twenty real questions your people ask. For each, mark whether the answer lives in a document that changes, whether the asker's permissions matter, and whether a citation would be expected. If most rows have a yes in any column, build retrieval. If the hard part is the shape of the output rather than its content, consider fine-tuning on top.
 

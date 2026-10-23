@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { LeadSchema, saveLead } from "@/lib/leads/provider";
+import { LeadSchema, saveLead, isLeadCaptureEnabled } from "@/lib/leads/provider";
 
 async function parseBody(req: Request): Promise<unknown> {
   const type = req.headers.get("content-type") ?? "";
@@ -12,6 +12,10 @@ async function parseBody(req: Request): Promise<unknown> {
 }
 
 export async function POST(req: Request) {
+  if (!isLeadCaptureEnabled()) {
+    console.warn("Enquiry rejected: storage is not configured.");
+    return NextResponse.json({ ok: false, errors: { _: "This preview is not accepting enquiries. No message has been saved or sent." } }, { status: 503 });
+  }
   let json: unknown;
   try { json = await parseBody(req); } catch { return NextResponse.json({ ok: false, errors: { _: "Body must be JSON or form data" } }, { status: 400 }); }
   const parsed = LeadSchema.safeParse(json);

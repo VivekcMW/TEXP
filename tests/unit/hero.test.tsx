@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
-import { it, expect } from "vitest";
+import { it, expect, vi } from "vitest";
 import { Hero } from "@/components/Hero";
-import { siteConfig } from "@site-config";
 
-it("Hero renders h1 with tagline and primary CTA", () => {
+vi.mock("@/components/scenes/useSceneAllowed", () => ({ useSceneAllowed: () => false }));
+
+it("Hero introduces the operations office and retains the audit CTA", () => {
   render(<Hero />);
-  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent(siteConfig.tagline);
-  expect(screen.getByRole("link", { name: /book a 30-min ai audit/i })).toHaveAttribute("href", siteConfig.bookingUrl);
+  expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("Your work moves forward. Your team stays in control.");
+  expect(screen.getByRole("link", { name: /discuss your workflow/i })).toHaveAttribute("href", "/contact");
+  expect(screen.getByRole("link", { name: /explore the agents/i })).toHaveAttribute("href", "/agents");
+  expect(screen.getByRole("region", { name: "Interactive AI operations office" })).toBeInTheDocument();
+  const office = screen.getByRole("region", { name: "Interactive AI operations office" });
+  expect(office.compareDocumentPosition(screen.getByRole("heading", { level: 1 })) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 });

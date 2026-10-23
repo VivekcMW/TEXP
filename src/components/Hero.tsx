@@ -1,18 +1,26 @@
 import Link from "next/link";
-import { siteConfig } from "@site-config";
-export function Hero({ visual }: { visual?: React.ReactNode }) {
+import { AgentOffice } from "./office/AgentOffice";
+import styles from "./Hero.module.css";
+
+export function Hero() {
   return (
-    <section className="container-x grid items-center gap-10 py-16 md:grid-cols-2 md:py-24">
-      <div>
-        <p className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-muted">Agentic AI consulting</p>
-        <h1 className="font-display text-[length:var(--text-step-5)] leading-[0.98] tracking-tight">{siteConfig.tagline}</h1>
-        <p className="prose-x mt-6 text-lg text-muted">{siteConfig.positioning} Fixed-price pilots, measured against your baseline, in eight weeks.</p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <a href={siteConfig.bookingUrl} data-cta="primary" className="rounded-full bg-accent px-6 py-3 font-medium text-accent-ink">Book a 30-min AI audit</a>
-          <Link href="/case-studies" className="rounded-full border border-line px-6 py-3 font-medium">See the case studies</Link>
+    <section className={styles.hero} aria-labelledby="hero-heading">
+      <div className={`container-x ${styles.heroGrid}`}>
+        <AgentOffice />
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow}>Custom AI workflows for operations teams</p>
+          <h1 id="hero-heading" className={styles.headline}>Your work <br />moves forward. <br /><span>Your team stays <br />in control.</span></h1>
+          <p className={styles.intro}>An AI team for the work between the work. Agents gather information, check your rules and complete approved actions across your existing tools.</p>
+          <div className={styles.actions}>
+            <Link href="/contact" data-cta="primary" className="btn btn-primary">Discuss your workflow</Link>
+            <Link href="/agents" className="btn btn-secondary">Explore the agents <span className="ml-2" aria-hidden>&#8599;</span></Link>
+          </div>
+          <p className={styles.promise}>
+            <svg width="14" height="16" viewBox="0 0 20 22" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden><path d="m10 2 7 3v6c0 4-7 9-7 9s-7-5-7-9V5z" /><path d="m6.5 10 2.5 2.5 4.5-5" /></svg>
+            Your systems. Your permissions. Your final say.
+          </p>
         </div>
       </div>
-      <div className="relative aspect-square md:aspect-[4/5]">{visual}</div>
     </section>
   );
 }

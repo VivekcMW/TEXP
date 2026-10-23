@@ -8,7 +8,11 @@ describe("siteConfig", () => {
   it("has a domain without trailing slash", () => {
     expect(siteConfig.domain.endsWith("/")).toBe(false);
   });
-  it("has a booking url", () => {
-    expect(siteConfig.bookingUrl).toMatch(/^https:\/\//);
+  it("does not publish fabricated preview contact details", () => {
+    expect(siteConfig.preview).toBe(true);
+    expect(siteConfig.bookingUrl).toBe("");
+    expect(siteConfig.contactEmail).toBe("");
+    expect(siteConfig.legalName).toBe("");
+    expect(siteConfig.social.linkedin).toBe("");
   });
 });

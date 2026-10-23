@@ -9,6 +9,7 @@ export function buildMetadata(args: { title: string; description: string; path: 
   return {
     title: args.title,
     description: args.description,
+    robots: siteConfig.preview ? { index: false, follow: false } : undefined,
     alternates: { canonical: args.path },
     openGraph: { url: absoluteUrl(args.path), title: args.title, description: args.description, type: args.type ?? "website", siteName: siteConfig.name },
     twitter: { card: "summary_large_image", title: args.title, description: args.description },
@@ -19,9 +20,8 @@ const ctx = "https://schema.org";
 
 export const organizationJsonLd = () => ({
   "@context": ctx, "@type": "Organization", "@id": `${siteConfig.domain}/#org`,
-  name: siteConfig.name, legalName: siteConfig.legalName, url: siteConfig.domain,
-  description: siteConfig.positioning, sameAs: [siteConfig.social.linkedin], email: siteConfig.contactEmail,
-  founder: siteConfig.founders.map((f) => ({ "@type": "Person", name: f.name, jobTitle: f.role })),
+  name: siteConfig.name, legalName: siteConfig.legalName || undefined, url: siteConfig.domain,
+  description: siteConfig.positioning, sameAs: siteConfig.social.linkedin ? [siteConfig.social.linkedin] : undefined, email: siteConfig.contactEmail || undefined,
 });
 
 export const webSiteJsonLd = () => ({ "@context": ctx, "@type": "WebSite", url: siteConfig.domain, name: siteConfig.name, publisher: { "@id": `${siteConfig.domain}/#org` } });
@@ -29,7 +29,11 @@ export const webSiteJsonLd = () => ({ "@context": ctx, "@type": "WebSite", url: 
 export const serviceJsonLd = (s: { slug: string; title: string; summary: string }) => ({
   "@context": ctx, "@type": "Service", name: s.title, description: s.summary, serviceType: s.title,
   url: absoluteUrl(`/services/${s.slug}`), provider: { "@type": "Organization", "@id": `${siteConfig.domain}/#org`, name: siteConfig.name },
-  areaServed: siteConfig.markets,
+});
+
+export const agentJsonLd = (a: { slug: string; title: string; summary: string }) => ({
+  "@context": ctx, "@type": "Service", name: a.title, description: a.summary, serviceType: "Agentic workflow",
+  url: absoluteUrl(`/agents/${a.slug}`), provider: { "@type": "Organization", "@id": `${siteConfig.domain}/#org`, name: siteConfig.name },
 });
 
 export const articleJsonLd = (a: { title: string; description: string; path: string; publishedAt: string; updatedAt: string; authorName: string }) => ({
@@ -42,14 +46,4 @@ export const articleJsonLd = (a: { title: string; description: string; path: str
 export const faqJsonLd = (faq: Array<{ q: string; a: string }>) => ({
   "@context": ctx, "@type": "FAQPage",
   mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
-});
-
-export const personJsonLd = (f: { name: string; role: string; bio: string; linkedin: string }) => ({
-  "@context": ctx, "@type": "Person", name: f.name, jobTitle: f.role, description: f.bio, sameAs: [f.linkedin],
-  worksFor: { "@id": `${siteConfig.domain}/#org` },
-});
-
-export const breadcrumbJsonLd = (items: Array<{ name: string; path: string }>) => ({
-  "@context": ctx, "@type": "BreadcrumbList",
-  itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: absoluteUrl(it.path) })),
 });

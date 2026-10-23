@@ -1,31 +1,26 @@
 ---
-title: Prior authorisation drafted in 9 minutes, not 2 days
-client: Confidential healthcare company
+title: Prior authorisation preparation with clinician review
+client: Healthcare workflow example
 industry: healthcare
 service: custom-ai-agents
-situation: A multi-site specialty clinic group submitted around 600 prior authorisation requests a month. Each one took a coordinator roughly two days of elapsed time to gather notes, match payer criteria and draft the request, and clinicians were asked to review in the evening.
-built: An agent that assembles the clinical evidence from the EHR, matches it against the payer's published criteria, drafts the authorisation request with every claim linked to its source, and places it in a clinician's queue for signature. PHI stays inside the clinic's cloud under a BAA; nothing is submitted without a named signature.
-result: { metric: "prior-auth drafting time", value: 92, unit: "%", period: "reduction", date: "2026-08" }
-quote: { text: "Clinicians sign a draft that already has the evidence lined up against the criteria. Review takes minutes, and our denial rate went down.", name: "Director of Revenue Cycle", role: "Confidential healthcare company" }
+situation: Coordinators preparing prior authorisation requests must assemble clinical notes, compare payer criteria and arrange clinician review. Missing evidence and changing requirements can interrupt the work.
+built: This illustrative design gathers permitted encounter information, maps evidence to payer criteria and drafts a cited request for clinician review. Nothing is submitted without a clinician's signature, and data handling must meet the organisation's requirements.
+result: { summary: "Designed to organise evidence for clinical review and reduce repeated preparation work. It does not guarantee payer approval or a turnaround time.", date: "2026-08" }
+before: "Manual request assembly"
+after: "Cited clinical review"
 illustrative: true
 diagram: before-after
 seo:
-  title: Healthcare AI case study — prior authorisation
-  description: A custom agent drafting prior authorisation requests with linked evidence, cutting drafting time 92%. Illustrative example with architecture.
+  title: Healthcare workflow example - prior authorisation
+  description: An illustrative prior authorisation workflow that assembles evidence for clinician review. No guaranteed processing time or payer decision.
 ---
 
-## Situation
+## What to evaluate
 
-Two days of elapsed time and an hour of coordinator effort per request, with clinicians reviewing after hours.
+Review evidence completeness, citation accuracy, missing-criteria handling and clinician corrections. Submission quality and payer decisions are separate outcomes.
 
-## What was built
+## Requirements to confirm
 
-An agent with read access to the EHR and the payer criteria library, a drafting tool that links every statement to a source, and a signature queue. The agent cannot submit.
+Confirm encounter-level access, data residency, contractual requirements, payer-rule maintenance and the clinician signature workflow before implementation.
 
-## Result
-
-Drafting time fell from two days to nine minutes of agent time plus a short clinician review. First-pass approval rate rose because the evidence was complete.
-
-## What we would do differently
-
-Build the payer criteria library as a maintained asset from day one. Payer rules changed twice during the pilot and the first update was manual.
+This administrative workflow example is not a medical recommendation.

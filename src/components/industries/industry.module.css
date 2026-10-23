@@ -1,0 +1,49 @@
+.hero { width: 100%; padding: 2rem 0 3rem; }
+.pickerWrap { margin-top: 2rem; margin-bottom: .5rem; }
+.picker, .spots { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+.picker button, .spots button, .controls button { min-height: 44px; border-radius: 999px; padding: .6rem 1rem; font-size: .82rem; color: var(--color-muted); cursor: pointer; }
+.picker button:hover, .spots button:hover, .controls button:hover { background: var(--color-tint); color: var(--color-ink); }
+.picker button[aria-pressed="true"], .spots button[aria-pressed="true"] { background: var(--color-ink); color: white; }
+.picker button:disabled, .controls button:disabled { opacity: .4; cursor: default; }
+.mobilePicker { display: none; }
+.visual { position: relative; width: 100%; height: clamp(300px, 34vw, 480px); overflow: hidden; isolation: isolate; }
+.poster, .canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.poster { object-fit: contain; transition: opacity .5s; }
+.hidden { opacity: 0; }
+.canvas { touch-action: pan-y; }
+.environment { position: absolute; inset: auto 1rem .2rem; text-align: center; pointer-events: none; font-size: .72rem; letter-spacing: .04em; color: var(--color-muted); }
+.controls { display: flex; min-height: 48px; align-items: center; justify-content: center; gap: .3rem; padding-inline: 1rem; }
+.controls p { text-align: center; color: var(--color-muted); font-size: .75rem; }
+.copy { max-width: 860px; margin-top: 1rem; margin-bottom: 1.5rem; text-align: center; }
+.eyebrow { text-transform: uppercase; letter-spacing: .13em; font-size: .7rem; font-weight: 500; color: var(--color-accent); }
+.copy h1 { font-size: clamp(2rem, 4.5vw, 4.4rem); line-height: 1.12; margin-top: .8rem; text-wrap: balance; }
+.summary { max-width: 65ch; margin: 1.2rem auto 1.5rem; font-size: clamp(.95rem, 1.3vw, 1.1rem); color: var(--color-muted); }
+.workflows { max-width: 880px; margin-top: 2rem; text-align: center; }
+.spots { margin-top: .8rem; }
+.spots button { display: flex; align-items: center; gap: .55rem; }
+.spots button span { width: .5rem; height: .5rem; flex: 0 0 auto; border-radius: 50%; }
+.workflowDetail { min-height: 115px; margin: 1.5rem auto 0; max-width: 58ch; }
+.workflowDetail h2 { font-size: 1.2rem; }
+.workflowDetail p { margin-top: .5rem; color: var(--color-muted); font-size: .9rem; }
+.boundary { max-width: 66ch; margin: 1rem auto 0; font-size: .875rem; color: var(--color-muted); }
+.disclaimer { margin-top: .6rem; font-size: .75rem; color: var(--color-muted); }
+.loading { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 1rem; background: rgb(255 255 255 / .78); pointer-events: none; }
+.loading p { color: var(--color-muted); font-size: .8rem; }
+.orbit { width: 68px; height: 68px; border-radius: 50%; border: 1px solid var(--color-line); border-top: 2px solid var(--color-accent); animation: orbit 1.6s linear infinite; }
+@keyframes orbit { to { transform: rotate(360deg); } }
+@media (max-width: 767px) {
+  .hero { padding-top: .5rem; }
+  .picker { display: none; }
+  .mobilePicker { display: grid; gap: .4rem; max-width: 360px; margin: auto; color: var(--color-muted); font-size: .75rem; }
+  .mobilePicker select { width: 100%; min-height: 44px; border: 1px solid var(--color-line); padding: .65rem .85rem; background: white; color: var(--color-ink); border-radius: 12px; font: inherit; font-size: .9rem; }
+  .copy { margin-top: 1rem; }
+  .visual { height: clamp(275px, 70vw, 360px); }
+  .spots { gap: .35rem; }
+  .spots button { padding-inline: .8rem; font-size: .75rem; }
+}
+.eyebrow, .environment, .controls p { font-size: .75rem; }
+.picker button, .spots button, .controls button { font-size: .875rem; }
+@media (prefers-reduced-motion: reduce) {
+  .poster { transition: none; }
+  .orbit { animation: none; }
+}

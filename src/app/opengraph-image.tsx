@@ -8,7 +8,7 @@ export default function OgImage() {
       <div style={{ fontSize: 28, letterSpacing: 4, textTransform: "uppercase", color: "#5c5a55" }}>{siteConfig.name}</div>
       <div style={{ fontSize: 80, lineHeight: 1, letterSpacing: -2 }}>{siteConfig.tagline}</div>
       <div style={{ display: "flex", gap: 12, alignItems: "center", fontSize: 28, color: "#0f5c4a" }}>
-        <div style={{ width: 18, height: 18, borderRadius: 9, background: "#0f5c4a" }} />{siteConfig.headlineNumber.value} {siteConfig.headlineNumber.label}
+        <div style={{ width: 18, height: 18, borderRadius: 9, background: "#0f5c4a" }} />Your systems. Your permissions. Your final say.
       </div>
     </div>,
     size,

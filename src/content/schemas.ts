@@ -17,7 +17,7 @@ export const ServiceSchema = z.object({
   problem: z.string().min(20),
   approach: z.array(z.string().min(3)).min(3),
   deliverables: z.array(z.string().min(3)).min(2),
-  timelineWeeks: z.number().int().positive(),
+  timeline: z.string().min(20),
   caseStudy: slug,
   faq: Faq,
   diagram: z.enum(DIAGRAM_IDS),
@@ -45,14 +45,29 @@ export const CaseStudySchema = z.object({
   situation: z.string().min(40),
   built: z.string().min(40),
   result: z.object({
-    metric: z.string().min(3),
-    value: z.number(),
-    unit: z.string().min(1),
-    period: z.string().min(3),
+    summary: z.string().min(20),
     date: z.string().regex(/^\d{4}-\d{2}$/, "must be YYYY-MM"),
   }),
-  quote: z.object({ text: z.string().min(20), name: z.string().min(2), role: z.string().min(2) }),
+  before: z.string().min(2).optional(),
+  after: z.string().min(2).optional(),
   illustrative: z.boolean(),
+  diagram: z.enum(DIAGRAM_IDS),
+  seo: Seo,
+});
+
+export const AgentSchema = z.object({
+  title: z.string().min(3),
+  summary: z.string().min(40).max(200),
+  unit: z.string().min(3),
+  trigger: z.string().min(10),
+  autonomy: z.string().min(20),
+  steps: z.array(z.object({ label: z.string().min(3), tool: z.string().min(3), detail: z.string().min(3) })).min(3),
+  tools: z.array(z.object({ name: z.string().min(3), reads: z.string().min(3), writes: z.string().min(3), approval: z.enum(["none", "threshold", "always"]) })).min(2),
+  gates: z.array(z.string().min(10)).min(1),
+  evidence: z.array(z.string().min(10)).min(1),
+  industry: slug,
+  service: slug,
+  caseStudy: slug,
   diagram: z.enum(DIAGRAM_IDS),
   seo: Seo,
 });
@@ -73,17 +88,20 @@ export type ServiceFrontmatter = z.infer<typeof ServiceSchema>;
 export type IndustryFrontmatter = z.infer<typeof IndustrySchema>;
 export type CaseStudyFrontmatter = z.infer<typeof CaseStudySchema>;
 export type InsightFrontmatter = z.infer<typeof InsightSchema>;
+export type AgentFrontmatter = z.infer<typeof AgentSchema>;
 
 type WithSlugBody<T> = T & { slug: string; body: string };
 export type Service = WithSlugBody<ServiceFrontmatter>;
 export type Industry = WithSlugBody<IndustryFrontmatter>;
 export type CaseStudy = WithSlugBody<CaseStudyFrontmatter>;
 export type Insight = WithSlugBody<InsightFrontmatter>;
+export type Agent = WithSlugBody<AgentFrontmatter>;
 
 export const collections = {
   services: ServiceSchema,
   industries: IndustrySchema,
   "case-studies": CaseStudySchema,
   insights: InsightSchema,
+  agents: AgentSchema,
 } as const;
 export type CollectionName = keyof typeof collections;

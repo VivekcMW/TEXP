@@ -1,0 +1,30 @@
+---
+title: Manufacturing
+summary: Agentic workflows for maintenance, quality and supplier operations on the plant floor, built to work with your MES, ERP and the people on shift.
+targetQuery: AI consulting for manufacturing
+pains:
+  - "Maintenance work orders triaged by reading free-text descriptions and walking to the asset"
+  - "Quality deviations investigated by hand across the MES, the LIMS and a shared drive of PDFs"
+  - "Supplier delivery exceptions chased by email while the line waits"
+  - "Shift handover notes that never reach the person who needs them"
+compliance:
+  - "OT segregation, approved historian and MES access, and exclusion of direct control-system actions"
+  - "Quality-system traceability, evidence retention and audit-export requirements"
+  - "Safety-critical actions stay with a qualified person; the agent drafts and evidences only"
+caseStudy: manufacturing-maintenance-triage
+services: [ai-automation, custom-ai-agents, llm-rag-integration]
+faq:
+  - q: Can the agent touch the control systems?
+    a: No. It reads from the historian, MES and CMMS through a gateway and writes only to the work-order and quality systems, with a person approving anything that changes a schedule or a specification.
+  - q: Our data is messy and half of it is in PDFs. Does that matter?
+    a: It is the normal starting point. The discovery sprint measures how much the agent can read reliably before anything is built, and the pilot is scoped to that.
+  - q: How do shift workers interact with it?
+    a: "Assess the CMMS, MES and handover tools already in use. Agree interface changes and training with the people on shift rather than assuming a new workflow needs no onboarding."
+seo:
+  title: AI Consulting for Manufacturing Operations
+  description: Explore maintenance, quality and supplier workflows for plants, with MES and ERP context, human oversight and scope agreed after discovery.
+---
+
+## An illustrative approach
+
+A maintenance triage agent could read work orders, retrieve permitted asset history and relevant alarms, and prepare a proposal for planner review. Safety-related decisions remain with authorised people. The linked example explains the approach.

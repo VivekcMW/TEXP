@@ -3,11 +3,11 @@ import { Reveal } from "./Reveal";
 export function BeforeAfterDiagram({
   before = ["Read the email thread", "Find the record in the system", "Check the policy document", "Draft and send a reply"],
   after = ["Agent reads, retrieves and drafts with citations", "Person reviews exceptions and signs off"],
-  beforeLabel = "Before: hours per case",
-  afterLabel = "After: minutes per case",
+  beforeLabel = "Current manual steps",
+  afterLabel = "Proposed agent-assisted workflow",
 }: { before?: string[]; after?: string[]; beforeLabel?: string; afterLabel?: string }) {
   return (
-    <Diagram title="Before and after automation" description={`Two columns. Before: ${before.join(", ")}. After: ${after.join(", ")}.`} caption="The same job before and after an agent takes the repetitive steps." viewBox="0 0 860 260">
+    <Diagram title="Before and after automation" description={`Two columns. Before: ${before.join(", ")}. Proposed: ${after.join(", ")}.`} caption="An illustrative workflow comparison, not a promise of processing speed or savings." viewBox="0 0 860 260">
       <Reveal>
         <text x={20} y={24} fontWeight={500} fill="var(--color-muted)">{beforeLabel}</text>
         {before.map((b, i) => (

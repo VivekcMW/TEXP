@@ -1,31 +1,24 @@
 ---
-title: Claims handling cut from 4 days to 6 hours
-client: Confidential logistics company
+title: Claims preparation with evidence and adjuster oversight
+client: Logistics workflow example
 industry: logistics
 service: ai-automation
-situation: A regional carrier processed around 1,200 damage and loss claims a month by hand. Each claim meant reading an email thread, finding the shipment in the TMS, checking photos, and drafting a decision into a spreadsheet that fed finance. Cycle time averaged four working days and the claims desk was hiring again.
-built: An agent that reads inbound claim emails and attachments, pulls shipment, scan and carrier data from the TMS by API, drafts a decision with the evidence attached, and routes anything above a value threshold or below a confidence threshold to a claims handler. Every action is logged and the handler can overrule in one click.
-result: { metric: "claim cycle time", value: 94, unit: "%", period: "reduction", date: "2026-06" }
-quote: { text: "We stopped hiring for the claims desk and moved two people to customer success. The handlers trust it because it shows its evidence.", name: "Head of Operations", role: "Confidential logistics company" }
+situation: A claims desk may need to read email threads, find shipment records, inspect attachments and assemble a draft for review. Information spread across systems makes handoffs and evidence checking difficult.
+built: This illustrative design uses scoped tools to read claims and shipment records, prepare an evidence-linked draft and route uncertain or out-of-policy cases to an adjuster. Filing and notification remain subject to the organisation's approval rules.
+result: { summary: "Designed to reduce repeated evidence gathering and give adjusters a clearer basis for review. The effect must be evaluated in your workflow.", date: "2026-06" }
+before: "Manual evidence gathering"
+after: "Evidence-linked review"
 illustrative: true
 diagram: automation-flow
 seo:
-  title: Logistics AI case study — claims automation
-  description: How an agentic workflow cut claim cycle time 94% for a regional carrier. Illustrative example with the architecture that was built.
+  title: Logistics workflow example - claims preparation
+  description: An illustrative claims workflow with evidence gathering, draft preparation and adjuster approval. No fixed savings or turnaround promise.
 ---
 
-## Situation
+## What to evaluate
 
-Four days per claim, three systems, one spreadsheet, and a desk that grew with volume. The baseline was measured over four weeks before anything was built.
+Compare evidence completeness, draft quality, handling effort and escalation accuracy against your current process. Include missing records and disputed policy interpretations.
 
-## What was built
+## Requirements to confirm
 
-A single agent with four tools: read email and attachments, query the TMS, draft a decision, and escalate. The escalation rules were written with the claims lead and changed twice during the pilot.
-
-## Result
-
-Median cycle time fell from four days to six hours. Handler time per claim fell from forty minutes to four, mostly spent reviewing escalations.
-
-## What we would do differently
-
-Start the photo-evidence tooling earlier. Image-based damage assessment was the last piece to reach the confidence bar and held back full autonomy on a third of claims.
+Confirm system access, policy ownership, approval thresholds, notification controls and any rollback requirements with the claims team.

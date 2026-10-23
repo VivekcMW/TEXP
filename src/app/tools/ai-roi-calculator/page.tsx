@@ -1,24 +1,22 @@
 import { SectionHeading } from "@/components/SectionHeading";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CTABand } from "@/components/CTABand";
 import { FAQ } from "@/components/FAQ";
-import { ROICalculator } from "@/components/roi/ROICalculator";
+import { LazyWorkflowAssessment } from "@/components/LazyPanels";
 import { buildMetadata } from "@/lib/seo";
 
-export const metadata = buildMetadata({ title: "AI ROI calculator for operations teams", description: "Estimate the annual hours and cost an agentic workflow would save on one process, and the payback on a fixed-price pilot.", path: "/tools/ai-roi-calculator" });
+export const metadata = buildMetadata({ title: "AI workflow assessment for your team", description: "Explore process clarity, data access and human review needs with a qualitative discussion guide. No cost, savings or delivery forecasts.", path: "/tools/ai-roi-calculator" });
 const faq = [
-  { q: "How is the saving calculated?", a: "People × hours per week × 48 weeks × the share you expect to automate × loaded hourly cost." },
-  { q: "Is 60% automation realistic?", a: "For document-heavy, rules-with-exceptions work, 50 to 80% is typical in our pilots. Fully unstructured judgement work is lower." },
-  { q: "What does the payback compare against?", a: "The 'from' price of a pilot shown on our services pages." },
+  { q: "Does this estimate savings or a delivery date?", a: "No. It highlights questions to discuss before a pilot. Costs, timing and potential benefits depend on your process, systems and review requirements." },
+  { q: "Does the guide confirm that we are ready?", a: "No. Your answers are a starting point for discovery, not an independent validation or readiness certification." },
+  { q: "What happens to my answers?", a: "They remain in this page and are not submitted. You can discuss them with your team or bring them to a workflow conversation." },
 ];
 export default function RoiPage() {
   return (
     <main>
-      <Breadcrumbs items={[{ name: "Tools", path: "/tools/ai-roi-calculator" }, { name: "AI ROI calculator", path: "/tools/ai-roi-calculator" }]} />
-      <section className="container-x py-12">
-        <SectionHeading as="h1" eyebrow="Free tool" title="What would automating one process save you?">Change the four inputs. The summary is free; the payback breakdown asks for a work email.</SectionHeading>
-        <div className="mt-12"><ROICalculator /></div>
-      </section>
+      <header className="container-x page-intro">
+        <SectionHeading as="h1" eyebrow="Discussion guide" title="Explore your workflow before you commit">Consider the process, information access and human decisions first. This assessment offers qualitative next steps, not prices, savings or delivery promises.</SectionHeading>
+      </header>
+      <section className="container-x detail-content" aria-label="Workflow discussion guide"><div className="card rounded-3xl"><LazyWorkflowAssessment /></div></section>
       <FAQ items={faq} />
       <CTABand />
     </main>

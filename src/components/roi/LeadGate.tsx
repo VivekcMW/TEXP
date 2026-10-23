@@ -18,7 +18,7 @@ export function LeadGate({ payload, onUnlocked }: { payload: Record<string, unkn
         <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-xl border border-line bg-bg px-3 py-2" />
       </label>
       {err && <p role="alert" className="text-sm text-red-700">{err}</p>}
-      <button disabled={busy} className="rounded-full bg-accent px-5 py-2 text-sm font-medium text-accent-ink disabled:opacity-60">{busy ? "Sending…" : "Show payback"}</button>
+      <button disabled={busy} className="btn btn-primary btn-sm disabled:opacity-60">{busy ? "Sending…" : "Show payback"}</button>
     </form>
   );
 }

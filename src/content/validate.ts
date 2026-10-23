@@ -5,12 +5,13 @@ export type ValidationResult = { ok: true } | { ok: false; errors: string[] };
 
 export function validateContent(rootDir: string = CONTENT_ROOT): ValidationResult {
   const errors: string[] = [];
-  let services, industries, caseStudies, insights;
+  let services, industries, caseStudies, insights, agents;
   try {
     services = loadCollection("services", rootDir);
     industries = loadCollection("industries", rootDir);
     caseStudies = loadCollection("case-studies", rootDir);
     insights = loadCollection("insights", rootDir);
+    agents = loadCollection("agents", rootDir);
   } catch (e) {
     return { ok: false, errors: [(e as Error).message] };
   }
@@ -28,6 +29,11 @@ export function validateContent(rootDir: string = CONTENT_ROOT): ValidationResul
   for (const c of caseStudies) {
     if (!industrySlugs.has(c.industry)) errors.push(`case-studies/${c.slug}.mdx: industry "${c.industry}" does not exist`);
     if (!serviceSlugs.has(c.service)) errors.push(`case-studies/${c.slug}.mdx: service "${c.service}" does not exist`);
+  }
+  for (const a of agents) {
+    if (!industrySlugs.has(a.industry)) errors.push(`agents/${a.slug}.mdx: industry "${a.industry}" does not exist`);
+    if (!serviceSlugs.has(a.service)) errors.push(`agents/${a.slug}.mdx: service "${a.service}" does not exist`);
+    if (!caseSlugs.has(a.caseStudy)) errors.push(`agents/${a.slug}.mdx: caseStudy "${a.caseStudy}" does not exist`);
   }
   for (const a of insights) {
     if (!founderIds.has(a.author)) errors.push(`insights/${a.slug}.mdx: author "${a.author}" is not in siteConfig.founders`);

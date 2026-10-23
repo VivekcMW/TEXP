@@ -4,5 +4,12 @@ export default defineConfig({
   timeout: 60_000,
   webServer: { command: "pnpm start -p 3100", port: 3100, reuseExistingServer: !process.env.CI, timeout: 180_000 },
   use: { baseURL: "http://localhost:3100" },
-  projects: [{ name: "mobile", use: { ...devices["Pixel 7"] } }],
+  // Three engines: Chromium (Chrome, Edge), WebKit (Safari, every iOS browser) and Gecko (Firefox).
+  projects: [
+    { name: "mobile", use: { ...devices["Pixel 7"] } },
+    { name: "desktop-chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "mobile-webkit", use: { ...devices["iPhone 14"] } },
+    { name: "desktop-webkit", use: { ...devices["Desktop Safari"] } },
+    { name: "desktop-firefox", use: { ...devices["Desktop Firefox"] } },
+  ],
 });

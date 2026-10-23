@@ -24,9 +24,14 @@ function Field() {
   }, [nodes]);
   useFrame(({ clock }) => {
     const t = clock.elapsedTime;
-    if (group.current) { group.current.rotation.y = t * 0.08 + pointer.x * 0.3; group.current.rotation.x = pointer.y * -0.2; }
+    if (group.current) {
+      // Ease towards the pointer so the field turns to follow the visitor rather than snapping.
+      group.current.rotation.y += (t * 0.08 + pointer.x * 0.9 - group.current.rotation.y) * 0.06;
+      group.current.rotation.x += (pointer.y * -0.5 - group.current.rotation.x) * 0.06;
+    }
     if (pulse.current && pairs.length) {
-      const prog = (t * 0.35) % pairs.length;
+      const speed = 0.35 + Math.min(1, Math.hypot(pointer.x, pointer.y)) * 0.6;
+      const prog = (t * speed) % pairs.length;
       const [a, b] = pairs[Math.floor(prog)];
       pulse.current.position.lerpVectors(nodes[a], nodes[b], prog % 1);
     }

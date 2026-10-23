@@ -4,25 +4,24 @@ import { CTABand } from "@/components/CTABand";
 import { FAQ } from "@/components/FAQ";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { ProcessSteps } from "@/components/ProcessSteps";
-import { siteConfig } from "@site-config";
 
 const cs = {
-  slug: "logistics-claims-automation", title: "Claims handling cut", client: "Confidential logistics company",
+  slug: "logistics-claims-automation", title: "Claims preparation with evidence", client: "Logistics workflow example",
   industry: "logistics", service: "ai-automation", situation: "s".repeat(40), built: "b".repeat(40),
-  result: { metric: "claim cycle time", value: 94, unit: "%", period: "reduction", date: "2026-06" },
-  quote: { text: "q".repeat(20), name: "n", role: "r" }, illustrative: true, diagram: "automation-flow" as const,
+  result: { summary: "Designed to support evidence gathering and adjuster review.", date: "2026-06" },
+  illustrative: true, diagram: "automation-flow" as const,
   seo: { title: "t".repeat(10), description: "d".repeat(50) }, body: "",
 };
 
 describe("components", () => {
-  it("CTABand links to the booking url with primary marker", () => {
+  it("CTABand uses the shared contact destination", () => {
     render(<CTABand />);
-    const a = screen.getByRole("link", { name: /book a 30-min ai audit/i });
-    expect(a).toHaveAttribute("href", siteConfig.bookingUrl);
+    const a = screen.getByRole("link", { name: /discuss your workflow/i });
+    expect(a).toHaveAttribute("href", "/contact");
     expect(a).toHaveAttribute("data-cta", "primary");
   });
   it("FAQ renders questions and FAQPage json-ld", () => {
-    const { container } = render(<FAQ items={[{ q: "How long?", a: "Eight weeks." }]} />);
+    const { container } = render(<FAQ items={[{ q: "How long?", a: "The schedule depends on your requirements." }]} />);
     expect(screen.getByText("How long?")).toBeInTheDocument();
     const script = container.querySelector('script[type="application/ld+json"]');
     expect(script?.textContent).toContain('"FAQPage"');
@@ -30,14 +29,15 @@ describe("components", () => {
   it("CaseStudyCard shows illustrative badge and result", () => {
     render(<CaseStudyCard caseStudy={cs} />);
     expect(screen.getByText("Illustrative example")).toBeInTheDocument();
-    expect(screen.getByText("94%")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: /claims handling cut/i })).toHaveAttribute("href", "/case-studies/logistics-claims-automation");
+    expect(screen.getByText(cs.result.summary)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /claims preparation/i })).toHaveAttribute("href", "/case-studies/logistics-claims-automation");
   });
-  it("ProcessSteps shows three stages with from-prices", () => {
+  it("ProcessSteps explains scoped stages without prices or fixed schedules", () => {
     render(<ProcessSteps />);
-    expect(screen.getByText("Discovery sprint")).toBeInTheDocument();
+    expect(screen.getByText("Discovery")).toBeInTheDocument();
     expect(screen.getByText("Pilot")).toBeInTheDocument();
     expect(screen.getByText("Scale")).toBeInTheDocument();
-    expect(screen.getAllByText(/from \$/i)).toHaveLength(3);
+    expect(screen.queryByText(/from \$/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/Scope, pricing and delivery schedules depend/)).toBeInTheDocument();
   });
 });

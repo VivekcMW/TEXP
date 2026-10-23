@@ -1,15 +1,15 @@
 export const siteConfig = {
   name: "Northstar AI", // placeholder company name
-  legalName: "Northstar AI Consulting Ltd", // placeholder
-  domain: "https://example.com", // placeholder; no trailing slash
-  tagline: "Cut operating cost with agentic AI workflows",
+  preview: true,
+  legalName: "",
+  domain: "http://localhost:3000",
+  tagline: "AI workflows built around your team",
   positioning:
-    "We help mid-to-large enterprises cut operating cost using agentic AI workflows.",
-  headlineNumber: { value: "31%", label: "average operating cost reduction in pilots" },
-  bookingUrl: "https://cal.com/example/ai-audit-30",
-  contactEmail: "hello@example.com",
-  social: { linkedin: "https://www.linkedin.com/company/example" },
-  pricing: { discoverySprint: 15000, pilot: 60000, scale: 150000, currency: "USD" },
+    "We help enterprises explore and build AI workflows around their processes, systems and approval rules.",
+  engagementNote: "Scope, pricing and delivery schedules are agreed after reviewing your requirements.",
+  bookingUrl: "",
+  contactEmail: "",
+  social: { linkedin: "" },
   targetQueries: [
     "AI automation consulting",
     "agentic workflow consulting",
@@ -26,10 +26,7 @@ export const siteConfig = {
       linkedin: "https://www.linkedin.com/in/example",
     },
   ],
-  securityPosture: "GDPR-aligned; SOC 2 on the roadmap",
-  showSecurityPosture: true,
   analytics: { provider: "none" as "none" | "plausible" | "ga4", id: "" },
-  markets: ["US", "UK", "Middle East", "India"],
 } as const;
 
 export type SiteConfig = typeof siteConfig;

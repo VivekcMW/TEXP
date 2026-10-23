@@ -1,8 +1,8 @@
 ---
 title: Custom AI Agents
-summary: Bespoke agents for support, sales operations and finance that handle a whole job end to end, with the guardrails your risk team will sign off.
+summary: Bespoke agents for support, sales operations and finance, with responsibilities, permitted actions and review requirements agreed around your team.
 targetQuery: build vs buy an AI agent
-problem: Off-the-shelf agents cover the generic 60% of a job and fall over on the 40% that is specific to your products, policies and systems. Building in-house means a team learning on your production data.
+problem: Generic agents may not fit the parts of a job that depend on your products, policies and systems. A custom approach needs clear boundaries, representative evaluation cases and a safe deployment plan.
 approach:
   - "Define the agent's job as a contract: inputs, allowed actions, escalation rules, success metric"
   - "Design the tool layer so the agent can only do what the contract allows"
@@ -12,13 +12,13 @@ deliverables:
   - "Agent with a documented action contract and audit log"
   - "Evaluation suite replayed on every change"
   - "Escalation workflow and operator console"
-timelineWeeks: 10
+timeline: Timing depends on the agent's responsibilities, integrations, risk review and evaluation needs.
 caseStudy: healthcare-prior-auth-agents
 faq:
   - q: Build or buy?
-    a: Buy when the job is generic and the vendor can show your success metric on your data. Build when the job depends on your systems and policies, or the data cannot leave your environment. We will tell you which, and we have recommended buying.
+    a: Compare existing products with a custom approach using your requirements and representative cases. Build when the job needs interfaces or controls that available products cannot reasonably support.
   - q: How do you stop the agent doing something harmful?
-    a: It can only call tools we expose, each with its own permission scope, and anything outside confidence thresholds goes to a person. Every action is logged and reversible.
+    a: Define permitted tools, approval rules and tests for misuse and failure. Recovery depends on the integration; actions that cannot be undone need appropriate approval and a documented response plan.
   - q: Who owns the code?
     a: You do. It runs in your cloud, and the handover includes the evaluation suite so your team can change it safely.
 diagram: agent-loop
@@ -31,11 +31,3 @@ seo:
 ## Who this is for
 
 Department heads with a KPI and a budget who have outgrown generic tools.
-
-## What we build
-
-An agent whose job is written down as a contract, a tool layer that enforces it, and an evaluation suite that proves it before anyone relies on it.
-
-## What you get after ten weeks
-
-An agent handling real volume behind a human gate, metrics that show when to widen its autonomy, and a team that can change it without fear.

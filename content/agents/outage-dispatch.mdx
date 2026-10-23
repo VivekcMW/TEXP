@@ -1,0 +1,41 @@
+---
+title: "Outage dispatch agent"
+summary: "Reads inbound faults, matches them to incidents and assets, and drafts the dispatch with the right crew and parts. The control room keeps every safety call."
+unit: "one fault or outage ticket"
+trigger: "A fault is reported by a customer, a sensor or a crew, on any channel."
+autonomy: "Drafts every dispatch and groups duplicates into incidents. Dispatchers approve from a risk-sorted queue; anything safety-flagged waits for the control room."
+steps:
+  - { label: "Reads the inbound fault", tool: "tickets.read", detail: "Channel, location, description" }
+  - { label: "Matches to incidents and assets", tool: "incidents.match", detail: "Open incidents, asset register" }
+  - { label: "Drafts the dispatch", tool: "dispatch.draft", detail: "Crew skills, parts, route" }
+  - { label: "Dispatcher or control room approves", tool: "human.review", detail: "Risk-sorted queue" }
+  - { label: "Dispatches and updates customers", tool: "dispatch.send", detail: "Crew notified, customers told" }
+tools:
+  - { name: "tickets.read", reads: "Fault reports from every channel", writes: "Nothing", approval: "none" }
+  - { name: "incidents.match", reads: "Open incidents and the asset register", writes: "A link from the ticket to the incident", approval: "none" }
+  - { name: "dispatch.draft", reads: "Incident, crews and parts availability", writes: "A proposed dispatch", approval: "none" }
+  - { name: "dispatch.send", reads: "The approved dispatch", writes: "Crew assignment and customer updates", approval: "threshold" }
+gates:
+  - "Safety-flagged faults wait for the control room"
+  - "Dispatch to a live circuit or a hazardous location is always approved by a person"
+  - "The agent operates in the IT estate only; operational technology is out of scope"
+evidence:
+  - "Each dispatch lists the incident match and the asset data behind it"
+  - "Approval times and overrides are recorded per ticket"
+  - "Storm-mode volumes and decisions are reported to the regulator from the same log"
+industry: energy-utilities
+service: custom-ai-agents
+caseStudy: energy-outage-dispatch
+diagram: agent-loop
+seo:
+  title: "Outage dispatch agent for utilities"
+  description: "Explore fault intake, incident matching and dispatch drafts for utilities. Dispatchers and the control room retain approval and safety decisions."
+---
+
+## Where it fits
+
+Distribution utilities and energy operators where dispatchers read tickets by hand and the process collapses under storm volume.
+
+## What changes for the team
+
+The intended change is a review queue with related reports and incident evidence brought together. Dispatch suitability, escalation handling and any operational benefit require validation.

@@ -6,32 +6,24 @@ pains:
   - "Returns and warranty tickets answered by hand from a policy document the agent has to re-read"
   - "Product questions that need the spec sheet, the stock system and a human judgement call"
   - "Merchandising teams reconciling supplier price files by hand every week"
-  - "Peak season staffing that doubles cost for a quarter"
+  - "Peak-season workload that puts pressure on staffing and service consistency"
 compliance:
-  - "PCI DSS scope kept out of the model path; payment data never reaches a prompt"
+  - "Payment-data exclusions and PCI DSS scope reviewed for the proposed data flow"
   - "Consumer protection rules on automated decisions about refunds"
 caseStudy: retail-returns-assistant
 services: [llm-rag-integration, ai-automation]
 faq:
   - q: Will the assistant give wrong refund answers?
-    a: It answers only from your current policy with a citation, and refunds above a threshold go to a person. The evaluation set includes the tricky cases your team flagged.
+    a: Incorrect answers remain possible. Evaluate policy grounding, citations and abstention using difficult cases, and agree which refund decisions always need a person.
   - q: Can it work in our help desk?
-    a: Yes. We deploy inside Zendesk, Gorgias, Freshdesk or Intercom rather than adding another tool.
+    a: Assess the available APIs, permissions and extension options in your help desk. Integration feasibility is confirmed before committing to a particular workflow.
   - q: What about peak season?
-    a: That is the point. The assistant absorbs the volume spike; your permanent team handles what needs judgement.
+    a: Test representative peak traffic, provider limits and review capacity. Define queueing and manual fallback rather than assuming that automation removes every capacity constraint.
 seo:
   title: AI Consulting for Retail and E-commerce
-  description: Returns assistants and merchandising agents grounded in your catalogue and policies, with measured ticket resolution rates.
+  description: Explore returns and merchandising workflows grounded in your catalogue and policies, with evaluation and human approval rules.
 ---
 
-## Where the cost hides
+## An illustrative approach
 
-The support queue after a launch or a sale, and the spreadsheet work behind merchandising. Both scale with volume, and volume is seasonal.
-
-## What we have built
-
-A returns assistant that resolves the majority of tickets with a cited policy answer, and reconciliation agents for supplier files.
-
-## Compliance notes
-
-Card data never enters the model path. Refund decisions above a threshold are always made by a person, and the assistant says so.
+A returns assistant could prepare cited policy answers for review, while a reconciliation agent could identify discrepancies in supplier files. Coverage and suitability need evaluation with representative cases.

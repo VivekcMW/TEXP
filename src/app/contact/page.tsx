@@ -1,32 +1,37 @@
 import { SectionHeading } from "@/components/SectionHeading";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@site-config";
 import { BookingEmbed } from "@/components/BookingEmbed";
+import { ContactForm } from "@/components/ContactForm";
+import { isLeadCaptureEnabled } from "@/lib/leads/provider";
 
-export const metadata = buildMetadata({ title: "Book a 30-minute AI audit", description: "Pick a slot. You describe one process; we tell you what it would cost to automate and what it would save. No deck, no pitch.", path: "/contact" });
+export const metadata = buildMetadata({ title: "Discuss your AI workflow", description: "Start with the process, the systems involved and the decisions that need your team. Explore requirements before agreeing a delivery scope.", path: "/contact" });
 
-export default function ContactPage() {
-  return (
-    <main>
-      <Breadcrumbs items={[{ name: "Contact", path: "/contact" }]} />
-      <section className="container-x py-12">
-        <SectionHeading as="h1" eyebrow="Contact" title="Pick a slot">Thirty minutes. You describe one process; we tell you what it would cost to automate and what it would save.</SectionHeading>
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1.4fr_1fr]">
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ sent?: string }> }) {
+  const { sent } = await searchParams;
+  return <main>
+    <header className="container-x page-intro">
+      <SectionHeading as="h1" eyebrow="Contact" title="Let’s talk about your workflow">Start with one recurring task or difficult handoff. Describe what happens today and where your people need to stay in control.</SectionHeading>
+    </header>
+    <section className="container-x detail-content">
+      <div className="detail-grid">
+        <ContactForm enabled={isLeadCaptureEnabled()} initiallySaved={sent === "1"} />
+        <aside className="space-y-8">
           <div>
-            <BookingEmbed url={siteConfig.bookingUrl} email={siteConfig.contactEmail} />
+            <h2 className="font-display text-2xl">A useful starting conversation</h2>
+            <ul className="mt-5 space-y-4 text-muted">
+              <li className="border-b border-line pb-4">The work your team repeats and the exceptions that make it difficult.</li>
+              <li className="border-b border-line pb-4">The systems, information owners and access requirements involved.</li>
+              <li>The decisions, evidence and evaluation needed before a pilot.</li>
+            </ul>
           </div>
-          <form action="/api/leads" method="post" className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-6">
-            <p className="font-medium">Prefer to write first?</p>
-            <label className="text-sm">Name<input name="name" required className="mt-1 w-full rounded-xl border border-line bg-bg px-3 py-2" /></label>
-            <label className="text-sm">Work email<input name="email" type="email" required className="mt-1 w-full rounded-xl border border-line bg-bg px-3 py-2" /></label>
-            <label className="text-sm">Company<input name="company" className="mt-1 w-full rounded-xl border border-line bg-bg px-3 py-2" /></label>
-            <label className="text-sm">One process you would automate<textarea name="message" rows={4} className="mt-1 w-full rounded-xl border border-line bg-bg px-3 py-2" /></label>
-            <input type="hidden" name="source" value="contact" />
-            <button className="w-fit rounded-full bg-accent px-5 py-2 text-sm font-medium text-accent-ink">Send</button>
-          </form>
-        </div>
-      </section>
-    </main>
-  );
+          {siteConfig.bookingUrl ? <BookingEmbed url={siteConfig.bookingUrl} email={siteConfig.contactEmail} /> : <div className="rounded-2xl bg-tint p-6">
+            <h2 className="font-display text-lg">Booking is not enabled</h2>
+            <p className="mt-3 text-sm text-muted">This preview has no connected calendar or verified contact details. No third-party booking service is loaded.</p>
+          </div>}
+          {siteConfig.contactEmail && <a href={`mailto:${siteConfig.contactEmail}`} className="text-accent underline">{siteConfig.contactEmail}</a>}
+        </aside>
+      </div>
+    </section>
+  </main>;
 }

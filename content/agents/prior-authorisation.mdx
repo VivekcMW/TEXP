@@ -1,0 +1,41 @@
+---
+title: "Prior authorisation agent"
+summary: "Reads the referral and clinical notes, matches payer criteria and drafts the request with citations. A clinician signs every submission."
+unit: "one prior authorisation request"
+trigger: "A referral or order is placed that requires payer authorisation."
+autonomy: "Drafts the full request and the clinical justification. Nothing is submitted without a clinician's signature, regardless of confidence."
+steps:
+  - { label: "Reads the referral and notes", tool: "ehr.read", detail: "Diagnosis, history, imaging reports" }
+  - { label: "Matches the payer's criteria", tool: "payer.rules", detail: "Criteria met, missing or unclear" }
+  - { label: "Drafts the request with citations", tool: "auth.draft", detail: "Codes, justification, sources" }
+  - { label: "Clinician reviews and signs", tool: "human.review", detail: "Always; edits are kept" }
+  - { label: "Submits to the payer portal", tool: "portal.submit", detail: "Confirmation attached to the chart" }
+tools:
+  - { name: "ehr.read", reads: "The patient's chart for this encounter only", writes: "Nothing", approval: "none" }
+  - { name: "payer.rules", reads: "Published payer criteria for the procedure", writes: "Nothing", approval: "none" }
+  - { name: "auth.draft", reads: "Notes and matched criteria", writes: "A draft request in the work queue", approval: "none" }
+  - { name: "portal.submit", reads: "The signed request", writes: "The payer submission and the chart note", approval: "always" }
+gates:
+  - "A clinician signs every request before submission"
+  - "Requests where a criterion is unclear are flagged, with the gap named, not guessed"
+  - "Protected health information never leaves your environment or region"
+evidence:
+  - "Each justification cites the note, result or guideline it is based on"
+  - "Clinician edits are stored and reviewed monthly to improve the drafts"
+  - "Submission confirmations are filed to the chart automatically"
+industry: healthcare
+service: custom-ai-agents
+caseStudy: healthcare-prior-auth-agents
+diagram: agent-loop
+seo:
+  title: "Prior authorisation agent for healthcare teams"
+  description: "Explore prior authorisation drafts with matched payer criteria and clinical citations. Every submission needs clinician review and signature."
+---
+
+## Where it fits
+
+Provider groups and hospital departments where coordinators spend hours per request and clinicians review after hours.
+
+## What changes for the team
+
+The intended change is an evidence-linked draft for clinician review, with missing criteria made visible before submission. Review effort and payer outcomes depend on the case and must be evaluated separately.

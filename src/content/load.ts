@@ -1,11 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { collections, type CollectionName, type Service, type Industry, type CaseStudy, type Insight } from "./schemas";
+import { collections, type CollectionName, type Service, type Industry, type CaseStudy, type Insight, type Agent } from "./schemas";
 
 export const CONTENT_ROOT = path.join(process.cwd(), "content");
 
-type Loaded = { services: Service; industries: Industry; "case-studies": CaseStudy; insights: Insight };
+type Loaded = { services: Service; industries: Industry; "case-studies": CaseStudy; insights: Insight; agents: Agent };
 
 export function loadCollection<N extends CollectionName>(name: N, rootDir: string = CONTENT_ROOT): Loaded[N][] {
   const dir = path.join(rootDir, name);
@@ -39,5 +39,6 @@ export function getBySlug<N extends CollectionName>(name: N, slug: string, rootD
 export const getServices = () => loadCollection("services");
 export const getIndustries = () => loadCollection("industries");
 export const getCaseStudies = () => loadCollection("case-studies");
+export const getAgents = () => loadCollection("agents");
 export const getInsights = () =>
   loadCollection("insights").sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1));

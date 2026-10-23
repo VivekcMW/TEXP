@@ -7,6 +7,6 @@ export function mulberry32(a: number) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
-export const ACCENT = "#0f5c4a";
-export const ACCENT_LIGHT = "#6fd3b4";
-export const MUTED = "#8a8378";
+export const ACCENT = "#0b7a5e";
+export const ACCENT_LIGHT = "#2dd4a8";
+export const MUTED = "#9aa7a4";

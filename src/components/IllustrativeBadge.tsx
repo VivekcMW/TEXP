@@ -1,3 +1,3 @@
 export function IllustrativeBadge() {
-  return <span className="inline-block rounded-full border border-line px-2 py-0.5 text-xs text-muted" title="Numbers are representative of engagements of this type">Illustrative example</span>;
+  return <span className="inline-block rounded-full bg-tint px-2.5 py-1 text-xs text-muted" title="A proposed workflow, not a verified customer result or a performance promise">Illustrative example</span>;
 }

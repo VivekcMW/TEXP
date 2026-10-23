@@ -1,0 +1,43 @@
+---
+title: "Claims intake agent"
+summary: "Reads inbound claims, checks cover, pulls shipment evidence and drafts the settlement. An adjuster approves above a value or below a confidence threshold."
+unit: "one damage or loss claim"
+trigger: "A claim email or portal submission arrives, with or without attachments."
+autonomy: "Drafts routine claims and files only within your agreed approval rules. Claims outside value or confidence limits, or flagged for fraud indicators, wait for an adjuster."
+steps:
+  - { label: "Reads the claim pack", tool: "documents.read", detail: "Email thread, photos, PDFs" }
+  - { label: "Checks policy and cover", tool: "policy.lookup", detail: "Cover, excess, exclusions" }
+  - { label: "Pulls shipment and scan data", tool: "tms.query", detail: "Delivery, scans, exceptions" }
+  - { label: "Drafts the settlement with evidence", tool: "claims.draft", detail: "Amount, reasons, linked sources" }
+  - { label: "Adjuster verifies and approves", tool: "human.review", detail: "One click, with the draft" }
+  - { label: "Files and notifies the customer", tool: "claims.file", detail: "Logged, subject to agreed notification controls" }
+tools:
+  - { name: "documents.read", reads: "Claim emails, attachments and portal forms", writes: "Nothing", approval: "none" }
+  - { name: "policy.lookup", reads: "Policy terms and cover for the account", writes: "Nothing", approval: "none" }
+  - { name: "tms.query", reads: "Shipment, scan and carrier records", writes: "Nothing", approval: "none" }
+  - { name: "claims.draft", reads: "Everything gathered so far", writes: "A draft settlement in the claims system", approval: "none" }
+  - { name: "claims.file", reads: "The approved draft", writes: "The settlement record and the customer notification", approval: "threshold" }
+gates:
+  - "Claims outside agreed value or confidence limits wait for a named adjuster"
+  - "Any fraud indicator routes to the special investigations queue, never auto-filed"
+  - "Notification review and recall controls are agreed for the connected system"
+evidence:
+  - "Every settlement links the policy clause, the scan record and the photo it relied on"
+  - "Adjuster edits are stored beside the draft and feed the monthly evaluation"
+  - "Tool calls, inputs and outputs are logged with timestamps in your environment"
+industry: logistics
+service: ai-automation
+caseStudy: logistics-claims-automation
+diagram: automation-flow
+seo:
+  title: "Claims intake agent — agentic claims handling"
+  description: "Explore an agent that gathers claim evidence and drafts settlements with adjuster approval rules. Scope and outcomes depend on your process."
+---
+
+## Where it fits
+
+Carriers, insurers and 3PLs with a claims desk that grows with volume. The agent takes the reading, lookup and drafting; the handlers keep the judgement calls.
+
+## What changes for the team
+
+The intended change is a queue of evidence-linked drafts for review rather than repeated inbox and system lookups. Handling effort and escalation quality need evaluation in your process.

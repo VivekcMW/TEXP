@@ -20,9 +20,10 @@ const fileProvider: LeadProvider = {
     await fs.appendFile(path.join(dir, "leads.jsonl"), JSON.stringify(lead) + "\n");
   },
 };
-const logProvider: LeadProvider = { async save(lead) { console.log("[lead]", JSON.stringify(lead)); } };
-
-export const provider: LeadProvider = process.env.NODE_ENV === "production" ? logProvider : fileProvider;
+export function isLeadCaptureEnabled(): boolean {
+  return process.env.NODE_ENV === "development" && process.env.ENABLE_LOCAL_LEAD_CAPTURE === "true";
+}
 export async function saveLead(lead: Lead): Promise<void> {
-  await provider.save({ ...lead, receivedAt: new Date().toISOString() });
+  if (!isLeadCaptureEnabled()) throw new Error("Enquiry storage is not configured.");
+  await fileProvider.save({ ...lead, receivedAt: new Date().toISOString() });
 }

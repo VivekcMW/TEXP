@@ -1,0 +1,41 @@
+---
+title: "Permit completeness agent"
+summary: "Checks applications against published requirements, prepares requests for missing documents and drafts routing for the case officer. Officers keep every application decision."
+unit: "one permit application"
+trigger: "An application is submitted through the portal, by email or at the counter and scanned."
+autonomy: "Checks, requests and drafts. It never decides an application; an officer decides every case and the record shows both the recommendation and the decision."
+steps:
+  - { label: "Reads the application", tool: "applications.read", detail: "Forms, plans, attachments" }
+  - { label: "Checks against the requirements", tool: "requirements.check", detail: "Published list per permit type" }
+  - { label: "Requests missing documents", tool: "applicant.notify", detail: "Plain language, subject to review rules" }
+  - { label: "Drafts the routing recommendation", tool: "routing.draft", detail: "Team, priority, evidence" }
+  - { label: "Case officer decides", tool: "human.review", detail: "Always; decision recorded" }
+tools:
+  - { name: "applications.read", reads: "The application and its attachments", writes: "Nothing", approval: "none" }
+  - { name: "requirements.check", reads: "Published requirements for the permit type", writes: "A completeness result on the case", approval: "none" }
+  - { name: "applicant.notify", reads: "The list of missing items", writes: "A plain-language request to the applicant", approval: "threshold" }
+  - { name: "routing.draft", reads: "The complete application", writes: "A routing recommendation for the officer", approval: "always" }
+gates:
+  - "An officer decides every application; the agent only checks, requests and drafts"
+  - "Requests to applicants above a complexity threshold are reviewed before sending"
+  - "Everything the agent produces follows the accessibility and records retention standards"
+evidence:
+  - "Each completeness result lists the requirement and the document matched to it"
+  - "The recommendation and the officer's decision are stored side by side"
+  - "The full trail is retained under the records policy and answerable to information requests"
+industry: public-sector
+service: enterprise-ai-solutions
+caseStudy: public-sector-permit-checks
+diagram: enterprise-stack
+seo:
+  title: "Permit completeness agent for public bodies"
+  description: "Explore permit completeness checks, missing-document requests and routing drafts. Officers decide each application under the authority's rules."
+---
+
+## Where it fits
+
+Permitting, licensing and casework teams where trained officers do clerical reading before they can decide anything.
+
+## What changes for the team
+
+The intended change is clearer visibility of missing documents and routing evidence. Officers retain decisions; response times and statutory obligations depend on the authority's process.

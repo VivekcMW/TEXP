@@ -1,0 +1,71 @@
+.office { min-width: 0; width: 100%; max-width: 1040px; margin-inline: auto; scroll-margin-top: 6rem; }
+.office button:disabled { cursor: default; opacity: .6; }
+.workflowPicker { display: flex; justify-content: center; gap: .25rem; padding: 0 0 .25rem; }
+.workflowPicker button { cursor: pointer; border: 1px solid transparent; border-radius: 6px; padding: .38rem .7rem; font-size: .75rem; color: var(--color-muted); transition: background .2s; }
+.workflowPicker button:hover { background: var(--color-tint); }
+.workflowPicker button[aria-pressed="true"] { color: var(--color-accent); background: #edf6f1; border-color: #d7e9df; }
+.scene { position: relative; height: clamp(270px, 24vw, 350px); overflow: hidden; }
+.poster, .canvas { position: absolute; inset: 0; height: 100%; width: 100%; }
+.poster { object-fit: contain; transition: opacity .4s; }
+.posterHidden { opacity: 0; }
+.scene:has([data-ready="false"]) > .poster { opacity: 0; }
+.canvas canvas { touch-action: pan-y; }
+.request { position: absolute; z-index: 4; display: flex; align-items: center; gap: .55rem; top: 1rem; left: 1.1rem; max-width: 72%; pointer-events: none; }
+.requestIcon { display: grid; place-items: center; width: 2rem; height: 2rem; flex: none; border: 1px solid #d9e6df; border-radius: 9px; color: var(--color-accent); background: #ffffffd9; }
+.miniLabel { display: block; color: #637a6d; font-size: .6rem; text-transform: uppercase; letter-spacing: .12em; }
+.request p { font-size: .78rem; color: #254837; line-height: 1.5; }
+.sceneCaption { position: absolute; z-index: 4; bottom: .8rem; left: 1.1rem; right: 1.1rem; display: flex; justify-content: space-between; gap: .5rem; color: #526b5d; font-size: .65rem; pointer-events: none; }
+.sceneCaption > span:first-child { display: flex; align-items: center; gap: .35rem; }
+.captionDot { height: 5px; width: 5px; background: #c08542; border-radius: 50%; }
+.activity { min-height: 72px; display: flex; align-items: flex-start; justify-content: center; gap: .7rem; padding: .6rem 1.1rem; }
+.activityIcon { margin-top: .1rem; width: 1.65rem; height: 1.65rem; display: grid; place-items: center; flex: none; border-radius: 50%; background: #eaf5ee; color: var(--color-accent); font-family: monospace; font-size: .65rem; }
+.activity[data-waiting="true"] .activityIcon { background: #fcf1dd; color: #805b22; }
+.activityText p { font-size: .8rem; font-weight: 500; color: var(--color-ink); line-height: 1.6; }
+.activityText > span { display: block; margin-top: .15rem; font-size: .72rem; color: var(--color-muted); line-height: 1.7; }
+.controls { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .5rem; padding: .65rem 1.1rem .3rem; }
+.controls button { display: inline-flex; align-items: center; justify-content: center; gap: .4rem; min-height: 44px; cursor: pointer; font-size: .875rem; border-radius: 5px; padding: .25rem .4rem; }
+.controls button:hover { background: #edf3ef; }
+.playback { display: flex; align-items: center; gap: .25rem; }
+.controls .playButton { color: var(--color-accent); font-weight: 500; }
+.playButton > span { font-size: 1rem; line-height: 1; }
+.controls .replay { width: 32px; color: var(--color-muted); }
+.playback select { max-width: 130px; padding: .45rem .3rem; background: transparent; color: var(--color-muted); font-size: .68rem; border: 0; cursor: pointer; }
+.exception { color: var(--color-muted); }
+.toggle { width: 23px; height: 13px; border-radius: 20px; background: #dce5df; padding: 2px; flex: none; }
+.toggle > span { display: block; width: 9px; height: 9px; border-radius: 50%; background: white; box-shadow: 0 1px 2px #0002; transition: transform .2s; }
+.exception[aria-pressed="true"] .toggle { background: #a77d3e; }
+.exception[aria-pressed="true"] .toggle > span { transform: translateX(10px); }
+.disclaimer { padding: .2rem 1.1rem .8rem; color: #617568; font-size: .63rem; text-align: center; }
+.sceneNotice { padding: .5rem 1rem; background: #fcf4e8; color: #805b22; font-size: .65rem; text-align: center; }
+@media (max-width: 1023px) {
+  .scene { height: 300px; }
+}
+@media (max-width: 480px) {
+  .workflowPicker { padding-inline: .8rem; gap: .1rem; }
+  .workflowPicker button { padding-inline: .4rem; font-size: .75rem; }
+  .scene { height: 270px; }
+  .poster, .canvas { top: 12%; height: 88%; }
+  .request { left: .75rem; top: .75rem; max-width: 88%; }
+  .request p { font-size: .75rem; }
+  .sceneCaption { left: .75rem; right: .75rem; bottom: .6rem; font-size: .75rem; }
+  .sceneCaption > span:first-child { max-width: 65%; }
+  .activity { padding-inline: .5rem; min-height: 84px; gap: .5rem; }
+  .activityText p { font-size: .875rem; }
+  .activityText > span { font-size: .75rem; }
+  .controls { padding-inline: .6rem; }
+  .controls button { min-height: 44px; font-size: .75rem; }
+  .controls .replay { width: 44px; }
+  .playback { gap: 0; }
+  .playback select { font-size: .75rem; max-width: 120px; }
+  .disclaimer { font-size: .75rem; padding-inline: .6rem; }
+}
+.workflowPicker button, .playback select { min-height: 44px; }
+.miniLabel, .sceneCaption, .disclaimer { font-size: .75rem; }
+.request p, .activityText p { font-size: .875rem; }
+.activityText > span { font-size: .8125rem; }
+.controls .replay { width: 44px; }
+.playback select { min-width: 0; font-size: .8125rem; }
+.playback { flex-wrap: wrap; }
+@media (prefers-reduced-motion: reduce) {
+  .poster, .toggle > span, .workflowPicker button { transition: none; }
+}

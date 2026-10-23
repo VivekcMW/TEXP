@@ -1,11 +1,9 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { SectionHeading } from "@/components/SectionHeading";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { DiagramById } from "@/components/diagrams";
-import { SceneSlot } from "@/components/scenes/SceneSlot";
 import { FAQ } from "@/components/FAQ";
-import { ProcessSteps } from "@/components/ProcessSteps";
 import { CTABand } from "@/components/CTABand";
 import { JsonLd } from "@/components/JsonLd";
 import { Mdx } from "@/components/Mdx";
@@ -29,26 +27,29 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const cs = getBySlug("case-studies", s.caseStudy);
   return (
     <main>
-      <Breadcrumbs items={[{ name: "Services", path: "/services" }, { name: s.title, path: `/services/${s.slug}` }]} />
-      <section className="container-x py-12">
-        <SectionHeading as="h1" eyebrow={s.targetQuery} title={s.title}>{s.summary}</SectionHeading>
-        <div className="mt-12 grid gap-12 md:grid-cols-[1.2fr_1fr]">
+      <header className="container-x page-intro">
+        <SectionHeading as="h1" eyebrow="Services" title={s.title}>{s.summary}</SectionHeading>
+        <Link href="/contact" className="btn btn-primary mt-6" data-cta="primary">Discuss your workflow</Link>
+      </header>
+      <section className="container-x detail-content">
+        <div className="detail-grid">
           <div>
-            <h2 className="font-display text-[length:var(--text-step-2)]">The problem</h2>
+            <Mdx source={s.body} />
+            <h2 className="mt-10 font-display section-title">The challenge</h2>
             <p className="prose-x mt-3 text-muted">{s.problem}</p>
             <h2 className="mt-10 font-display text-[length:var(--text-step-2)]">Our approach</h2>
             <ol className="mt-3 list-decimal space-y-2 pl-5">{s.approach.map((a) => <li key={a}>{a}</li>)}</ol>
-            <h2 className="mt-10 font-display text-[length:var(--text-step-2)]">Deliverables</h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5">{s.deliverables.map((d) => <li key={d}>{d}</li>)}</ul>
-            <p className="mt-6 text-sm text-muted">Typical timeline: {s.timelineWeeks} weeks</p>
           </div>
-          <div>{cs && <CaseStudyCard caseStudy={cs} />}</div>
+          <aside className="detail-panel bg-tint">
+            <h2 className="font-display section-title">What you could take forward</h2>
+            <p className="mt-3 text-sm text-muted">Representative outputs, confirmed in the agreed scope.</p>
+            <ul className="mt-3 list-disc space-y-2 pl-5">{s.deliverables.map((d) => <li key={d}>{d}</li>)}</ul>
+            <p className="mt-6 text-sm text-muted">{s.timeline} Pricing and milestones are confirmed in a written proposal.</p>
+          </aside>
         </div>
-        {s.scene && <div className="my-12 aspect-[16/9]"><SceneSlot id={s.scene} /></div>}
-        <DiagramById id={s.diagram} />
-        <Mdx source={s.body} />
+        <div className="mx-auto mt-10 max-w-3xl"><DiagramById id={s.diagram} /></div>
+        {cs && <div className="mt-10"><h2 className="mb-6 font-display section-title">Explore a related workflow</h2><CaseStudyCard caseStudy={cs} /></div>}
       </section>
-      <ProcessSteps />
       <FAQ items={s.faq} />
       <CTABand />
       <JsonLd data={serviceJsonLd(s)} />

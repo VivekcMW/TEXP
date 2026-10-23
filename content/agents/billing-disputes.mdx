@@ -1,0 +1,41 @@
+---
+title: "Billing dispute agent"
+summary: "Reads the complaint, the bill, the plan and the usage record, drafts a cited answer and applies credits within a threshold. People handle the rest."
+unit: "one billing dispute"
+trigger: "A customer disputes a charge by chat, email or in the app."
+autonomy: "Answers and credits within the agreed threshold without a person. Above it, or when the record is ambiguous, the draft and the reasoning go to an agent."
+steps:
+  - { label: "Reads the dispute", tool: "tickets.read", detail: "Message, account, channel" }
+  - { label: "Pulls bill, plan and usage", tool: "billing.query", detail: "Three billing systems by API" }
+  - { label: "Drafts the answer with citations", tool: "answer.draft", detail: "Plan clause, usage record" }
+  - { label: "Applies or proposes a credit", tool: "credit.apply", detail: "Threshold agreed with finance" }
+  - { label: "Sends or escalates", tool: "human.review", detail: "Above threshold or ambiguous" }
+tools:
+  - { name: "tickets.read", reads: "The dispute and prior contact history", writes: "Nothing", approval: "none" }
+  - { name: "billing.query", reads: "Bill, plan terms and usage records", writes: "Nothing", approval: "none" }
+  - { name: "answer.draft", reads: "Everything gathered", writes: "A draft reply with citations", approval: "none" }
+  - { name: "credit.apply", reads: "The decision and the threshold", writes: "A credit on the account", approval: "threshold" }
+gates:
+  - "Credits above the threshold are approved by a person"
+  - "Ambiguous records are never resolved by guessing; the gap is named in the escalation"
+  - "Customer data is minimised to the case and stays in-region"
+evidence:
+  - "Every reply cites the plan clause and the usage record it relied on"
+  - "Every credit carries its reasoning in the account notes"
+  - "Escalation reasons are stored and reviewed with finance monthly"
+industry: telecommunications
+service: llm-rag-integration
+caseStudy: telecom-billing-disputes
+diagram: rag-pipeline
+seo:
+  title: "Billing dispute agent for telecom operators"
+  description: "Explore billing dispute investigation with citations, credit limits and human review for ambiguous records. Outcomes depend on your process."
+---
+
+## Where it fits
+
+Operators with high dispute volume and billing systems inherited from mergers, where consistency of credits is as big a problem as speed.
+
+## What changes for the team
+
+Cited explanations and recorded credit reasoning can support more consistent review. People retain judgement calls; the effect on service quality should be evaluated against representative disputes.

@@ -1,33 +1,26 @@
 import { Hero } from "@/components/Hero";
-import { SceneSlot } from "@/components/scenes/SceneSlot";
-import { ProofBar } from "@/components/ProofBar";
 import { SectionHeading } from "@/components/SectionHeading";
-import { CaseStudyCard } from "@/components/CaseStudyCard";
-import { ServiceCard } from "@/components/ServiceCard";
+import { ResultRows } from "@/components/ResultRows";
 import { ProcessSteps } from "@/components/ProcessSteps";
 import { CTABand } from "@/components/CTABand";
+import { StackStrip } from "@/components/StackStrip";
 import { JsonLd } from "@/components/JsonLd";
-import { getCaseStudies, getServices } from "@/content/load";
+import { getCaseStudies } from "@/content/load";
 import { buildMetadata, organizationJsonLd, webSiteJsonLd } from "@/lib/seo";
 import { siteConfig } from "@site-config";
 
 export const metadata = buildMetadata({ title: `${siteConfig.name} — ${siteConfig.tagline}`.slice(0, 60), description: siteConfig.positioning, path: "/" });
 
 export default function Home() {
-  const caseStudies = getCaseStudies();
-  const services = getServices();
+  const caseStudies = [...getCaseStudies()].sort((a, b) => (a.result.date < b.result.date ? 1 : -1)).slice(0, 3);
   return (
     <main>
-      <Hero visual={<SceneSlot id="agentic-field" priority />} />
-      <ProofBar />
-      <section className="container-x my-20">
-        <SectionHeading eyebrow="Proof" title="Three processes, three measured results">We publish the number, the unit and the date. Illustrative studies are labelled.</SectionHeading>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">{caseStudies.map((c) => <CaseStudyCard key={c.slug} caseStudy={c} />)}</div>
+      <Hero />
+      <section className="container-x section-space">
+        <SectionHeading eyebrow="Workflow examples" title="Recognisable work. A different approach.">From incoming requests to evidence ready for review. Explore illustrative workflows and the decisions that stay with your team.</SectionHeading>
+        <div className="mt-12"><ResultRows caseStudies={caseStudies} /></div>
       </section>
-      <section className="container-x my-20">
-        <SectionHeading eyebrow="Services" title="One costly process at a time" />
-        <div className="mt-10 grid gap-6 md:grid-cols-3">{services.map((s) => <ServiceCard key={s.slug} service={s} />)}</div>
-      </section>
+      <StackStrip />
       <ProcessSteps />
       <CTABand />
       <JsonLd data={[organizationJsonLd(), webSiteJsonLd()]} />

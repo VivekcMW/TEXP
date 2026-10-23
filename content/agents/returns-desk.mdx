@@ -1,0 +1,41 @@
+---
+title: "Returns desk agent"
+summary: "Answers returns and order questions grounded in your catalogue and policies, issues labels within policy and escalates only when unsure."
+unit: "one customer returns ticket"
+trigger: "A customer message about a return, refund or order arrives on any channel."
+autonomy: "Handles returns within agreed policy and approval limits. Anything outside policy, above the refund threshold or below the agreed confidence level goes to a person with the draft."
+steps:
+  - { label: "Reads the customer's message", tool: "tickets.read", detail: "Text, photo, order reference" }
+  - { label: "Looks up the order and policy", tool: "orders.lookup", detail: "Window, condition, eligibility" }
+  - { label: "Decides and writes the answer", tool: "answer.draft", detail: "Cites the returns policy clause" }
+  - { label: "Escalates only if unsure", tool: "confidence.check", detail: "Agreed confidence threshold and refund cap" }
+  - { label: "Issues the label and replies", tool: "returns.issue", detail: "Label, refund, reply in one step" }
+tools:
+  - { name: "tickets.read", reads: "The ticket, its attachments and prior messages", writes: "Nothing", approval: "none" }
+  - { name: "orders.lookup", reads: "Order, shipment and the returns policy", writes: "Nothing", approval: "none" }
+  - { name: "answer.draft", reads: "Everything gathered", writes: "A draft reply on the ticket", approval: "none" }
+  - { name: "returns.issue", reads: "The approved decision", writes: "The return label, refund and customer reply", approval: "threshold" }
+gates:
+  - "Refunds above the cap or outside policy wait for a person"
+  - "Low-confidence answers are never sent; the draft goes to the queue with the reason"
+  - "Tone and policy wording are reviewed weekly against a sample of sent replies"
+evidence:
+  - "Every reply cites the policy clause and the order record it relied on"
+  - "Confidence and escalation reasons are stored per ticket"
+  - "Supervisor overrides feed the next evaluation run"
+industry: retail
+service: llm-rag-integration
+caseStudy: retail-returns-assistant
+diagram: rag-pipeline
+seo:
+  title: "Returns desk agent for retail support teams"
+  description: "Explore policy-grounded returns support with cited replies, scoped actions and human escalation. Autonomy depends on your rules and evaluation."
+---
+
+## Where it fits
+
+Retailers and marketplaces with a support queue dominated by returns, refunds and order status.
+
+## What changes for the team
+
+Support teams can focus on judgement cases while routine lookups and draft replies follow agreed rules. Consistency, handling effort and escalation quality need evaluation using your own cases.

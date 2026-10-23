@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" fill="none">
+  <path d="m120 367 420-180 345 190-412 181z" fill="#eef0e5"/><path d="m120 367 353 179 412-169v14L473 572 120 381z" fill="#d6e2d2"/>
+  <ellipse cx="335" cy="356" rx="42" ry="20" fill="#c8d8bf"/><path d="M335 349V139" stroke="#9eb5a2" stroke-width="12"/>
+  <path d="m335 140 17-99-17-3-10 94zm0 0 80 69 12-14-85-66zm0 0-97 38 7 16 99-47z" fill="#b8caba"/><circle cx="335" cy="140" r="13" fill="#77905a"/>
+  <path d="m414 394 83-88 77 42-83 91zm112 58 84-90 76 41-84 92z" fill="#426c7b" stroke="#bdd3cc" stroke-width="4"/>
+  <g stroke="#a1bfc1" stroke-width="2"><path d="m444 362 76 41m-49-71 76 41m-13-47-82 91m104 3 76 41m-48-71 76 41m-13-48-84 91"/></g>
+  <path d="m664 310 84-36 83 45-85 37z" fill="#b6c6ac"/><path d="m664 242 82 45v69l-82-45z" fill="#899f83"/><path d="m746 287 85-36v68l-85 37z" fill="#aabc9c"/><path d="m664 242 84-37 83 46-85 36z" fill="#cfdbc3"/>
+  <g stroke="#6e8765" stroke-width="10"><path d="M699 256v-48m26 62v-49m27 64v-49"/></g>
+  <path d="M702 207v-62l125 64v120m-125-160 125 65" stroke="#98ae8b" stroke-width="6"/>
+</svg>

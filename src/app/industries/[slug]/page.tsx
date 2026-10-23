@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { SectionHeading } from "@/components/SectionHeading";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { IndustryHero } from "@/components/industries/IndustryHero";
+import { toIndustryExperience } from "@/components/industries/experiences";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { FAQ } from "@/components/FAQ";
 import { CTABand } from "@/components/CTABand";
@@ -21,21 +21,23 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   const services = getServices().filter((s) => i.services.includes(s.slug));
   return (
     <main>
-      <Breadcrumbs items={[{ name: "Industries", path: "/industries" }, { name: i.title, path: `/industries/${i.slug}` }]} />
-      <section className="container-x py-12">
-        <SectionHeading as="h1" eyebrow={i.targetQuery} title={i.title}>{i.summary}</SectionHeading>
-        <div className="mt-12 grid gap-12 md:grid-cols-[1.2fr_1fr]">
+      <IndustryHero key={i.slug} industries={[toIndustryExperience(i)]} />
+      <section id="industry-workflows" className="container-x scroll-mt-24 section-space">
+        <div className="detail-grid">
           <div>
-            <h2 className="font-display text-[length:var(--text-step-2)]">Where the cost hides</h2>
+            <h2 className="font-display section-title">Operational challenges</h2>
             <ul className="mt-3 list-disc space-y-2 pl-5">{i.pains.map((p) => <li key={p}>{p}</li>)}</ul>
-            <h2 className="mt-10 font-display text-[length:var(--text-step-2)]">Compliance notes</h2>
-            <ul className="mt-3 list-disc space-y-2 pl-5">{i.compliance.map((c) => <li key={c}>{c}</li>)}</ul>
-            <h2 className="mt-10 font-display text-[length:var(--text-step-2)]">Relevant services</h2>
-            <ul className="mt-3 space-y-2">{services.map((s) => <li key={s.slug}><Link className="text-accent underline" href={`/services/${s.slug}`}>{s.title}</Link></li>)}</ul>
+            <Mdx source={i.body} />
           </div>
-          <div>{cs && <CaseStudyCard caseStudy={cs} />}</div>
+          <aside className="detail-panel bg-tint">
+            <h2 className="font-display section-title">Requirements to address</h2>
+            <p className="mt-3 text-sm text-muted">Confirm these design requirements with your operational, legal and compliance owners. They are not a certification or assurance of compliance.</p>
+            <ul className="mt-5 list-disc space-y-3 pl-5 text-sm">{i.compliance.map((c) => <li key={c}>{c}</li>)}</ul>
+            <h3 className="mt-8 font-display text-lg">Relevant services</h3>
+            <ul className="mt-3 space-y-2">{services.map((s) => <li key={s.slug}><Link className="text-accent underline" href={`/services/${s.slug}`}>{s.title}</Link></li>)}</ul>
+          </aside>
         </div>
-        <Mdx source={i.body} />
+        {cs && <div className="mt-12"><h2 className="mb-6 font-display section-title">A workflow to explore</h2><CaseStudyCard caseStudy={cs} /></div>}
       </section>
       <FAQ items={i.faq} />
       <CTABand />

@@ -2,15 +2,27 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 
 vi.mock("@/lib/leads/provider", async (importOriginal) => {
   const mod = await importOriginal<typeof import("@/lib/leads/provider")>();
-  return { ...mod, saveLead: vi.fn(async () => undefined) };
+  return { ...mod, saveLead: vi.fn(async () => undefined), isLeadCaptureEnabled: vi.fn(() => true) };
 });
 import { POST } from "@/app/api/leads/route";
-import { saveLead } from "@/lib/leads/provider";
+import { saveLead, isLeadCaptureEnabled } from "@/lib/leads/provider";
 
 const req = (body: unknown) => new Request("http://localhost/api/leads", { method: "POST", headers: { "content-type": "application/json" }, body: typeof body === "string" ? body : JSON.stringify(body) });
 
 describe("POST /api/leads", () => {
-  beforeEach(() => vi.mocked(saveLead).mockClear());
+  beforeEach(() => { vi.mocked(saveLead).mockClear(); vi.mocked(isLeadCaptureEnabled).mockReturnValue(true); });
+  it("rejects unconfigured delivery without accepting or logging a lead", async () => {
+    vi.mocked(isLeadCaptureEnabled).mockReturnValue(false);
+    const res = await POST(req({ email: "a@b.co", source: "contact" }));
+    expect(res.status).toBe(503);
+    expect(await res.json()).toMatchObject({ ok: false });
+    expect(saveLead).not.toHaveBeenCalled();
+  });
+  it("redirects a saved no-JavaScript form back to its confirmation", async () => {
+    const res = await POST(new Request("http://localhost/api/leads", { method: "POST", headers: { "content-type": "application/x-www-form-urlencoded" }, body: "email=a%40b.co&source=contact" }));
+    expect(res.status).toBe(303);
+    expect(res.headers.get("location")).toBe("http://localhost/contact?sent=1");
+  });
   it("saves a valid lead", async () => {
     const res = await POST(req({ email: "a@b.co", source: "roi", payload: { headcount: 3 } }));
     expect(res.status).toBe(200);
