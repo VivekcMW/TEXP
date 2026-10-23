@@ -18,7 +18,7 @@
 .featuredCopy > a { display: inline-flex; align-items: center; gap: 1.8rem; border-bottom: 1px solid #7c9f8d; padding-bottom: .4rem; margin-top: auto; font-size: .85rem; }
 .featuredCopy > a:focus-visible { outline-color: #e3f6cd; }
 .featured > .cover { border-radius: 0; height: 100%; min-height: 430px; padding: 3rem 2.5rem; }
-.cover { --paper: #efe9dc; --tone: #655533; --wash: #e2d7bd; position: relative; display: flex; align-items: center; justify-content: center; min-width: 0; padding: 1.75rem 2rem; background: var(--paper); color: var(--tone); overflow: hidden; }
+.cover { --paper: #efe9dc; --tone: #655533; --wash: #e2d7bd; container-type: inline-size; position: relative; display: flex; align-items: center; justify-content: center; min-width: 0; padding: 1.75rem 2rem; background: var(--paper); color: var(--tone); overflow: hidden; }
 .cover[data-theme="blue"] { --paper: #e3eff0; --tone: #3c6670; --wash: #c6dfe1; }
 .cover[data-theme="rose"] { --paper: #f2e7e1; --tone: #855c50; --wash: #e7cfc2; }
 .cover[data-theme="slate"] { --paper: #e6ebee; --tone: #486476; --wash: #cbd6dd; }
@@ -29,12 +29,13 @@
 .coverContent { position: relative; width: 100%; max-width: 390px; }
 .coverHeading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.15rem; font-size: .57rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
 .coverDot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.flow { display: grid; grid-template-columns: 1.1fr 30px 1fr; align-items: center; }
+.flow { display: grid; grid-template-columns: minmax(0, 1.1fr) 1.5rem minmax(0, 1fr); align-items: center; }
 .sources { border: 1px solid color-mix(in srgb, var(--tone) 18%, transparent); border-radius: 9px; background: rgb(255 255 255 / .78); padding: .85rem .8rem; }
 .sources > p { text-transform: uppercase; letter-spacing: .07em; font-size: .6rem; margin-bottom: .75rem; }
 .sources > div { display: flex; align-items: center; gap: .5rem; font-size: .72rem; line-height: 1.4; }
 .sources > div + div { border-top: 1px solid var(--paper); margin-top: .6rem; padding-top: .6rem; }
 .sources svg { flex-shrink: 0; opacity: .75; }
+.sources > div > span { min-width: 0; }
 .connector { text-align: center; font-size: 1rem; }
 .draft { align-self: stretch; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 1rem .85rem; border-radius: 9px; background: var(--tone); color: white; }
 .draft > p { margin-top: .8rem; font-size: .6rem; opacity: .8; }
@@ -118,7 +119,7 @@
   .libraryHeading > p { max-width: 42ch; }
   .filters { display: none; }
   .mobileFilter { display: grid; gap: .4rem; padding-block: 1rem; font-size: .7rem; color: var(--color-muted); }
-  .mobileFilter select { min-height: 44px; padding: .7rem .9rem; border: 1px solid var(--color-line); border-radius: 9px; color: var(--color-ink); font-size: .9rem; background: white; }
+  .mobileFilter select { width: 100%; min-width: 0; min-height: 44px; padding: .7rem .9rem; border: 1px solid var(--color-line); border-radius: 9px; color: var(--color-ink); font-size: 1rem; background: white; }
   .searchRow { flex-wrap: wrap; gap: .5rem; }
   .search { max-width: none; flex-basis: 100%; }
   .resultInfo { min-height: 34px; width: 100%; justify-content: space-between; }
@@ -152,3 +153,8 @@
 .story:last-child:nth-child(odd) > .cover { height: auto; }
 .detailCover { margin-bottom: 2rem; border-radius: 24px; overflow: hidden; }
 .detailCover .cover { min-height: 360px; padding: 1.5rem; }
+@container (max-width: 20rem) {
+  .flow { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+  .connector { transform: rotate(90deg); }
+  .review { width: 100%; }
+}

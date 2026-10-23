@@ -4,7 +4,7 @@
 .deskLabel:hover, .deskLabel[data-selected="true"] { background: #d5efdf; border-color: #629d7c; }
 .deskLabel[data-active="true"] { border-color: #83b599; box-shadow: 0 0 0 3px #d4e9d750; }
 .viewControls { position: absolute; right: 1rem; top: 1rem; display: flex; gap: 2px; border: 1px solid #d8e5d9; background: #ffffffe8; padding: 3px; border-radius: 9px; }
-.viewControls button { cursor: pointer; color: #41614c; width: 30px; height: 30px; font-size: 19px; border-radius: 5px; }
+.viewControls button { cursor: pointer; color: #41614c; width: 44px; height: 44px; font-size: 19px; border-radius: 5px; }
 .viewControls button:hover { background: #e9f2e9; }
 .viewControls button:disabled { opacity: .35; cursor: default; }
 .arrival { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--color-ink); transition: opacity .85s ease, visibility .85s; overflow: hidden; }
@@ -27,14 +27,13 @@
 .roleDetails { padding: .8rem 1.1rem; }
 .roleHeading { display: flex; align-items: center; justify-content: space-between; gap: .5rem; font-size: .8rem; }
 .roleHeading strong { font-weight: 500; }
-.roleHeading button { width: 1.6rem; height: 1.6rem; cursor: pointer; font-size: 1.2rem; color: var(--color-muted); }
+.roleHeading button { width: 44px; height: 44px; flex: none; cursor: pointer; font-size: 1.2rem; color: var(--color-muted); }
 .roleDetails dl { margin-top: .5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
 .roleDetails dt { color: var(--color-accent); font-size: .7rem; font-weight: 500; margin-bottom: .2rem; }
 .roleDetails dd { color: var(--color-muted); font-size: .75rem; line-height: 1.7; }
 @media (max-width: 480px) {
   .deskLabel { font-size: 8px; padding: .22rem .35rem; gap: .2rem; }
   .viewControls { right: .6rem; top: 0; padding: 2px; }
-  .viewControls button { width: 28px; height: 28px; }
   .arrivalOrbit { transform: scale(.8); margin-bottom: 1rem; }
   .arrivalEyebrow { font-size: .45rem; }
   .roleDetails dl { grid-template-columns: 1fr; gap: .55rem; }

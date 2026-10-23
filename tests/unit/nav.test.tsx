@@ -1,5 +1,5 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
-import { afterEach, describe, it, expect, vi } from "vitest";
+import { afterEach, beforeEach, describe, it, expect, vi } from "vitest";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { siteConfig } from "@site-config";
@@ -7,6 +7,18 @@ import { MobileMenu } from "@/components/MobileMenu";
 import Link from "next/link";
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/services/ai-automation" }));
+
+const headerObservers: Array<() => void> = [];
+
+beforeEach(() => {
+  headerObservers.length = 0;
+  vi.stubGlobal("ResizeObserver", class {
+    constructor(callback: () => void) { headerObservers.push(callback); }
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  });
+});
 
 describe("Nav", () => {
   it("renders the company name and primary links", () => {
@@ -40,6 +52,20 @@ function renderMenu() {
 }
 
 describe("Mobile menu dismissal", () => {
+  it("updates the menu's viewport offset when enlarged text changes the header height", () => {
+    const { container } = render(<header>
+      <MobileMenu links={menuLinks} cta={{ href: "/contact", label: "Contact" }} />
+    </header>);
+    const header = container.querySelector("header")!;
+    const bounds = vi.spyOn(header, "getBoundingClientRect").mockReturnValue(new DOMRect(0, 0, 390, 96));
+    fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
+    const root = screen.getByRole("button", { name: "Close menu" }).parentElement!;
+    expect(root.style.getPropertyValue("--header-height")).toBe("96px");
+    bounds.mockReturnValue(new DOMRect(0, 0, 390, 144));
+    headerObservers[0]();
+    expect(root.style.getPropertyValue("--header-height")).toBe("144px");
+  });
+
   it.each(["Current service", "Agents", "Contact"])("closes on %s without waiting for a route change", (label) => {
     document.body.style.overflow = "clip";
     renderMenu();
@@ -84,4 +110,4 @@ describe("Mobile menu dismissal", () => {
   });
 });
 
-afterEach(() => { cleanup(); document.body.style.overflow = ""; });
+afterEach(() => { cleanup(); vi.unstubAllGlobals(); document.body.style.overflow = ""; });

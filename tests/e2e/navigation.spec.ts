@@ -47,7 +47,7 @@ test("current-page taps, resizing, keyboard and logo navigation never leave a bl
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/agents");
   const nav = page.getByRole("navigation", { name: "Primary", exact: true });
-  const toggle = nav.getByRole("button", { name: /menu$/i });
+  const toggle = nav.getByRole("button", { name: /menu$/i, includeHidden: true });
   await toggle.click();
   await nav.getByRole("link", { name: "Agents", exact: true }).click();
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
@@ -58,7 +58,7 @@ test("current-page taps, resizing, keyboard and logo navigation never leave a bl
   await expect(toggle).toHaveAttribute("aria-expanded", "false");
   await expect(page.locator("body")).not.toHaveCSS("overflow", "hidden");
   await page.evaluate(() => window.scrollTo(0, 0));
-  await page.mouse.wheel(0, 400);
+  await page.evaluate(() => window.scrollBy(0, 400));
   await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
 
   await page.setViewportSize({ width: 975, height: 857 });

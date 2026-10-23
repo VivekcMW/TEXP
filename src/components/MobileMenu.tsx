@@ -25,12 +25,20 @@ export function MobileMenu({ links, cta }: { links: Array<{ href: string; label:
       if (e.target instanceof Node && !root.current?.contains(e.target)) setOpen(false);
     };
     const previousOverflow = document.body.style.overflow;
+    const header = root.current?.closest("header");
+    const measureHeader = () => {
+      if (header) root.current?.style.setProperty("--header-height", `${header.getBoundingClientRect().height}px`);
+    };
+    const observer = new ResizeObserver(measureHeader);
+    if (header) observer.observe(header);
+    measureHeader();
     onResize();
     desktop.addEventListener("change", onResize);
     window.addEventListener("keydown", onKey);
     document.addEventListener("pointerdown", onOutsidePointer);
     document.body.style.overflow = "hidden";
     return () => {
+      observer.disconnect();
       desktop.removeEventListener("change", onResize);
       window.removeEventListener("keydown", onKey);
       document.removeEventListener("pointerdown", onOutsidePointer);
@@ -48,7 +56,7 @@ export function MobileMenu({ links, cta }: { links: Array<{ href: string; label:
         </svg>
       </button>
       {open && (
-        <div id={id} className="absolute inset-x-0 top-full z-40 h-[calc(100dvh-4rem)] overflow-y-auto border-t border-line bg-bg px-4 pt-4 pb-8">
+        <div id={id} className="mobile-menu-panel absolute inset-x-0 top-full z-40 overflow-y-auto border-t border-line bg-bg px-4 pt-4 pb-8">
           <ul className="flex flex-col divide-y divide-line">
             {links.map((l) => (
               <li key={l.href}><Link href={l.href} onClick={() => setOpen(false)} aria-current={pathname === l.href || pathname.startsWith(`${l.href}/`) ? "page" : undefined} className="block py-4 text-lg font-medium text-ink aria-[current=page]:text-accent">{l.label}</Link></li>

@@ -11,7 +11,7 @@ async function choose(page: Page, title: string) {
 
 async function captureArtwork(artwork: Locator) {
   await artwork.evaluate((element) => element.scrollIntoView({ block: "center" }));
-  return artwork.screenshot();
+  return artwork.screenshot({ scale: "css" });
 }
 
 async function changedPixels(page: Page, first: Buffer, second: Buffer) {
@@ -48,7 +48,8 @@ test.describe("accessible Agents showroom", () => {
     await expect(page.getByText("Illustrative demonstration", { exact: true })).toHaveCount(0);
     await expect(page.getByText(/A scripted example, not a live system/)).toHaveCount(0);
     await expect(workbench.getByRole("status")).toHaveClass("sr-only");
-    await expect(workbench.getByRole("status")).toHaveCSS("clip", "rect(0px, 0px, 0px, 0px)");
+    await expect(workbench.getByRole("status")).toHaveCSS("clip-path", "inset(50%)");
+    await expect(workbench.getByRole("status")).toHaveCSS("width", "1px");
     await expect(workbench.getByRole("button", { name: /replay agent/i })).toBeVisible();
     await expect(workbench.getByRole("img")).toBeVisible();
     await expect(page.locator("canvas")).toHaveCount(0);
@@ -155,7 +156,8 @@ test("autoplays and pauses with a static fallback when WebGL is absent", async (
 });
 
 test("animates a single workbench, freezes on pause, switches props and recovers from context loss", async ({ page }) => {
-  test.setTimeout(90_000);
+  // Seven shader-heavy scenes and pairwise image comparisons also run on software-rendered CI.
+  test.setTimeout(300_000);
   await page.emulateMedia({ reducedMotion: "no-preference" });
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
@@ -186,6 +188,7 @@ test("animates a single workbench, freezes on pause, switches props and recovers
     await expect(workbench.getByRole("img")).toHaveCSS("opacity", "0");
     await expect(workbench.getByRole("button", { name: "Play", exact: true })).toBeVisible();
     await expect(canvas).toHaveCount(1);
+    await workbench.getByRole("button", { name: /replay agent/i }).click();
     frames.push(await captureArtwork(canvas));
     await workbench.getByRole("button", { name: "Play", exact: true }).click();
     const moving = await captureArtwork(canvas);

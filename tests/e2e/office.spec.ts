@@ -82,6 +82,7 @@ test("automatically reviews, completes and loops without WebGL or user approval"
   await page.clock.install();
   await page.goto("/");
   const office = page.getByRole("region", { name: "Interactive AI operations office" });
+  await office.scrollIntoViewIfNeeded();
   await expect(office.getByRole("button", { name: "Pause" })).toBeEnabled();
   await page.clock.runFor(2000);
   await page.clock.runFor(18_000);

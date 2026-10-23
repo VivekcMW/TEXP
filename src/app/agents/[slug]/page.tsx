@@ -40,7 +40,7 @@ export default async function AgentPage({ params }: { params: Promise<{ slug: st
         <Link href="/contact" className="btn btn-primary mt-6" data-cta="primary">Discuss your workflow</Link>
         </header>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1.3fr_1fr]">
+        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
           <div>
             <div className="card overflow-hidden rounded-3xl">
               <div className="border-b border-line bg-tint px-6 py-4">
@@ -49,13 +49,13 @@ export default async function AgentPage({ params }: { params: Promise<{ slug: st
               </div>
               <ol className="divide-y divide-line">
                 {a.steps.map((s, n) => (
-                  <li key={s.label} className="flex items-start gap-4 px-6 py-4">
+                  <li key={s.label} className="flex items-start gap-4 px-4 py-4 sm:px-6">
                     <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent text-xs font-semibold text-white" aria-hidden>{n + 1}</span>
                     <div className="min-w-0 flex-1">
                       <p className="font-medium text-ink">{s.label}</p>
                       <p className="mt-0.5 font-mono text-xs text-muted">{s.tool}<span className="font-sans"> · {s.detail}</span></p>
+                      {s.tool === "human.review" && <span className="mt-2 inline-block max-w-full rounded-full bg-glow px-2.5 py-1 text-xs font-medium text-accent">Human gate</span>}
                     </div>
-                    {s.tool === "human.review" && <span className="shrink-0 rounded-full bg-glow px-2.5 py-1 text-xs font-medium text-accent">Human gate</span>}
                   </li>
                 ))}
               </ol>
@@ -89,7 +89,7 @@ export default async function AgentPage({ params }: { params: Promise<{ slug: st
             </li>
           ))}
         </ul>
-        <div className="mt-6 hidden overflow-x-auto rounded-3xl border border-line md:block">
+        <div tabIndex={0} role="region" aria-label="Tools and permissions table" className="mt-6 hidden overflow-x-auto rounded-3xl border border-line md:block">
           <table className="w-full min-w-[640px] text-left text-sm">
             <thead className="bg-tint text-xs text-muted">
               <tr><th scope="col" className="px-5 py-3 font-medium">Tool</th><th scope="col" className="px-5 py-3 font-medium">Reads</th><th scope="col" className="px-5 py-3 font-medium">Writes</th><th scope="col" className="px-5 py-3 font-medium">Approval</th></tr>

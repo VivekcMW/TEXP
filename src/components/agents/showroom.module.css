@@ -18,7 +18,7 @@
 .poster, .canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 .poster { object-fit: contain; transition: opacity .4s; }
 .hiddenPoster { opacity: 0; }
-.sceneTag { position: absolute; bottom: 1.6rem; left: 50%; transform: translateX(-50%); white-space: nowrap; display: flex; align-items: center; gap: .4rem; font-size: .62rem; color: #5d7767; pointer-events: none; }
+.sceneTag { position: absolute; bottom: 1.6rem; left: 50%; transform: translateX(-50%); width: max-content; max-width: 100%; text-align: center; display: flex; align-items: center; gap: .4rem; font-size: .62rem; color: #5d7767; pointer-events: none; }
 .sceneTag > span { height: 4px; width: 4px; border-radius: 50%; background: #609475; }
 .cameraControls { position: absolute; right: .25rem; bottom: 1.2rem; display: flex; }
 .cameraControls button { color: var(--color-muted); width: 32px; min-height: 36px; border-radius: 5px; cursor: pointer; }
@@ -155,7 +155,8 @@
 .purpose, .textLink, .agentPicker button, .playbackButtons button,
 .request > p, .handles li p, .handles li div > span, .handoff p, .proof a,
 .boundariesIntro, .boundaryGrid p, .boundaryGrid li, .permissions summary, .permissions code,
-.mobilePicker, .mobilePicker select { font-size: .875rem; }
+.mobilePicker { font-size: .875rem; }
+.mobilePicker select { min-width: 0; font-size: 1rem; }
 .intro, .output > p, .cta > p:not(.eyebrow) { font-size: 1rem; line-height: 1.7; }
 .heroCopy .eyebrow { font-size: .75rem; }
 .cameraControls button { width: 44px; min-height: 44px; }

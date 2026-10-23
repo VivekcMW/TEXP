@@ -16,6 +16,37 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Responsive layout and browser support
+
+The supported baseline is current stable Chrome/Edge (Chromium), Firefox and
+Safari, including Android Chrome and iOS Safari. Tailwind CSS v4 requires
+Chrome 111+, Safari 16.4+ and Firefox 128+; older browsers and embedded webviews
+are not guaranteed. Engine emulation does not replace testing on physical
+devices or certify every historical browser version.
+
+- Every sitemap route is checked from 320px phones through 2560px desktops,
+  including both sides of the navigation and content breakpoints.
+- Text enlargement to 200% is tested at phone and tablet widths. Grids, workflow
+  steps and buttons wrap rather than hiding overflow or restricting page zoom.
+  Workflow diagrams stack according to their container's available space.
+- Mobile navigation scrolls on short landscape screens and measures the header
+  so enlarged text does not push its last links outside the viewport.
+- Native fields use at least 16px text to avoid automatic focus zoom on iOS.
+  Scene camera controls and the role-details close button have 44px touch targets.
+- WebGL is an enhancement, not a requirement: static previews, HTML workflow
+  controls and explanatory content remain available without it. Reduced-motion
+  preferences disable automatic scene animation.
+
+Install the test browsers with
+`pnpm exec playwright install chromium firefox webkit`, then run
+`pnpm test:e2e`. This builds and serves an isolated `.next-playwright` production
+output on port 3100, without overwriting a running development server's `.next`
+cache. Port 3100 must be free; tests never reuse a potentially stale server.
+For focused checks, use
+`pnpm test:e2e tests/e2e/responsive.spec.ts`.
+After that build, `pnpm exec playwright test` reuses the isolated output.
+CI installs all three engines and runs the complete configured browser matrix.
+
 ## Interactive operations office
 
 The homepage hero contains a local, scripted Three.js office demo, not a connection
@@ -54,7 +85,7 @@ states only, not an approval implementation for production agents.
   header. The trust-logo band is omitted; illustrative workflow examples remain.
 
 Focused checks: `pnpm test tests/unit/office.test.tsx tests/unit/hero.test.tsx`.
-After `pnpm build`, run `pnpm exec playwright test tests/e2e/office.spec.ts`.
+Browser checks: `pnpm test:e2e tests/e2e/office.spec.ts`.
 
 ## Interactive Agents showroom
 
@@ -95,7 +126,7 @@ detail URLs are unchanged.
   available to screen readers, including manual progress and human handoffs.
 
 Focused checks: `pnpm test tests/unit/agents.test.tsx tests/unit/office.test.tsx`.
-Browser checks: `pnpm exec playwright test tests/e2e/agents.spec.ts`.
+Browser checks: `pnpm test:e2e tests/e2e/agents.spec.ts`.
 
 ## Industry environments
 
@@ -118,7 +149,7 @@ Three runtime. Industry content must have an explicit entry in
 silently receiving a generic scene.
 
 Checks: `pnpm test tests/unit/industries.test.tsx tests/unit/agents.test.tsx`
-and `pnpm exec playwright test tests/e2e/industries.spec.ts`.
+and `pnpm test:e2e tests/e2e/industries.spec.ts`.
 
 ## Editorial Case Studies library
 
@@ -140,7 +171,7 @@ Editorial cover metadata lives in
 in `content/case-studies`.
 
 Checks: `pnpm test tests/unit/case-studies.test.tsx` and
-`pnpm exec playwright test tests/e2e/case-studies.spec.ts`.
+`pnpm test:e2e tests/e2e/case-studies.spec.ts`.
 
 ## About and page navigation
 
