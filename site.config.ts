@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Northstar AI", // placeholder company name
+  name: "TechnocientAI",
   preview: true,
   legalName: "",
   domain: "http://localhost:3000",
